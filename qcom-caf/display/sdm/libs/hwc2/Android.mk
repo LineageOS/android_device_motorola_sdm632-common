@@ -14,8 +14,7 @@ LOCAL_HEADER_LIBRARIES        := display_headers
 
 LOCAL_CFLAGS                  := -Wno-missing-field-initializers -Wno-unused-parameter \
                                  -fcolor-diagnostics\
-                                 -DLOG_TAG=\"SDM\" $(common_flags) \
-                                 -I $(display_top)/sdm/libs/hwc
+                                 -DLOG_TAG=\"SDM\" $(common_flags)
 
 ifeq ($(TARGET_KERNEL_VERSION), 4.14)
 LOCAL_CFLAGS += -DTARGET_KERNEL_4_14
@@ -33,10 +32,6 @@ LOCAL_SHARED_LIBRARIES        := libsdmcore libqservice libbinder libhardware li
                                  libsdmutils libc++ liblog libgrallocutils libdl \
                                  vendor.display.config@1.0 libhidlbase \
                                  libui libgpu_tonemapper
-
-ifneq ($(TARGET_USES_GRALLOC1), true)
-    LOCAL_SHARED_LIBRARIES += libmemalloc
-endif
 
 ifeq ($(display_config_version), DISPLAY_CONFIG_1_1)
 LOCAL_SHARED_LIBRARIES        += vendor.display.config@1.1
@@ -67,24 +62,19 @@ LOCAL_SRC_FILES               := hwc_session.cpp \
                                  hwc_display.cpp \
                                  hwc_display_primary.cpp \
                                  hwc_display_external.cpp \
-                                 hwc_display_virtual.cpp \
                                  hwc_display_dummy.cpp \
-                                 ../hwc/hwc_debugger.cpp \
-                                 ../hwc/hwc_buffer_sync_handler.cpp \
+                                 hwc_display_external_test.cpp \
+                                 hwc_display_virtual.cpp \
+                                 hwc_debugger.cpp \
+                                 hwc_buffer_sync_handler.cpp \
                                  hwc_color_manager.cpp \
                                  hwc_layers.cpp \
                                  hwc_callbacks.cpp \
-                                 ../hwc/cpuhint.cpp \
-                                 ../hwc/hwc_socket_handler.cpp \
-                                 display_null.cpp \
+                                 cpuhint.cpp \
                                  hwc_tonemapper.cpp \
-                                 hwc_display_external_test.cpp
-
-ifneq ($(TARGET_USES_GRALLOC1), true)
-    LOCAL_SRC_FILES += ../hwc/hwc_buffer_allocator.cpp
-else
-    LOCAL_SRC_FILES += hwc_buffer_allocator.cpp
-endif
+                                 display_null.cpp \
+                                 hwc_socket_handler.cpp \
+                                 hwc_buffer_allocator.cpp
 
 ifeq ($(TARGET_HAS_WIDE_COLOR_DISPLAY), true)
     LOCAL_CFLAGS += -DFEATURE_WIDE_COLOR
