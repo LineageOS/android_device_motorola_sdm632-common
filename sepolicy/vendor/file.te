@@ -24,3 +24,6 @@ type sysfs_adspd, sysfs_type, fs_type;
 type cutback_data_file, file_type, data_file_type;
 type cutback_socket, file_type;
 type audio_cutback_data_file, file_type, data_file_type;
+
+#rfs files
+type rfs_tombstone_data_file, data_file_type, file_type;
