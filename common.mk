@@ -75,9 +75,9 @@ PRODUCT_PACKAGES += \
 
 # Audio
 PRODUCT_PACKAGES += \
-    android.hardware.audio@6.0-impl \
+    android.hardware.audio@6.0-impl:32 \
     android.hardware.audio@2.0-service \
-    android.hardware.audio.effect@6.0-impl \
+    android.hardware.audio.effect@6.0-impl:32 \
     android.hardware.audio.effect@2.0-service \
     android.hardware.soundtrigger@2.2-impl \
     android.hardware.soundtrigger@2.2-service \
@@ -111,7 +111,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0 \
     audio.bluetooth.default \
-    android.hardware.bluetooth.audio@2.0-impl \
+    android.hardware.bluetooth.audio@2.0-impl:64 \
     libbt-vendor \
     vendor.qti.hardware.btconfigstore@1.0.vendor
 
@@ -123,10 +123,10 @@ PRODUCT_PACKAGES += \
 # Camera
 PRODUCT_PACKAGES += \
     android.hardware.camera.device@3.5 \
-    android.hardware.camera.provider@2.4-impl \
+    android.hardware.camera.provider@2.4-impl:32 \
     android.hardware.camera.provider@2.4-service \
     android.hardware.camera.provider@2.5 \
-    camera.device@3.2-impl \
+    camera.device@3.2-impl:32 \
     libbson.vendor \
     libxml2 \
     Snap
@@ -145,9 +145,9 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-4096-dalvik-heap.mk)
 
 # Display
 PRODUCT_PACKAGES += \
-    android.hardware.graphics.allocator@2.0-impl \
+    android.hardware.graphics.allocator@2.0-impl:64 \
     android.hardware.graphics.allocator@2.0-service \
-    android.hardware.graphics.composer@2.1-impl \
+    android.hardware.graphics.composer@2.1-impl:64 \
     android.hardware.graphics.composer@2.1-service \
     android.hardware.graphics.mapper@2.0-impl-2.1 \
     android.hardware.memtrack@1.0-impl \
@@ -182,7 +182,7 @@ PRODUCT_PACKAGES += \
 
 # GPS
 PRODUCT_PACKAGES += \
-    android.hardware.gnss@2.0-impl-qti \
+    android.hardware.gnss@2.0-impl-qti:64 \
     android.hardware.gnss@2.0-service-qti \
     libbatching \
     libgeofencing \
@@ -404,7 +404,7 @@ PRODUCT_COPY_FILES += \
 
 # Sensors
 PRODUCT_PACKAGES += \
-    android.hardware.sensors@1.0-impl \
+    android.hardware.sensors@1.0-impl:64 \
     android.hardware.sensors@1.0-service
 
 # Shims
@@ -442,7 +442,7 @@ PRODUCT_PACKAGES += \
 # Thermal
 PRODUCT_PACKAGES += \
     thermal.msm8953 \
-    android.hardware.thermal@1.0-impl \
+    android.hardware.thermal@1.0-impl:64 \
     android.hardware.thermal@1.0-service
 
 # Touchscreen
@@ -474,7 +474,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libicuuc.vendor \
     libstdc++.vendor \
-    libgui_vendor \
+    libgui_vendor:32 \
     vndk_package
 
 # Wifi
