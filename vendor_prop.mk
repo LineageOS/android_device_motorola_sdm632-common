@@ -96,6 +96,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.google.clientidbase.ms=android-motorola \
     ro.com.google.clientidbase.yt=android-motorola
 
+# Keymaster 4.0 - TDES support
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hardware.keystore_desede=true
+
 # Radio
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.dbg.volte_avail_ovr=1 \
