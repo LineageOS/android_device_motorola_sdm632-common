@@ -25,6 +25,8 @@ import android.content.IntentFilter;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+import android.os.Vibrator;
+import android.os.VibrationEffect;
 import android.util.Log;
 
 import org.lineageos.settings.device.LineageActionsSettings;
@@ -39,6 +41,7 @@ public class FlipToMute implements UpdatedStateNotifier {
     private final Sensor mFlatDown;
     private final Sensor mStow;
 
+    private boolean mCanVibrate = false;
     private boolean mIsEnabled;
     private boolean mIsFlatDown;
     private boolean mIsStowed;
@@ -106,11 +109,24 @@ public class FlipToMute implements UpdatedStateNotifier {
         Log.d(TAG, "event: " + mIsFlatDown + " mIsStowed=" + mIsStowed);
 
         if (mIsFlatDown && mIsStowed) {
+            vibrate();
+            mCanVibrate = true;
             mNotificationManager.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_PRIORITY);
             Log.d(TAG, "Interrupt filter: Allow priority");
         } else if (!mIsFlatDown) {
+            if (mCanVibrate) {
+                vibrate();
+                mCanVibrate = false;
+            }
             mNotificationManager.setInterruptionFilter(mFilter);
             Log.d(TAG, "Interrupt filter: Restore");
+        }
+    }
+
+    private void vibrate() {
+        Vibrator v = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
+            if (v != null && v.hasVibrator()) {
+                v.vibrate(VibrationEffect.createOneShot(250, VibrationEffect.DEFAULT_AMPLITUDE));
         }
     }
 
