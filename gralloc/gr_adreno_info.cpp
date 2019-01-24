@@ -66,6 +66,9 @@ AdrenoMemInfo::AdrenoMemInfo() {
         ::dlsym(libadreno_utils_, "isUBWCSupportedByGpu");
     *reinterpret_cast<void **>(&LINK_adreno_get_gpu_pixel_alignment) =
         ::dlsym(libadreno_utils_, "get_gpu_pixel_alignment");
+    *reinterpret_cast<void **>(&LINK_adreno_isSecureContextSupportedByGpu) =
+        ::dlsym(libadreno_utils_, "isSecureContextSupportedByGpu");
+
   } else {
     ALOGE(" Failed to load libadreno_utils.so");
   }
@@ -203,12 +206,21 @@ ADRENOPIXELFORMAT AdrenoMemInfo::GetGpuPixelFormat(int hal_format) {
        return ADRENO_PIXELFORMAT_A2B10G10R10_UNORM;
     case HAL_PIXEL_FORMAT_RGB_888:
        return ADRENO_PIXELFORMAT_R8G8B8;
+    case HAL_PIXEL_FORMAT_RGBA_FP16:
+       return ADRENO_PIXELFORMAT_R16G16B16A16_FLOAT;
     default:
       ALOGE("%s: No map for format: 0x%x", __FUNCTION__, hal_format);
       break;
   }
 
   return ADRENO_PIXELFORMAT_UNKNOWN;
+}
+
+bool AdrenoMemInfo::isSecureContextSupportedByGpu() {
+  if(LINK_adreno_isSecureContextSupportedByGpu) {
+    return LINK_adreno_isSecureContextSupportedByGpu();
+  }
+  return 1;
 }
 
 }  // namespace gralloc1

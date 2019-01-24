@@ -861,7 +861,7 @@ HWC2::Error HWCDisplay::GetDisplayName(uint32_t *out_size, char *out_name) {
         name = "Unknown";
         break;
     }
-    std::strncpy(out_name, name.c_str(), name.size());
+    strlcpy(out_name, name.c_str(), name.size());
     *out_size = UINT32(name.size());
   }
   return HWC2::Error::None;
@@ -1233,7 +1233,8 @@ HWC2::Error HWCDisplay::PostCommitLayerStack(int32_t *out_retire_fence) {
 
   // Do no call flush on errors, if a successful buffer is never submitted.
   if (flush_ && flush_on_error_) {
-    display_intf_->Flush();
+    display_intf_->Flush(secure_display_transition_);
+    secure_display_transition_ = false;
     validated_.reset();
   }
 
@@ -1686,11 +1687,15 @@ int HWCDisplay::SetDisplayStatus(DisplayStatus display_status) {
     case kDisplayStatusResume:
       display_paused_ = false;
       fbt_valid_ = false;
+      status = INT32(SetPowerMode(HWC2::PowerMode::On));
+      break;
     case kDisplayStatusOnline:
       status = INT32(SetPowerMode(HWC2::PowerMode::On));
       break;
     case kDisplayStatusPause:
       display_paused_ = true;
+      status = INT32(SetPowerMode(HWC2::PowerMode::Off));
+      break;
     case kDisplayStatusOffline:
       status = INT32(SetPowerMode(HWC2::PowerMode::Off));
       break;
@@ -1900,6 +1905,7 @@ void HWCDisplay::SetSecureDisplay(bool secure_display_active) {
     DLOGI("SecureDisplay state changed from %d to %d Needs Flush!!", secure_display_active_,
           secure_display_active);
     secure_display_active_ = secure_display_active;
+    secure_display_transition_ = true;
     skip_prepare_ = true;
   }
   return;
