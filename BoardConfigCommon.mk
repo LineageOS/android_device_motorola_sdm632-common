@@ -47,6 +47,15 @@ TARGET_BOARD_PLATFORM := msm8953
 
 BUILD_BROKEN_DUP_RULES := true
 
+# A/B updater
+AB_OTA_UPDATER := true
+
+AB_OTA_PARTITIONS += \
+    boot \
+    dtbo \
+    system \
+    vendor
+
 # Audio
 BOARD_USES_ALSA_AUDIO := true
 BOARD_SUPPORTS_SOUND_TRIGGER_HAL := true
