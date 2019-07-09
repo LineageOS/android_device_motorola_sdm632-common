@@ -79,17 +79,17 @@ public:
         uint32_t count = 0;
         int32_t indx = 0, id1 = -1, id2 = -1;
 
-        if (nullptr != fullPathName) {
-            indx = (length < 0) ? (strlen(fullPathName) - 1) : length;
-
-            while (count < 2 && indx >= 0) {
-                if ('.' == fullPathName[indx]) {
-                    count++;
-                }
-                indx--;
-            }
+        if (nullptr == fullPathName) {
+            fullPathName = "";
         }
+        indx = (length < 0) ? (strlen(fullPathName) - 1) : length;
 
+        while (count < 2 && indx >= 0) {
+            if ('.' == fullPathName[indx]) {
+                count++;
+            }
+            indx--;
+        }
         if (count == 2) {
             indx++;
             sscanf(fullPathName+indx+1, "%d.%d", &id1, &id2);
@@ -127,7 +127,7 @@ public:
                     LOC_LOGe("<-- failed to open file %s", sock);
                 }
             }
-            return LocIpc::getLocIpcQsockSender(getId1(), getId2());
+            return LocIpc::getLocIpcQrtrSender(getId1(), getId2());
         default:
             return nullptr;
         }
