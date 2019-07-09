@@ -67,24 +67,24 @@ public:
     static shared_ptr<LocIpcSender>
             getLocIpcLocalSender(const char* localSockName);
     static shared_ptr<LocIpcSender>
+            getLocIpcInetUdpSender(const char* serverName, int32_t port);
+    static shared_ptr<LocIpcSender>
             getLocIpcInetTcpSender(const char* serverName, int32_t port);
     static shared_ptr<LocIpcSender>
             getLocIpcQrtrSender(int service, int instance);
-    static shared_ptr<LocIpcSender>
-            getLocIpcQsockSender(int service, int instance);
 
     static unique_ptr<LocIpcRecver>
             getLocIpcLocalRecver(const shared_ptr<ILocIpcListener>& listener,
                                  const char* localSockName);
+    static unique_ptr<LocIpcRecver>
+            getLocIpcInetUdpRecver(const shared_ptr<ILocIpcListener>& listener,
+                                 const char* serverName, int32_t port);
     static unique_ptr<LocIpcRecver>
             getLocIpcInetTcpRecver(const shared_ptr<ILocIpcListener>& listener,
                                    const char* serverName, int32_t port);
     static unique_ptr<LocIpcRecver>
             getLocIpcQrtrRecver(const shared_ptr<ILocIpcListener>& listener,
                                 int service, int instance);
-    static unique_ptr<LocIpcRecver>
-            getLocIpcQsockRecver(const shared_ptr<ILocIpcListener>& listener,
-                                 int service, int instance);
 
     static pair<shared_ptr<LocIpcSender>, unique_ptr<LocIpcRecver>>
             getLocIpcQmiLocServiceSenderRecverPair(const shared_ptr<ILocIpcListener>& listener,
@@ -127,6 +127,7 @@ protected:
     virtual bool isOperable() const = 0;
     virtual ssize_t send(const uint8_t data[], uint32_t length, int32_t msgId) const = 0;
 public:
+    virtual void informRecverRestarted() {}
     inline bool isSendable() const { return isOperable(); }
     inline bool sendData(const uint8_t data[], uint32_t length, int32_t msgId) const {
         return isSendable() && (send(data, length, msgId) > 0);

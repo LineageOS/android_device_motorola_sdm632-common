@@ -41,7 +41,7 @@ namespace V2_0 {
 namespace implementation {
 
 using ::android::hardware::gnss::visibility_control::V1_0::implementation::GnssVisibilityControl;
-
+static sp<Gnss> sGnss;
 static std::string getVersionString() {
     static std::string version;
     if (!version.empty())
@@ -88,10 +88,14 @@ void Gnss::GnssDeathRecipient::serviceDied(uint64_t cookie, const wp<IBase>& who
 }
 
 void location_on_battery_status_changed(bool charging) {
-    LOC_LOGd("%s: battery status changed to %s charging", __func__, charging ? "" : "not ");
+    LOC_LOGd("battery status changed to %s charging", charging ? "" : "not");
+    if (sGnss != nullptr) {
+        sGnss->getGnssInterface()->updateBatteryStatus(charging);
+    }
 }
 Gnss::Gnss() {
     ENTRY_LOG_CALLFLOW();
+    sGnss = this;
     // register health client to listen on battery change
     loc_extn_battery_properties_listener_init(location_on_battery_status_changed);
     // clear pending GnssConfig
@@ -105,6 +109,7 @@ Gnss::~Gnss() {
         delete mApi;
         mApi = nullptr;
     }
+    sGnss = nullptr;
 }
 
 GnssAPIClient* Gnss::getApi() {
@@ -165,6 +170,23 @@ const GnssInterface* Gnss::getGnssInterface() {
 
 Return<bool> Gnss::setCallback(const sp<V1_0::IGnssCallback>& callback)  {
     ENTRY_LOG_CALLFLOW();
+
+    // In case where previous call to setCallback_1_1 or setCallback_2_0, then
+    // we need to cleanup these interfaces/callbacks here since we no longer
+    // do so in cleanup() function to keep callbacks around after cleanup()
+    if (mApi != nullptr) {
+        mApi->gnssUpdateCallbacks_2_0(nullptr);
+    }
+    if (mGnssCbIface_1_1 != nullptr) {
+        mGnssCbIface_1_1->unlinkToDeath(mGnssDeathRecipient);
+        mGnssCbIface_1_1 = nullptr;
+    }
+    if (mGnssCbIface_2_0 != nullptr) {
+        mGnssCbIface_2_0->unlinkToDeath(mGnssDeathRecipient);
+        mGnssCbIface_2_0 = nullptr;
+    }
+
+
     if (mGnssCbIface != nullptr) {
         mGnssCbIface->unlinkToDeath(mGnssDeathRecipient);
     }
@@ -286,21 +308,6 @@ Return<void> Gnss::cleanup()  {
     if (mApi != nullptr) {
         mApi->gnssStop();
         mApi->gnssDisable();
-        mApi->gnssUpdateCallbacks(nullptr, nullptr);
-        mApi->gnssUpdateCallbacks_2_0(nullptr);
-    }
-    mGnssNiCbIface = nullptr;
-    if (mGnssCbIface != nullptr) {
-        mGnssCbIface->unlinkToDeath(mGnssDeathRecipient);
-        mGnssCbIface = nullptr;
-    }
-    if (mGnssCbIface_1_1 != nullptr) {
-        mGnssCbIface_1_1->unlinkToDeath(mGnssDeathRecipient);
-        mGnssCbIface_1_1 = nullptr;
-    }
-    if (mGnssCbIface_2_0 != nullptr) {
-        mGnssCbIface_2_0->unlinkToDeath(mGnssDeathRecipient);
-        mGnssCbIface_2_0 = nullptr;
     }
 
     return Void();
@@ -412,6 +419,23 @@ Return<bool> Gnss::setCallback_1_1(const sp<V1_1::IGnssCallback>& callback) {
         LOC_LOGE("%s] Error from gnssNameCb description=%s",
                 __func__, r.description().c_str());
     }
+
+    // In case where previous call to setCallback or setCallback_2_1, then
+    // we need to cleanup these interfaces/callbacks here since we no longer
+    // do so in cleanup() function to keep callbacks around after cleanup()
+    if (mApi != nullptr) {
+        mApi->gnssUpdateCallbacks_2_0(nullptr);
+    }
+    if (mGnssCbIface != nullptr) {
+        mGnssCbIface->unlinkToDeath(mGnssDeathRecipient);
+        mGnssCbIface = nullptr;
+    }
+    if (mGnssCbIface_2_0 != nullptr) {
+        mGnssCbIface_2_0->unlinkToDeath(mGnssDeathRecipient);
+        mGnssCbIface_2_0 = nullptr;
+    }
+
+
     if (mGnssCbIface_1_1 != nullptr) {
         mGnssCbIface_1_1->unlinkToDeath(mGnssDeathRecipient);
     }
@@ -492,6 +516,7 @@ void Gnss::odcpiRequestCb(const OdcpiRequestInfo& request) {
         // For emergency mode, request DBH (Device based hybrid) location
         // Mark Independent from GNSS flag to false.
         if (ODCPI_REQUEST_TYPE_START == request.type) {
+            LOC_LOGd("gnssRequestLocationCb_2_0 isUserEmergency = %d", request.isEmergencyMode);
             auto r = mGnssCbIface_2_0->gnssRequestLocationCb_2_0(!request.isEmergencyMode,
                                                                  request.isEmergencyMode);
             if (!r.isOk()) {
@@ -524,6 +549,23 @@ Return<bool> Gnss::setCallback_2_0(const sp<V2_0::IGnssCallback>& callback) {
         LOC_LOGE("%s] Error from gnssNameCb description=%s",
                 __func__, r.description().c_str());
     }
+
+    // In case where previous call to setCallback or setCallback_1_1, then
+    // we need to cleanup these interfaces/callbacks here since we no longer
+    // do so in cleanup() function to keep callbacks around after cleanup()
+    if (mApi != nullptr) {
+        mApi->gnssUpdateCallbacks(nullptr, nullptr);
+    }
+    mGnssNiCbIface = nullptr;
+    if (mGnssCbIface != nullptr) {
+        mGnssCbIface->unlinkToDeath(mGnssDeathRecipient);
+        mGnssCbIface = nullptr;
+    }
+    if (mGnssCbIface_1_1 != nullptr) {
+        mGnssCbIface_1_1->unlinkToDeath(mGnssDeathRecipient);
+        mGnssCbIface_1_1 = nullptr;
+    }
+
     if (mGnssCbIface_2_0 != nullptr) {
         mGnssCbIface_2_0->unlinkToDeath(mGnssDeathRecipient);
     }

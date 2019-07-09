@@ -97,8 +97,7 @@ GnssAdapter::GnssAdapter() :
     mPowerStateCb(nullptr),
     mIsE911Session(NULL),
     mGnssMbSvIdUsedInPosition{},
-    mGnssMbSvIdUsedInPosAvail(false),
-    mGnssSignalType()
+    mGnssMbSvIdUsedInPosAvail(false)
 {
     LOC_LOGD("%s]: Constructor %p", __func__, this);
     mLocPositionMode.mode = LOC_POSITION_MODE_INVALID;
@@ -475,6 +474,16 @@ GnssAdapter::convertLocationInfo(GnssLocationInfoNotification& out,
         out.flags |= GNSS_LOCATION_INFO_TIME_UNC_BIT;
         out.timeUncMs = locationExtended.timeUncMs;
     }
+
+    if (GPS_LOCATION_EXTENDED_HAS_CALIBRATION_CONFIDENCE & locationExtended.flags) {
+        out.flags |= GNSS_LOCATION_INFO_CALIBRATION_CONFIDENCE_BIT;
+        out.calibrationConfidence = locationExtended.calibrationConfidence;
+    }
+
+    if (GPS_LOCATION_EXTENDED_HAS_CALIBRATION_STATUS & locationExtended.flags) {
+        out.flags |= GNSS_LOCATION_INFO_CALIBRATION_STATUS_BIT;
+        out.calibrationStatus = locationExtended.calibrationStatus;
+    }
 }
 
 
@@ -659,7 +668,7 @@ GnssAdapter::setSuplHostServer(const char* server, int port, LocServerType type)
             LOC_LOGe("Invalid type=%d", type);
         } else {
             string& url = (LOC_AGPS_SUPL_SERVER == type) ? getServerUrl() : getMoServerUrl();
-            if (length > 0 && strncasecmp(url.c_str(), serverUrl, sizeof(serverUrl)) != 0) {
+            if (length >= 0 && strncasecmp(url.c_str(), serverUrl, sizeof(serverUrl)) != 0) {
                 url.assign(serverUrl);
 
                 if (LOC_AGPS_SUPL_SERVER == type) {
@@ -720,10 +729,7 @@ GnssAdapter::setConfigCommand()
                    GNSS_CONFIG_FLAGS_LPPE_CONTROL_PLANE_VALID_BIT |
                    GNSS_CONFIG_FLAGS_LPPE_USER_PLANE_VALID_BIT |
                    GNSS_CONFIG_FLAGS_BLACKLISTED_SV_IDS_BIT;
-           gnssConfigRequested.gpsLock = GNSS_CONFIG_GPS_LOCK_NONE;
-           if (0 == adapter.getAfwControlId() || NULL != adapter.mNfwCb) {
-               gnssConfigRequested.gpsLock = gpsConf.GPS_LOCK;
-           }
+           gnssConfigRequested.gpsLock = gpsConf.GPS_LOCK;
 
            if (gpsConf.AGPS_CONFIG_INJECT) {
                gnssConfigRequested.flags |= GNSS_CONFIG_FLAGS_SET_ASSISTANCE_DATA_VALID_BIT |
@@ -840,7 +846,7 @@ std::vector<LocationError> GnssAdapter::gnssUpdateConfig(const std::string& oldS
                 GNSS_CONFIG_FLAGS_SET_ASSISTANCE_DATA_VALID_BIT) {
             if (gnssConfigNeedEngineUpdate.assistanceServer.type ==
                     GNSS_ASSISTANCE_TYPE_SUPL) {
-                if ((serverUrlLen != 0) && (oldServerUrl.compare(serverUrl) !=0)) {
+                if (0 != oldServerUrl.compare(serverUrl)) {
 
                     err = mLocApi->setServerSync(
                             serverUrl.c_str(), serverUrlLen, LOC_AGPS_SUPL_SERVER);
@@ -848,7 +854,7 @@ std::vector<LocationError> GnssAdapter::gnssUpdateConfig(const std::string& oldS
                         errsList[index] = err;
                     }
                 }
-                if ((moServerUrlLen != 0) && (oldMoServerUrl.compare(moServerUrl) != 0)) {
+                if (0 != oldMoServerUrl.compare(moServerUrl)) {
                     LocationError locErr =
                         mLocApi->setServerSync(moServerUrl.c_str(),
                                 moServerUrlLen,
@@ -1075,10 +1081,7 @@ GnssAdapter::gnssUpdateConfigCommand(GnssConfig config)
                 if (GNSS_CONFIG_GPS_LOCK_NONE == newGpsLock) {
                     newGpsLock = GNSS_CONFIG_GPS_LOCK_MO;
                 }
-                if (newGpsLock == ContextBase::mGps_conf.GPS_LOCK ||
-                    0 != mAdapter.getAfwControlId() || NULL != adapter.mNfwCb) {
-                    gnssConfigNeedEngineUpdate.flags &= ~(GNSS_CONFIG_FLAGS_GPS_LOCK_VALID_BIT);
-                }
+                gnssConfigNeedEngineUpdate.flags &= ~(GNSS_CONFIG_FLAGS_GPS_LOCK_VALID_BIT);
                 ContextBase::mGps_conf.GPS_LOCK = newGpsLock;
                 index++;
             }
@@ -1636,7 +1639,7 @@ GnssAdapter::gnssSvTypeConfigUpdate(const GnssSvTypeConfig& config)
 void
 GnssAdapter::gnssSvTypeConfigUpdate(bool sendReset)
 {
-    LOC_LOGd("size %zu constellations blacklisted 0x%" PRIx64 ", enabled 0x%" PRIx64
+    LOC_LOGd("size %" PRIu32" constellations blacklisted 0x%" PRIx64 ", enabled 0x%" PRIx64
              ", sendReset %d",
              mGnssSvTypeConfig.size, mGnssSvTypeConfig.blacklistedSvTypesMask,
              mGnssSvTypeConfig.enabledSvTypesMask, sendReset);
@@ -2976,10 +2979,8 @@ GnssAdapter::enableCommand(LocationTechnologyType techType)
                 mAdapter.setAfwControlId(mSessionId);
 
                 GnssConfigGpsLock gpsLock = GNSS_CONFIG_GPS_LOCK_NONE;
-                if (NULL != mAdapter.mNfwCb) {
-                    ContextBase::mGps_conf.GPS_LOCK &= GNSS_CONFIG_GPS_LOCK_NI;
-                    gpsLock = ContextBase::mGps_conf.GPS_LOCK;
-                }
+                ContextBase::mGps_conf.GPS_LOCK &= GNSS_CONFIG_GPS_LOCK_NI;
+                gpsLock = ContextBase::mGps_conf.GPS_LOCK;
                 mApi.sendMsg(new LocApiMsg([&mApi = mApi, gpsLock]() {
                     mApi.setGpsLockSync(gpsLock);
                 }));
@@ -3026,10 +3027,8 @@ GnssAdapter::disableCommand(uint32_t id)
                 mContext.modemPowerVote(false);
                 mAdapter.setAfwControlId(0);
 
-                if (NULL != mAdapter.mNfwCb) {
-                    /* We need to disable MO (AFW) */
-                    ContextBase::mGps_conf.GPS_LOCK |= GNSS_CONFIG_GPS_LOCK_MO;
-                }
+                /* We need to disable MO (AFW) */
+                ContextBase::mGps_conf.GPS_LOCK |= GNSS_CONFIG_GPS_LOCK_MO;
                 GnssConfigGpsLock gpsLock = ContextBase::mGps_conf.GPS_LOCK;
                 mApi.sendMsg(new LocApiMsg([&mApi = mApi,gpsLock] () {
                     mApi.setGpsLockSync(gpsLock);
@@ -3206,9 +3205,6 @@ GnssAdapter::reportPosition(const UlpLocation& ulpLocation,
                 if (locationExtended.flags & GPS_LOCATION_EXTENDED_HAS_MULTIBAND) {
                     mGnssMbSvIdUsedInPosAvail = true;
                     mGnssMbSvIdUsedInPosition = locationExtended.gnss_mb_sv_used_ids;
-                    for (int i = 0; i < GNSS_SV_MAX; i++) {
-                        mGnssSignalType[i] = locationExtended.measUsageInfo[i].gnssSignalType;
-                    }
                 }
             }
 
@@ -3277,11 +3273,12 @@ GnssAdapter::reportSv(GnssSvNotification& svNotify)
     for (int i=0; i < numSv; i++) {
         svUsedIdMask = 0;
         gnssSvId = svNotify.gnssSvs[i].svId;
+        GnssSignalTypeMask signalTypeMask = svNotify.gnssSvs[i].gnssSignalTypeMask;
         switch (svNotify.gnssSvs[i].type) {
             case GNSS_SV_TYPE_GPS:
                 if (mGnssSvIdUsedInPosAvail) {
                     if (mGnssMbSvIdUsedInPosAvail) {
-                        switch (mGnssSignalType[i]) {
+                        switch (signalTypeMask) {
                         case GNSS_SIGNAL_GPS_L1CA:
                             svUsedIdMask = mGnssMbSvIdUsedInPosition.gps_l1ca_sv_used_ids_mask;
                             break;
@@ -3303,7 +3300,7 @@ GnssAdapter::reportSv(GnssSvNotification& svNotify)
             case GNSS_SV_TYPE_GLONASS:
                 if (mGnssSvIdUsedInPosAvail) {
                     if (mGnssMbSvIdUsedInPosAvail) {
-                        switch (mGnssSignalType[i]) {
+                        switch (signalTypeMask) {
                         case GNSS_SIGNAL_GLONASS_G1:
                             svUsedIdMask = mGnssMbSvIdUsedInPosition.glo_g1_sv_used_ids_mask;
                             break;
@@ -3319,7 +3316,7 @@ GnssAdapter::reportSv(GnssSvNotification& svNotify)
             case GNSS_SV_TYPE_BEIDOU:
                 if (mGnssSvIdUsedInPosAvail) {
                     if (mGnssMbSvIdUsedInPosAvail) {
-                        switch (mGnssSignalType[i]) {
+                        switch (signalTypeMask) {
                         case GNSS_SIGNAL_BEIDOU_B1I:
                             svUsedIdMask = mGnssMbSvIdUsedInPosition.bds_b1i_sv_used_ids_mask;
                             break;
@@ -3332,6 +3329,9 @@ GnssAdapter::reportSv(GnssSvNotification& svNotify)
                         case GNSS_SIGNAL_BEIDOU_B2AI:
                             svUsedIdMask = mGnssMbSvIdUsedInPosition.bds_b2ai_sv_used_ids_mask;
                             break;
+                        case GNSS_SIGNAL_BEIDOU_B2AQ:
+                            svUsedIdMask = mGnssMbSvIdUsedInPosition.bds_b2aq_sv_used_ids_mask;
+                            break;
                         }
                     } else {
                         svUsedIdMask = mGnssSvIdUsedInPosition.bds_sv_used_ids_mask;
@@ -3341,7 +3341,7 @@ GnssAdapter::reportSv(GnssSvNotification& svNotify)
             case GNSS_SV_TYPE_GALILEO:
                 if (mGnssSvIdUsedInPosAvail) {
                     if (mGnssMbSvIdUsedInPosAvail) {
-                        switch (mGnssSignalType[i]) {
+                        switch (signalTypeMask) {
                         case GNSS_SIGNAL_GALILEO_E1:
                             svUsedIdMask = mGnssMbSvIdUsedInPosition.gal_e1_sv_used_ids_mask;
                             break;
@@ -3360,7 +3360,7 @@ GnssAdapter::reportSv(GnssSvNotification& svNotify)
             case GNSS_SV_TYPE_QZSS:
                 if (mGnssSvIdUsedInPosAvail) {
                     if (mGnssMbSvIdUsedInPosAvail) {
-                        switch (mGnssSignalType[i]) {
+                        switch (signalTypeMask) {
                         case GNSS_SIGNAL_QZSS_L1CA:
                             svUsedIdMask = mGnssMbSvIdUsedInPosition.qzss_l1ca_sv_used_ids_mask;
                             break;
@@ -3779,26 +3779,28 @@ GnssAdapter::reportGnssMeasurementsEvent(const GnssMeasurements& gnssMeasurement
 {
     LOC_LOGD("%s]: msInWeek=%d", __func__, msInWeek);
 
-    struct MsgReportGnssMeasurementData : public LocMsg {
-        GnssAdapter& mAdapter;
-        GnssMeasurements mGnssMeasurements;
-        GnssMeasurementsNotification mMeasurementsNotify;
-        inline MsgReportGnssMeasurementData(GnssAdapter& adapter,
-                                            const GnssMeasurements& gnssMeasurements,
-                                            int msInWeek) :
-                LocMsg(),
-                mAdapter(adapter),
-                mMeasurementsNotify(gnssMeasurements.gnssMeasNotification) {
-            if (-1 != msInWeek) {
-                mAdapter.getAgcInformation(mMeasurementsNotify, msInWeek);
+    if (0 != gnssMeasurements.gnssMeasNotification.count) {
+        struct MsgReportGnssMeasurementData : public LocMsg {
+            GnssAdapter& mAdapter;
+            GnssMeasurements mGnssMeasurements;
+            GnssMeasurementsNotification mMeasurementsNotify;
+            inline MsgReportGnssMeasurementData(GnssAdapter& adapter,
+                                                const GnssMeasurements& gnssMeasurements,
+                                                int msInWeek) :
+                    LocMsg(),
+                    mAdapter(adapter),
+                    mMeasurementsNotify(gnssMeasurements.gnssMeasNotification) {
+                if (-1 != msInWeek) {
+                    mAdapter.getAgcInformation(mMeasurementsNotify, msInWeek);
+                }
             }
-        }
-        inline virtual void proc() const {
-            mAdapter.reportGnssMeasurementData(mMeasurementsNotify);
-        }
-    };
+            inline virtual void proc() const {
+                mAdapter.reportGnssMeasurementData(mMeasurementsNotify);
+            }
+        };
 
-    sendMsg(new MsgReportGnssMeasurementData(*this, gnssMeasurements, msInWeek));
+        sendMsg(new MsgReportGnssMeasurementData(*this, gnssMeasurements, msInWeek));
+    }
     mEngHubProxy->gnssReportSvMeasurement(gnssMeasurements.gnssSvMeasurementSet);
 }
 
