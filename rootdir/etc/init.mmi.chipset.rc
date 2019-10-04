@@ -31,7 +31,6 @@ on post-fs-data
 
 on moto-charger
     setprop ro.board.platform msm8953
-    load_system_props
     trigger firmware_mounts_complete
     setprop sys.usb.configfs 1
     setprop sys.usb.config charging
