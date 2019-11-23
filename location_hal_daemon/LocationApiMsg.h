@@ -53,6 +53,11 @@ Constants
 #define LOCATION_CLIENT_API_QSOCKET_HALDAEMON_INSTANCE_ID   (1)
 #define LOCATION_CLIENT_API_QSOCKET_CLIENT_SERVICE_ID       (5002)
 
+enum ClientType {
+    LOCATION_CLIENT_API = 1,
+    LOCATION_INTEGRATION_API = 2,
+};
+
 #define sLOCAL SOCKET_LOC_CLIENT_DIR LOC_CLIENT_NAME_PREFIX
 #define sEAP EAP_LOC_CLIENT_DIR LOC_CLIENT_NAME_PREFIX
 
@@ -178,6 +183,10 @@ enum ELocMsgID {
     E_LOCAPI_GET_GNSS_ENGERY_CONSUMED_MSG_ID = 17,
 
     E_LOCAPI_LOCATION_SYSTEM_INFO_MSG_ID = 18,
+
+    // engine position report
+    E_LOCAPI_ENGINE_LOCATIONS_INFO_MSG_ID = 19,
+
     // batching session
     E_LOCAPI_START_BATCHING_MSG_ID = 20,
     E_LOCAPI_STOP_BATCHING_MSG_ID = 21,
@@ -195,9 +204,6 @@ enum ELocMsgID {
 
     //geofence breach
     E_LOCAPI_GEOFENCE_BREACH_MSG_ID = 29,
-
-    // engine position report
-    E_LOCAPI_ENGINE_LOCATIONS_INFO_MSG_ID = 30,
 
     // ping
     E_LOCAPI_PINGTEST_MSG_ID = 99
@@ -313,8 +319,11 @@ IPC message structure - client registration
 // defintion for message with msg id of E_LOCAPI_CLIENT_REGISTER_MSG_ID
 struct LocAPIClientRegisterReqMsg: LocAPIMsgHeader
 {
-    inline LocAPIClientRegisterReqMsg(const char* name) :
-        LocAPIMsgHeader(name, E_LOCAPI_CLIENT_REGISTER_MSG_ID) { }
+    ClientType mClientType;
+
+    inline LocAPIClientRegisterReqMsg(const char* name, ClientType clientType) :
+        LocAPIMsgHeader(name, E_LOCAPI_CLIENT_REGISTER_MSG_ID),
+        mClientType(clientType) { }
 };
 
 // defintion for message with msg id of E_LOCAPI_CLIENT_DEREGISTER_MSG_ID

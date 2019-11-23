@@ -228,6 +228,12 @@ static GnssSignalTypeMask parseGnssSignalType(const ::GnssSignalTypeMask &halGns
     if (halGnssSignalTypeMask & GNSS_SIGNAL_BEIDOU_B2AQ) {
         gnssSignalTypeMask |= GNSS_SIGNAL_BEIDOU_B2AQ_BIT;
     }
+    if (halGnssSignalTypeMask & GNSS_SIGNAL_BEIDOU_B1) {
+        gnssSignalTypeMask |= GNSS_SIGNAL_BEIDOU_B1;
+    }
+    if (halGnssSignalTypeMask & GNSS_SIGNAL_BEIDOU_B2) {
+        gnssSignalTypeMask |= GNSS_SIGNAL_BEIDOU_B2;
+    }
     return (GnssSignalTypeMask)gnssSignalTypeMask;
 }
 
@@ -1766,7 +1772,7 @@ void IpcListener::onListenerReady() {
     struct ClientRegisterReq : public LocMsg {
         ClientRegisterReq(LocationClientApiImpl& apiImpl) : mApiImpl(apiImpl) {}
         void proc() const {
-            LocAPIClientRegisterReqMsg msg(mApiImpl.mSocketName);
+            LocAPIClientRegisterReqMsg msg(mApiImpl.mSocketName, LOCATION_CLIENT_API);
             bool rc = mApiImpl.sendMessage(reinterpret_cast<uint8_t *>(&msg), sizeof(msg));
             LOC_LOGd(">>> onListenerReady::ClientRegisterReqMsg rc=%d", rc);
         }
