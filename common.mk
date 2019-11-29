@@ -180,10 +180,14 @@ PRODUCT_BOOT_JARS += qcom.fmradio
 
 # GPS
 PRODUCT_PACKAGES += \
-    android.hardware.gnss@1.0-impl-qti \
+    android.hardware.gnss@2.0-impl-qti \
+    android.hardware.gnss@2.0-service-qti \
+    libbatching \
+    libgeofencing \
     libgnss \
     libgnsspps \
-    libvehiclenetwork-native
+    libsynergy_loc_api \
+    libwifi-hal-ctrl
 
 PRODUCT_PACKAGES += \
     apdr.conf \
