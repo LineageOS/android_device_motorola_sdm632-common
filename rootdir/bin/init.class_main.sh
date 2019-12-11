@@ -168,3 +168,15 @@ case "$fake_batt_capacity" in
     echo "$fake_batt_capacity" > /sys/class/power_supply/battery/capacity
     ;;
 esac
+
+# reload UTAGS
+utag_status=$(cat /proc/config/reload)
+if [ "$utag_status" == "2" ]; then
+    echo 1 > /proc/config/reload
+fi
+
+# Export these for factory validation purposes
+iccid=$(cat /proc/config/iccid/ascii 2>/dev/null)
+if [ ! -z "$iccid" ]; then
+    setprop ro.vendor.mot.iccid $iccid
+fi
