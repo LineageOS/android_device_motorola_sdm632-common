@@ -168,3 +168,10 @@ case "$fake_batt_capacity" in
     echo "$fake_batt_capacity" > /sys/class/power_supply/battery/capacity
     ;;
 esac
+
+# Export these for factory validation purposes
+iccid=$(cat /proc/config/iccid/ascii 2>/dev/null)
+if [ ! -z "$iccid" ]; then
+    setprop ro.vendor.mot.iccid $iccid
+fi
+unset iccid
