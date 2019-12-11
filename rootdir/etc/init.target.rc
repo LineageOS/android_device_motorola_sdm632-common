@@ -81,6 +81,25 @@ on post-fs
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
 
+on post-fs
+    # change permission of utags
+    chown root system /proc/config
+    chown root system /proc/config/all
+    chown root system /proc/config/all/new
+    chown root system /proc/config/all/lock
+    chown root system /proc/config/all/.delete
+    chown root system /proc/config/barcode/ascii
+    chown root system /proc/config/battid/ascii
+    chown root system /proc/config/bootmode/ascii
+    chown root system /proc/config/bt_mac/ascii
+    chown root system /proc/config/carrier_sku/ascii
+    chown root system /proc/config/date/ascii
+    chown root system /proc/config/fti/ascii
+    chown root system /proc/config/imei/ascii
+    chown root system /proc/config/sku/ascii
+    chown root system /proc/config/reload
+    chown root system /proc/config/wifi_mac/ascii
+
 on post-fs-data
     mkdir /data/tombstones 0771 system system
     mkdir /tombstones/modem 0771 system system
