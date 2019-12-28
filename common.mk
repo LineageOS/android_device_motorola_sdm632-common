@@ -74,7 +74,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_STATIC_BOOT_CONTROL_HAL := \
     libcutils \
     bootctrl.msm8953 \
-    libgptutils \
+    libgptutils.motorola_msm8953.recovery
     libz
 
 # Audio
