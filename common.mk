@@ -69,13 +69,9 @@ PRODUCT_PACKAGES_DEBUG += \
 
 # Boot control HAL
 PRODUCT_PACKAGES += \
-    bootctrl.msm8953
-
-PRODUCT_STATIC_BOOT_CONTROL_HAL := \
-    libcutils \
+    android.hardware.boot@1.0-impl.recovery \
     bootctrl.msm8953 \
-    libgptutils.motorola_msm8953.recovery
-    libz
+    bootctrl.msm8953.recovery
 
 # Audio
 PRODUCT_PACKAGES += \
