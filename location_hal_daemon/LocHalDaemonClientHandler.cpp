@@ -1,4 +1,4 @@
-/* Copyright (c) 2018, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2018-2020, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -139,6 +139,15 @@ void LocHalDaemonClientHandler::updateSubscription(uint32_t mask) {
         mCallbacks.gnssDataCb = nullptr;
     }
 
+    // measurements
+    if (mSubscriptionMask & E_LOC_CB_GNSS_MEAS_BIT) {
+        mCallbacks.gnssMeasurementsCb = [this](GnssMeasurementsNotification notification) {
+            onGnssMeasurementsCb(notification);
+        };
+    } else {
+        mCallbacks.gnssMeasurementsCb = nullptr;
+    }
+
     // system info
     if (mSubscriptionMask & E_LOC_CB_SYSTEM_INFO_BIT) {
         mCallbacks.locationSystemInfoCb = [this](LocationSystemInfo notification) {
@@ -149,7 +158,6 @@ void LocHalDaemonClientHandler::updateSubscription(uint32_t mask) {
     }
 
     // following callbacks are not supported
-    mCallbacks.gnssMeasurementsCb = nullptr;
     mCallbacks.gnssNiCb = nullptr;
     mCallbacks.geofenceStatusCb = nullptr;
 
@@ -170,6 +178,11 @@ uint32_t LocHalDaemonClientHandler::startTracking() {
     return mSessionId;
 }
 
+// Round input TBF to 100ms, 200ms, 500ms, and integer senconds
+// input tbf < 200 msec, round to 100 msec, else
+// input tbf < 500 msec, round to 200 msec, else
+// input tbf < 1000 msec, round to 500 msec, else
+// round up input tbf to the closet integer seconds
 uint32_t LocHalDaemonClientHandler::startTracking(LocationOptions & locOptions) {
     LOC_LOGd("distance %d, internal %d, req mask %x",
           locOptions.minDistance, locOptions.minInterval,
@@ -177,8 +190,11 @@ uint32_t LocHalDaemonClientHandler::startTracking(LocationOptions & locOptions) 
     if (mSessionId == 0 && mLocationApi) {
         // update option
         mOptions = locOptions;
+        // set interval to engine supported interval
+        mOptions.minInterval = getSupportedTbf(mOptions.minInterval);
         mSessionId = mLocationApi->startTracking(mOptions);
     }
+
     return mSessionId;
 }
 
@@ -205,6 +221,8 @@ void LocHalDaemonClientHandler::updateTrackingOptions(LocationOptions & locOptio
 
         TrackingOptions trackingOption;
         trackingOption.setLocationOptions(locOptions);
+        // set tbf to device supported tbf
+        trackingOption.minInterval = getSupportedTbf(trackingOption.minInterval);
         mLocationApi->updateTrackingOptions(mSessionId, trackingOption);
 
         // save other info: eng req type that will be used in filtering
@@ -852,6 +870,17 @@ void LocHalDaemonClientHandler::onGnssMeasurementsCb(GnssMeasurementsNotificatio
 
     std::lock_guard<std::mutex> lock(LocationApiService::mMutex);
     LOC_LOGd("--< onGnssMeasurementsCb");
+
+    if ((nullptr != mIpcSender) && (mSubscriptionMask & E_LOC_CB_GNSS_MEAS_BIT)) {
+        LocAPIMeasIndMsg msg(SERVICE_NAME, notification);
+        LOC_LOGv("Sending meas message");
+        int rc = sendMessage(msg);
+        // purge this client if failed
+        if (!rc) {
+            LOC_LOGe("failed rc=%d purging client=%s", rc, mName.c_str());
+            mService->deleteClientbyName(mName);
+        }
+    }
 }
 
 void LocHalDaemonClientHandler::onLocationSystemInfoCb(LocationSystemInfo notification) {
@@ -920,3 +949,28 @@ void LocHalDaemonClientHandler::addEngineInfoRequst(uint32_t mask) {
     mEngineInfoRequestMask |= E_ENGINE_INFO_CB_GNSS_ENERGY_CONSUMED_BIT;
 }
 
+// Round input TBF to 100ms, 200ms, 500ms, and integer senconds that engine supports
+// input tbf < 200 msec, round to 100 msec, else
+// input tbf < 500 msec, round to 200 msec, else
+// input tbf < 1000 msec, round to 500 msec, else
+// round up input tbf to the closet integer seconds
+uint32_t LocHalDaemonClientHandler::getSupportedTbf(uint32_t tbfMsec) {
+    uint32_t supportedTbfMsec = 0;
+
+    if (tbfMsec < 200) {
+        supportedTbfMsec = 100;
+    } else if (tbfMsec < 500) {
+        supportedTbfMsec = 200;
+    } else if (tbfMsec < 1000) {
+        supportedTbfMsec = 500;
+    } else {
+        if (tbfMsec > (UINT32_MAX - 999)) {
+            supportedTbfMsec = UINT32_MAX / 1000 * 1000;
+        } else {
+            // round up to the next integer second
+            supportedTbfMsec = (tbfMsec+999) / 1000 * 1000;
+        }
+    }
+
+    return supportedTbfMsec;
+}
