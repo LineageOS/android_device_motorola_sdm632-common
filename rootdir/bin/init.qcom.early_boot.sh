@@ -1,6 +1,6 @@
 #! /vendor/bin/sh
 
-# Copyright (c) 2012-2013,2016,2018 The Linux Foundation. All rights reserved.
+# Copyright (c) 2012-2013,2016,2018,2019 The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -50,7 +50,7 @@ if [ -f /sys/class/drm/card0-DSI-1/modes ]; then
     echo "detect" > /sys/class/drm/card0-DSI-1/status
     mode_file=/sys/class/drm/card0-DSI-1/modes
     while read line; do
-        fb_width=${line%x*};
+        fb_width=${line%%x*};
         break;
     done < $mode_file
 elif [ -f /sys/class/graphics/fb0/virtual_size ]; then
@@ -107,7 +107,26 @@ case "$target" in
                 ;;
         esac
         ;;
-
+     "sm6150")
+         case "$soc_hwplatform" in
+             "ADP")
+                 setprop vendor.display.lcd_density 160
+                 ;;
+         esac
+         case "$soc_hwid" in
+             365|366)
+                 sku_ver=`cat /sys/devices/platform/soc/aa00000.qcom,vidc1/sku_version` 2> /dev/null
+                 setprop vendor.media.target.version 1
+                 if [ $sku_ver -eq 1 ]; then
+                     setprop vendor.media.target.version 2
+                 fi
+                 ;;
+             355|369|377|384)
+                 setprop vendor.chre.enabled 0
+                 ;;
+             *)
+         esac
+         ;;
     "msm8660")
         case "$soc_hwplatform" in
             "Fluid")
@@ -116,26 +135,6 @@ case "$target" in
             "Dragon")
                 setprop ro.sound.alsa "WM8903"
                 ;;
-        esac
-        ;;
-
-    "sm6150")
-        case "$soc_hwplatform" in
-            "ADP")
-                setprop vendor.display.lcd_density 160
-                ;;
-        esac
-        case "$soc_hwid" in
-            365|366)
-                sku_ver=`cat /sys/devices/platform/soc/aa00000.qcom,vidc1/sku_version` 2> /dev/null
-                if [ $sku_ver -eq 1 ]; then
-                    setprop vendor.media.sm7150.version 1
-                fi
-                ;;
-            355)
-                setprop vendor.media.sm6150.version 1
-                ;;
-            *)
         esac
         ;;
 
@@ -259,7 +258,7 @@ case "$target" in
                 setprop vendor.opengles.version 196610
                 if [ $soc_hwid = 354 ]
                 then
-                    setprop vendor.media.msm8937.version 1
+                    setprop vendor.media.target.version 1
                     log -t BOOT -p i "SDM429 early_boot prop set for: HwID '$soc_hwid'"
                 fi
                 ;;
@@ -272,26 +271,6 @@ case "$target" in
                 setprop vendor.opengles.version 196608
                 ;;
         esac
-        if [ -f /vendor/firmware_mnt/verinfo/ver_info.txt ]; then
-            modem=`cat /vendor/firmware_mnt/verinfo/ver_info.txt |
-                        sed -n 's/^[^:]*modem[^:]*:[[:blank:]]*//p' |
-                        sed 's/.*TA.\(.*\)/\1/g' | cut -d \- -f 1`
-            echo modem version: "$modem"
-            # If modem is TA3.0, we use hal qcril lib.
-            zygote=`getprop ro.vendor.zygote`
-            case "$zygote" in
-            ""zygote64_32"")
-                if [ $(echo $modem |grep "3.0") != "" ]; then
-                    setprop vendor.rild.libpath "/vendor/lib64/libril-qc-hal-qmi.so"
-                fi
-                ;;
-            "zygote32")
-                if [ $(echo $modem |grep "3.0") != "" ]; then
-                    setprop vendor.rild.libpath "/vendor/lib/libril-qc-hal-qmi.so"
-                fi
-                ;;
-            esac
-        fi
         ;;
     "msm8909")
         case "$soc_hwplatform" in
@@ -329,57 +308,40 @@ case "$target" in
                 ;;
         esac
         ;;
+    "kona")
+        case "$soc_hwplatform" in
+            *)
+                if [ $fb_width -le 1600 ]; then
+                    setprop vendor.display.lcd_density 560
+                else
+                    setprop vendor.display.lcd_density 640
+                fi
+                ;;
+        esac
+        ;;
+    "lito")
+        case "$soc_hwplatform" in
+            *)
+                sku_ver=`cat /sys/devices/platform/soc/aa00000.qcom,vidc1/sku_version` 2> /dev/null
+                if [ $sku_ver -eq 1 ]; then
+                    setprop vendor.media.target.version 1
+                fi
+                ;;
+        esac
+        # Temporary hack to refresh kernel 4.19's cache buffers of /system if overlayfs has /system changes
+        ls /system/app /system/priv-app /system/lib64 /system/lib /system/bin
+        ;;
     "sdm710" | "msmpeafowl")
         case "$soc_hwplatform" in
             *)
                 sku_ver=`cat /sys/devices/platform/soc/aa00000.qcom,vidc1/sku_version` 2> /dev/null
                 if [ $sku_ver -eq 1 ]; then
-                    setprop vendor.media.sdm710.version 1
+                    setprop vendor.media.target.version 1
                 fi
                 ;;
-        esac
-        ;;
-    "talos")
-        case "$soc_hwid" in
-            365|366)
-                sku_ver=`cat /sys/devices/platform/soc/aa00000.qcom,vidc1/sku_version` 2> /dev/null
-                if [ $sku_ver -eq 1 ]; then
-                    setprop vendor.media.sm7150.version 1
-                fi
-                ;;
-            355)
-                setprop vendor.media.sm6150.version 1
-                ;;
-            *)
         esac
         ;;
     "msm8953")
-        if [ -f /vendor/firmware_mnt/verinfo/ver_info.txt ]; then
-            echo "file"
-            modem=`cat /vendor/firmware_mnt/verinfo/ver_info.txt |
-                        sed -n 's/^[^:]*modem[^:]*:[[:blank:]]*//p' |
-                        sed 's/.*TA.\(.*\)/\1/g' | cut -d \- -f 1`
-            # In MSM8953 if meta version is greater than 2.1, need
-            # to use the new vendor-ril which supports L+L feature
-            # otherwise use the existing old one.
-            zygote=`getprop ro.vendor.zygote`
-            case "$zygote" in
-            ""zygote64_32"")
-                if [ "$modem" \< "3.0" ]; then
-                    setprop vendor.rild.libpath "/vendor/lib64/libril-qc-qmi-1.so"
-                else
-                    setprop vendor.rild.libpath "/vendor/lib64/libril-qc-hal-qmi.so"
-                fi
-                ;;
-            "zygote32")
-                if [ "$modem" \< "3.0" ]; then
-                    setprop vendor.rild.libpath "/vendor/lib/libril-qc-qmi-1.so"
-                else
-                    setprop vendor.rild.libpath "/vendor/lib/libril-qc-hal-qmi.so"
-                fi
-                ;;
-            esac
-        fi
         cap_ver = 1
                 if [ -e "/sys/devices/platform/soc/1d00000.qcom,vidc/capability_version" ]; then
                     cap_ver=`cat /sys/devices/platform/soc/1d00000.qcom,vidc/capability_version` 2> /dev/null
@@ -388,7 +350,7 @@ case "$target" in
                 fi
 
                 if [ $cap_ver -eq 1 ]; then
-                    setprop vendor.media.msm8953.version 1
+                    setprop vendor.media.target.version 1
                 fi
                 ;;
     #Set property to differentiate SDM660 & SDM455
@@ -396,7 +358,7 @@ case "$target" in
     "sdm660")
         case "$soc_hwid" in
            385)
-               setprop vendor.media.sdm660.version 1
+               setprop vendor.media.target.version 1
         esac
         ;;
 esac
@@ -423,26 +385,21 @@ product=`getprop ro.build.product`
 case "$product" in
         "msmnile_au")
          setprop vendor.display.lcd_density 160
-         echo 864000000 > /sys/class/devfreq/soc:qcom,cpu0-cpu-l3-lat/min_freq
+         echo 902400000 > /sys/class/devfreq/soc:qcom,cpu0-cpu-l3-lat/min_freq
          echo 1612800000 > /sys/class/devfreq/soc:qcom,cpu0-cpu-l3-lat/max_freq
-         echo 864000000 > /sys/class/devfreq/soc:qcom,cpu4-cpu-l3-lat/min_freq
+         echo 902400000 > /sys/class/devfreq/soc:qcom,cpu4-cpu-l3-lat/min_freq
          echo 1612800000 > /sys/class/devfreq/soc:qcom,cpu4-cpu-l3-lat/max_freq
          ;;
         *)
         ;;
 esac
 case "$product" in
-        "msmnile_gvmq")
+        "sm6150_au")
          setprop vendor.display.lcd_density 160
-         echo 864000000 > /sys/class/devfreq/soc:qcom,cpu0-cpu-l3-lat/min_freq
-         echo 1612800000 > /sys/class/devfreq/soc:qcom,cpu0-cpu-l3-lat/max_freq
-         echo 864000000 > /sys/class/devfreq/soc:qcom,cpu4-cpu-l3-lat/min_freq
-         echo 1612800000 > /sys/class/devfreq/soc:qcom,cpu4-cpu-l3-lat/max_freq
          ;;
         *)
         ;;
 esac
-
 # Setup display nodes & permissions
 # HDMI can be fb1 or fb2
 # Loop through the sysfs nodes and determine
@@ -474,6 +431,10 @@ then
 else
     set_perms /sys/devices/virtual/hdcp/msm_hdcp/min_level_change system.graphics 0660
 fi
+
+# allow system_graphics group to access pmic secure_mode node
+set_perms /sys/class/lcd_bias/secure_mode system.graphics 0660
+set_perms /sys/class/leds/wled/secure_mode system.graphics 0660
 
 boot_reason=`cat /proc/sys/kernel/boot_reason`
 reboot_reason=`getprop ro.boot.alarmboot`
