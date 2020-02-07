@@ -904,7 +904,7 @@ vendor/radio/qcril_database/upgrade/3_version_update_wps_config.sql|0571aacaf9fc
 vendor/radio/qcril_database/upgrade/4_version_update_ecc_table.sql|0734c6a2863edadc7a8422b8310d267c594d11a0
 
 # Radio - IMS
--product/priv-app/ims/ims.apk|54c9f8f49d567082f7d23cee40a54515162dbf90
+-product/priv-app/ims/ims.apk|7310e333b03172968b439fdb88485adc1e1c60fa
 product/framework/com.qualcomm.qti.imscmservice-V2.0-java.jar
 product/framework/com.qualcomm.qti.imscmservice-V2.1-java.jar
 product/framework/com.qualcomm.qti.imscmservice-V2.2-java.jar
