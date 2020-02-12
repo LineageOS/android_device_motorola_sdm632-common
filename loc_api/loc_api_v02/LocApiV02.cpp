@@ -97,27 +97,6 @@ using namespace loc_core;
 /* the time, in seconds, to wait for user response for NI  */
 #define LOC_NI_NO_RESPONSE_TIME 20
 
-#define GPS_L1CA_CARRIER_FREQUENCY      1575420000.0
-#define GPS_L1C_CARRIER_FREQUENCY       1575420000.0
-#define GPS_L2C_L_CARRIER_FREQUENCY     1227600000.0
-#define GPS_L5_Q_CARRIER_FREQUENCY      1176450000.0
-#define GLONASS_G1_CARRIER_FREQUENCY    1602000000.0
-#define GLONASS_G2_CARRIER_FREQUENCY    1246000000.0
-#define GALILEO_E1_C_CARRIER_FREQUENCY  1575420000.0
-#define GALILEO_E5A_Q_CARRIER_FREQUENCY 1176450000.0
-#define GALILEO_E5B_Q_CARRIER_FREQUENCY 1207140000.0
-#define BEIDOU_B1_I_CARRIER_FREQUENCY   1561098000.0
-#define BEIDOU_B1C_CARRIER_FREQUENCY    1575420000.0
-#define BEIDOU_B2_I_CARRIER_FREQUENCY   1207140000.0
-#define BEIDOU_B2A_I_CARRIER_FREQUENCY  1176450000.0
-#define BEIDOU_B2A_Q_CARRIER_FREQUENCY  1176450000.0
-#define QZSS_L1CA_CARRIER_FREQUENCY     1575420000.0
-#define QZSS_L1S_CARRIER_FREQUENCY      1575420000.0
-#define QZSS_L2C_L_CARRIER_FREQUENCY    1227600000.0
-#define QZSS_L5_Q_CARRIER_FREQUENCY     1176450000.0
-#define SBAS_L1_CA_CARRIER_FREQUENCY    1575420000.0
-#define NAVIC_L5_CARRIER_FREQUENCY      1176450000.0
-
 #define LAT_LONG_TO_RADIANS .000005364418
 #define GF_RESPONSIVENESS_THRESHOLD_MSEC_HIGH   120000 //2 mins
 #define GF_RESPONSIVENESS_THRESHOLD_MSEC_MEDIUM 900000 //15 mins
@@ -3523,6 +3502,7 @@ void  LocApiV02 :: reportSv (
                 }
 
                 if (gnss_report_ptr->gnssSignalTypeList_valid) {
+                    mask |= GNSS_SV_OPTIONS_HAS_GNSS_SIGNAL_TYPE_BIT;
                     if (SvNotify.count > gnss_report_ptr->gnssSignalTypeList_len - 1) {
                         LOC_LOGv("Frequency not available for this SV");
                     }
@@ -5094,6 +5074,13 @@ void LocApiV02::convertGnssMeasurementsHeader(const Gnss_LocSvSystemEnumType loc
 {
     GnssSvMeasurementHeader &svMeasSetHead =
         mGnssMeasurements->gnssSvMeasurementSet.svMeasSetHeader;
+
+    // The refCountTicks for each constellation sent for one meas report is the same
+    // always. It does not matter if it gets overwritten.
+    if (gnss_measurement_info.refCountTicks_valid) {
+        svMeasSetHead.flags |= GNSS_SV_MEAS_HEADER_HAS_REF_COUNT_TICKS;
+        svMeasSetHead.refCountTicks = gnss_measurement_info.refCountTicks;
+    }
 
     // clock frequency
     if (1 == gnss_measurement_info.rcvrClockFrequencyInfo_valid) {
