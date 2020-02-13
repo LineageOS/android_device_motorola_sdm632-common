@@ -149,7 +149,7 @@ static uint32_t GetContentType(const LayerBuffer &layer_buffer) {
 #endif
 
 static bool MapHDMIDisplayTiming(const msm_hdmi_mode_timing_info *mode,
-                                 fb_var_screeninfo *info) {
+                                 fb_var_screeninfo *info, bool hdr_enabled) {
   if (!mode || !info) {
     return false;
   }
@@ -174,9 +174,13 @@ static bool MapHDMIDisplayTiming(const msm_hdmi_mode_timing_info *mode,
   info->grayscale = V4L2_PIX_FMT_RGB24;
   // If the mode supports YUV420 set grayscale to the FOURCC value for YUV420.
   std::bitset<32> pixel_formats = mode->pixel_formats;
-  if (pixel_formats[1]) {
+  if (pixel_formats[1] && !pixel_formats[0]) {
     info->grayscale = V4L2_PIX_FMT_NV12;
   }
+  if (pixel_formats[1] && pixel_formats[0] && hdr_enabled) {
+    info->grayscale = V4L2_PIX_FMT_NV12;
+  }
+
 
   if (!mode->active_low_h) {
     info->sync |= (uint32_t)FB_SYNC_HOR_HIGH_ACT;
@@ -381,7 +385,7 @@ DisplayError HWHDMI::SetDisplayAttributes(uint32_t index) {
     }
   }
 
-  if (MapHDMIDisplayTiming(timing_mode, &vscreeninfo) == false) {
+  if (MapHDMIDisplayTiming(timing_mode, &vscreeninfo, hw_panel_info_.hdr_enabled) == false) {
     return kErrorParameters;
   }
 
@@ -491,9 +495,8 @@ DisplayError HWHDMI::GetMaxCEAFormat(uint32_t *max_cea_format) {
 DisplayError HWHDMI::OnMinHdcpEncryptionLevelChange(uint32_t min_enc_level) {
   DisplayError error = kErrorNone;
   int fd = -1;
-  char data[kMaxStringLength] = {'\0'};
+  char data[kMaxStringLength] = "/sys/devices/virtual/hdcp/msm_hdcp/min_level_change";
 
-  snprintf(data, sizeof(data), "%s%d/hdcp2p2/min_level_change", fb_path_, fb_node_index_);
 
   fd = Sys::open_(data, O_WRONLY);
   if (fd < 0) {
