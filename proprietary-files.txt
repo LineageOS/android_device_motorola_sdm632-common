@@ -693,7 +693,7 @@ etc/permissions/com.motorola.camera2.denali.xml:vendor/etc/permissions/com.motor
 
 # Offmode charging
 vendor/bin/charge_only_mode
-vendor/bin/hvdcp_opti
+vendor/bin/hvdcp_opti|a47c8bccf299a1ffcad717e51aad8fdcf192b7bf
 
 # Perf
 lib/libqti_performance.so
