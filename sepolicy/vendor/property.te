@@ -3,3 +3,4 @@ vendor_internal_prop(vendor_aov_prop)
 
 vendor_public_prop(hwrev_prop)
 vendor_public_prop(moto_boot_prop)
+vendor_public_prop(vendor_fp_prop)
