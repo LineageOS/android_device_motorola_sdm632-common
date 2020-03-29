@@ -206,13 +206,11 @@ case "$target" in
         setprop vendor.usb.rmnet.func.name "gsi"
     ;;
     "kona")
-        qcom_usb_config="diag,diag_mdm,qdss,qdss_mdm,serial_cdev,serial_cdev_mdm,dpl,rmnet"
-        qcom_adb_usb_config="diag,diag_mdm,qdss,qdss_mdm,serial_cdev,serial_cdev_mdm,dpl,rmnet,adb"
+        qcom_usb_config="diag,diag_mdm,qdss,qdss_mdm,serial_cdev,serial_cdev_mdm,mass_storage"
+        qcom_adb_usb_config="diag,diag_mdm,qdss,qdss_mdm,serial_cdev,serial_cdev_mdm,mass_storage,adb"
         bpt_usb_config="diag,serial,rmnet"
         bpt_adb_usb_config="diag,serial,rmnet,adb"
         setprop vendor.usb.controller "a600000.dwc3"
-        echo "none" > /config/usb_gadget/g1/UDC
-        echo "a600000.dwc3" > /config/usb_gadget/g1/UDC
         setprop vendor.usb.rndis.func.name "gsi"
         setprop vendor.usb.rmnet.func.name "gsi"
      ;;
@@ -222,8 +220,6 @@ case "$target" in
         bpt_usb_config="diag,serial,rmnet"
         bpt_adb_usb_config="diag,serial,rmnet,adb"
         setprop vendor.usb.controller "a600000.dwc3"
-        echo "none" > /config/usb_gadget/g1/UDC
-        echo "a600000.dwc3" > /config/usb_gadget/g1/UDC
         setprop vendor.usb.rndis.func.name "gsi"
         setprop vendor.usb.rmnet.func.name "gsi"
      ;;
