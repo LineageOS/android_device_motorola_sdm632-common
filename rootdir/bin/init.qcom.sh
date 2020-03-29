@@ -84,7 +84,7 @@ start_msm_irqbalance_8939()
 {
 	if [ -f /vendor/bin/msm_irqbalance ]; then
 		case "$platformid" in
-		    "239" | "293" | "294" | "295" | "304" | "313" | "353" | "354")
+		    "239" | "293" | "294" | "295" | "304" | "338" | "313" | "353" | "354")
 			start vendor.msm_irqbalance;;
 		    "349" | "350" )
 			start vendor.msm_irqbal_lb;;
@@ -120,7 +120,7 @@ start_msm_irqbalance_atoll()
          fi
 }
 
-start_msm_irqbalance()
+start_msm_irqbalance660()
 {
 	if [ -f /vendor/bin/msm_irqbalance ]; then
 		case "$platformid" in
@@ -130,6 +130,41 @@ start_msm_irqbalance()
 			start vendor.msm_irqbl_sdm630;;
 		esac
 	fi
+}
+
+start_msm_irqbalance()
+{
+	if [ -f /vendor/bin/msm_irqbalance ]; then
+			start vendor.msm_irqbalance
+	fi
+}
+
+start_copying_prebuilt_qcril_db()
+{
+    if [ -f /vendor/radio/qcril_database/qcril.db -a ! -f /data/vendor/radio/qcril.db ]; then
+        # [MOTO] - First copy db from the old N path to O path for upgrade
+        if [ -f /data/misc/radio/qcril.db ]; then
+            cp /data/misc/radio/qcril.db /data/vendor/radio/qcril.db
+            # copy the backup db from the old N path to O path for upgrade
+            if [ -f /data/misc/radio/qcril_backup.db ]; then
+                cp /data/misc/radio/qcril_backup.db /data/vendor/radio/qcril_backup.db
+            fi
+            # Now delete the old folder
+            rm -fr /data/misc/radio
+        else
+            cp /vendor/radio/qcril_database/qcril.db /data/vendor/radio/qcril.db
+        fi
+        chown -h radio.radio /data/vendor/radio/qcril.db
+    else
+        # [MOTO] if qcril.db's owner is not radio (e.g. root),
+        # reset it for the recovery
+        qcril_db_owner=`stat -c %U /data/misc/radio/qcril.db`
+        echo "qcril.db's owner is $qcril_db_owner"
+        if [ $qcril_db_owner != "radio" ]; then
+            echo "reset owner to radio for qcril.db"
+            chown -h radio.radio /data/misc/radio/qcril.db
+        fi
+    fi
 }
 
 baseband=`getprop ro.baseband`
@@ -228,7 +263,7 @@ case "$target" in
                   esac
                   ;;
        esac
-        start_msm_irqbalance
+        start_msm_irqbalance660
         ;;
     "apq8084")
         platformvalue=`cat /sys/devices/soc0/hw_platform`
@@ -281,7 +316,7 @@ case "$target" in
                   ;;
         esac
         ;;
-    "msm8994" | "msm8992" | "msm8998" | "apq8098_latv" | "sdm845" | "sdm710" | "qcs605" | "sm6150")
+    "msm8994" | "msm8992" | "msm8998" | "apq8098_latv" | "sdm845" | "sdm710" | "qcs605" | "sm6150" | "trinket" | "bengal")
         start_msm_irqbalance
         ;;
     "msm8996")
@@ -449,7 +484,7 @@ buildvariant=`getprop ro.build.type`
 case "$buildvariant" in
     "userdebug" | "eng")
         #set default loglevel to KERN_INFO
-        echo "6 6 1 7" > /proc/sys/kernel/printk
+        echo "7 6 1 7" > /proc/sys/kernel/printk
         ;;
     *)
         #set default loglevel to KERN_WARNING
