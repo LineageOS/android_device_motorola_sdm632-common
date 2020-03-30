@@ -1,4 +1,4 @@
-/* Copyright (c) 2018, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2018-2020, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -60,11 +60,11 @@ void LocHalDaemonClientHandler::updateSubscription(uint32_t mask) {
         onCollectiveResponseCallback(count, errs, ids);
     };
 
-    // update optional callback - following four callbacks can be controlable
-    // tracking
-    mCallbacks.trackingCb = [this](Location location) {
-        onTrackingCb(location);
-    };
+    if (mSubscriptionMask & E_LOC_CB_DISTANCE_BASED_TRACKING_BIT) {
+        mCallbacks.trackingCb = [this](Location location) {
+            onTrackingCb(location);
+        };
+    }
 
     // batching
     if (mSubscriptionMask & E_LOC_CB_BATCHING_BIT) {
@@ -94,7 +94,7 @@ void LocHalDaemonClientHandler::updateSubscription(uint32_t mask) {
     }
 
     // location info
-    if (mSubscriptionMask & E_LOC_CB_GNSS_LOCATION_INFO_BIT) {
+    if (mSubscriptionMask & (E_LOC_CB_GNSS_LOCATION_INFO_BIT | E_LOC_CB_SIMPLE_LOCATION_INFO_BIT)) {
         mCallbacks.gnssLocationInfoCb = [this](GnssLocationInfoNotification notification) {
             onGnssLocationInfoCb(notification);
         };
@@ -139,6 +139,24 @@ void LocHalDaemonClientHandler::updateSubscription(uint32_t mask) {
         mCallbacks.gnssDataCb = nullptr;
     }
 
+    // measurements
+    if (mSubscriptionMask & E_LOC_CB_GNSS_MEAS_BIT) {
+        mCallbacks.gnssMeasurementsCb = [this](GnssMeasurementsNotification notification) {
+            onGnssMeasurementsCb(notification);
+        };
+    } else {
+        mCallbacks.gnssMeasurementsCb = nullptr;
+    }
+
+    // SV poly
+    if (mSubscriptionMask & E_LOC_CB_GNSS_SV_POLY_BIT) {
+        mCallbacks.gnssSvPolynomialCb = [this](GnssSvPolynomial notification) {
+            onGnssSvPolynomialCb(notification);
+        };
+    } else {
+        mCallbacks.gnssMeasurementsCb = nullptr;
+    }
+
     // system info
     if (mSubscriptionMask & E_LOC_CB_SYSTEM_INFO_BIT) {
         mCallbacks.locationSystemInfoCb = [this](LocationSystemInfo notification) {
@@ -149,7 +167,6 @@ void LocHalDaemonClientHandler::updateSubscription(uint32_t mask) {
     }
 
     // following callbacks are not supported
-    mCallbacks.gnssMeasurementsCb = nullptr;
     mCallbacks.gnssNiCb = nullptr;
     mCallbacks.geofenceStatusCb = nullptr;
 
@@ -170,6 +187,11 @@ uint32_t LocHalDaemonClientHandler::startTracking() {
     return mSessionId;
 }
 
+// Round input TBF to 100ms, 200ms, 500ms, and integer senconds
+// input tbf < 200 msec, round to 100 msec, else
+// input tbf < 500 msec, round to 200 msec, else
+// input tbf < 1000 msec, round to 500 msec, else
+// round up input tbf to the closet integer seconds
 uint32_t LocHalDaemonClientHandler::startTracking(LocationOptions & locOptions) {
     LOC_LOGd("distance %d, internal %d, req mask %x",
           locOptions.minDistance, locOptions.minInterval,
@@ -177,8 +199,11 @@ uint32_t LocHalDaemonClientHandler::startTracking(LocationOptions & locOptions) 
     if (mSessionId == 0 && mLocationApi) {
         // update option
         mOptions = locOptions;
+        // set interval to engine supported interval
+        mOptions.minInterval = getSupportedTbf(mOptions.minInterval);
         mSessionId = mLocationApi->startTracking(mOptions);
     }
+
     return mSessionId;
 }
 
@@ -203,13 +228,12 @@ void LocHalDaemonClientHandler::updateTrackingOptions(LocationOptions & locOptio
              locOptions.minDistance, locOptions.minInterval,
              locOptions.locReqEngTypeMask);
 
-        if ((mOptions.minDistance != locOptions.minDistance) ||
-            (mOptions.minInterval != locOptions.minInterval)) {
+        TrackingOptions trackingOption;
+        trackingOption.setLocationOptions(locOptions);
+        // set tbf to device supported tbf
+        trackingOption.minInterval = getSupportedTbf(trackingOption.minInterval);
+        mLocationApi->updateTrackingOptions(mSessionId, trackingOption);
 
-            TrackingOptions trackingOption;
-            trackingOption.setLocationOptions(locOptions);
-            mLocationApi->updateTrackingOptions(mSessionId, trackingOption);
-        }
         // save other info: eng req type that will be used in filtering
         mOptions = locOptions;
     }
@@ -355,22 +379,29 @@ void LocHalDaemonClientHandler::cleanup() {
     // please do not attempt to hold the lock, as the caller of this function
     // already holds the lock
 
+    // set the ptr to null to prevent further sending out message to the
+    // remote client that is no longer reachable
+    mIpcSender = nullptr;
+
     // check whether this is client from external AP,
-    // mName for client on external ap is of format "serviceid.instanceid"
+    // mName for client on external ap is fully-qualified path name ending with
+    // "serviceid.instanceid"
     if (strncmp(mName.c_str(), EAP_LOC_CLIENT_DIR,
-                sizeof(EAP_LOC_CLIENT_DIR)-1) != 0 ) {
-        char fileName[MAX_SOCKET_PATHNAME_LENGTH];
-        snprintf (fileName, sizeof(fileName), "%s%s%s",
-                  EAP_LOC_CLIENT_DIR, LOC_CLIENT_NAME_PREFIX, mName.c_str());
-        LOC_LOGv("removed file name %s", fileName);
-        if (0 != remove(fileName)) {
-            LOC_LOGe("<-- failed to remove file %s", fileName);
+                sizeof(EAP_LOC_CLIENT_DIR)-1) == 0 ) {
+        LOC_LOGv("removed file %s", mName.c_str());
+        if (0 != remove(mName.c_str())) {
+            LOC_LOGe("<-- failed to remove file %s", mName.c_str());
         }
     }
 
     if (mLocationApi) {
         mLocationApi->destroy([this]() {onLocationApiDestroyCompleteCb();});
         mLocationApi = nullptr;
+    } else {
+        // For location integration api client handler, it does not
+        // instantiate LocationApi interface and can be freed right away
+        LOC_LOGe("delete LocHalDaemonClientHandler");
+        delete this;
     }
 }
 
@@ -538,6 +569,24 @@ void LocHalDaemonClientHandler::onCollectiveResponseCallback(
     free(clientIds);
 }
 
+
+/******************************************************************************
+LocHalDaemonClientHandler - Location Control API response callback functions
+******************************************************************************/
+void LocHalDaemonClientHandler::onControlResponseCb(LocationError err, ELocMsgID msgId) {
+    // no need to hold the lock, as lock is already held at the caller
+    if (nullptr != mIpcSender) {
+        LOC_LOGd("--< onControlResponseCb err=%u msgId=%u", err, msgId);
+        LocAPIGenericRespMsg msg(SERVICE_NAME, msgId, err);
+        int rc = sendMessage(msg);
+        // purge this client if failed
+        if (!rc) {
+            LOC_LOGe("failed rc=%d purging client=%s", rc, mName.c_str());
+            mService->deleteClientbyName(mName);
+        }
+    }
+}
+
 /******************************************************************************
 LocHalDaemonClientHandler - Location API callback functions
 ******************************************************************************/
@@ -567,7 +616,8 @@ void LocHalDaemonClientHandler::onTrackingCb(Location location) {
     std::lock_guard<std::mutex> lock(LocationApiService::mMutex);
     LOC_LOGd("--< onTrackingCb");
 
-    if ((nullptr != mIpcSender) && (mSubscriptionMask & E_LOC_CB_TRACKING_BIT)) {
+    if ((nullptr != mIpcSender) &&
+            (mSubscriptionMask & E_LOC_CB_DISTANCE_BASED_TRACKING_BIT)) {
         // broadcast
         LocAPILocationIndMsg msg(SERVICE_NAME, location);
         int rc = sendMessage(msg);
@@ -684,10 +734,16 @@ void LocHalDaemonClientHandler::onGnssLocationInfoCb(GnssLocationInfoNotificatio
     std::lock_guard<std::mutex> lock(LocationApiService::mMutex);
     LOC_LOGd("--< onGnssLocationInfoCb");
 
-    if ((nullptr != mIpcSender) &&
-            (mSubscriptionMask & E_LOC_CB_GNSS_LOCATION_INFO_BIT)) {
-        LocAPILocationInfoIndMsg msg(SERVICE_NAME, notification);
-        int rc = sendMessage(msg);
+    if ((nullptr != mIpcSender) && (mSubscriptionMask &
+            (E_LOC_CB_GNSS_LOCATION_INFO_BIT | E_LOC_CB_SIMPLE_LOCATION_INFO_BIT))) {
+        int rc = 0;
+        if (mSubscriptionMask & E_LOC_CB_GNSS_LOCATION_INFO_BIT) {
+            LocAPILocationInfoIndMsg msg(SERVICE_NAME, notification);
+            rc = sendMessage(msg);
+        } else {
+            LocAPILocationIndMsg msg(SERVICE_NAME, notification.location);
+            rc = sendMessage(msg);
+        }
         // purge this client if failed
         if (!rc) {
             LOC_LOGe("failed rc=%d purging client=%s", rc, mName.c_str());
@@ -724,13 +780,15 @@ void LocHalDaemonClientHandler::onEngLocationsInfoCb(
             }
         }
 
-        LocAPIEngineLocationsInfoIndMsg msg(SERVICE_NAME, reportCount,
-                                            engineLocationInfoNotification);
-        int rc = sendMessage((const uint8_t*)&msg, msg.getMsgSize());
-        // purge this client if failed
-        if (!rc) {
-            LOC_LOGe("failed rc=%d purging client=%s", rc, mName.c_str());
-            mService->deleteClientbyName(mName);
+        if (reportCount > 0 ) {
+            LocAPIEngineLocationsInfoIndMsg msg(SERVICE_NAME, reportCount,
+                                                engineLocationInfoNotification);
+            int rc = sendMessage((const uint8_t*)&msg, msg.getMsgSize());
+            // purge this client if failed
+            if (!rc) {
+                LOC_LOGe("failed rc=%d purging client=%s", rc, mName.c_str());
+                mService->deleteClientbyName(mName);
+            }
         }
     }
 }
@@ -828,6 +886,34 @@ void LocHalDaemonClientHandler::onGnssMeasurementsCb(GnssMeasurementsNotificatio
 
     std::lock_guard<std::mutex> lock(LocationApiService::mMutex);
     LOC_LOGd("--< onGnssMeasurementsCb");
+
+    if ((nullptr != mIpcSender) && (mSubscriptionMask & E_LOC_CB_GNSS_MEAS_BIT)) {
+        LocAPIMeasIndMsg msg(SERVICE_NAME, notification);
+        LOC_LOGv("Sending meas message");
+        int rc = sendMessage(msg);
+        // purge this client if failed
+        if (!rc) {
+            LOC_LOGe("failed rc=%d purging client=%s", rc, mName.c_str());
+            mService->deleteClientbyName(mName);
+        }
+    }
+}
+
+void LocHalDaemonClientHandler::onGnssSvPolynomialCb(GnssSvPolynomial notification) {
+
+    std::lock_guard<std::mutex> lock(LocationApiService::mMutex);
+    LOC_LOGd("--< onGnssSvPolynomialCb");
+
+    if ((nullptr != mIpcSender) && (mSubscriptionMask & E_LOC_CB_GNSS_SV_POLY_BIT)) {
+        LocAPIGnssSvPolyIndMsg msg(SERVICE_NAME, notification);
+        LOC_LOGv("Sending sv poly message");
+        int rc = sendMessage(msg);
+        // purge this client if failed
+        if (!rc) {
+            LOC_LOGe("failed rc=%d purging client=%s", rc, mName.c_str());
+            mService->deleteClientbyName(mName);
+        }
+    }
 }
 
 void LocHalDaemonClientHandler::onLocationSystemInfoCb(LocationSystemInfo notification) {
@@ -896,3 +982,28 @@ void LocHalDaemonClientHandler::addEngineInfoRequst(uint32_t mask) {
     mEngineInfoRequestMask |= E_ENGINE_INFO_CB_GNSS_ENERGY_CONSUMED_BIT;
 }
 
+// Round input TBF to 100ms, 200ms, 500ms, and integer senconds that engine supports
+// input tbf < 200 msec, round to 100 msec, else
+// input tbf < 500 msec, round to 200 msec, else
+// input tbf < 1000 msec, round to 500 msec, else
+// round up input tbf to the closet integer seconds
+uint32_t LocHalDaemonClientHandler::getSupportedTbf(uint32_t tbfMsec) {
+    uint32_t supportedTbfMsec = 0;
+
+    if (tbfMsec < 200) {
+        supportedTbfMsec = 100;
+    } else if (tbfMsec < 500) {
+        supportedTbfMsec = 200;
+    } else if (tbfMsec < 1000) {
+        supportedTbfMsec = 500;
+    } else {
+        if (tbfMsec > (UINT32_MAX - 999)) {
+            supportedTbfMsec = UINT32_MAX / 1000 * 1000;
+        } else {
+            // round up to the next integer second
+            supportedTbfMsec = (tbfMsec+999) / 1000 * 1000;
+        }
+    }
+
+    return supportedTbfMsec;
+}

@@ -1,4 +1,4 @@
-/* Copyright (c) 2019 The Linux Foundation. All rights reserved.
+/* Copyright (c) 2019-2020 The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -249,6 +249,12 @@ void translateDiagGnssSignalType(clientDiagGnssSignalTypeMask& out, GnssSignalTy
     if (in & GNSS_SIGNAL_BEIDOU_B2AQ_BIT) {
         out |= CLIENT_DIAG_GNSS_SIGNAL_BEIDOU_B2AQ;
     }
+    if (in & GNSS_SIGNAL_BEIDOU_B1_BIT) {
+        out |= CLIENT_DIAG_GNSS_SIGNAL_BEIDOU_B1;
+    }
+    if (in & GNSS_SIGNAL_BEIDOU_B2_BIT) {
+        out |= CLIENT_DIAG_GNSS_SIGNAL_BEIDOU_B2;
+    }
 }
 
 void translateDiagGnssMeasUsageInfo(clientDiagGnssMeasUsageInfo& out,
@@ -335,6 +341,68 @@ void populateClientDiagLocation(clientDiagGnssLocationStructType* diagGnssLocPtr
             (clientDiagPositioningEngineMask) gnssLocation.locOutputEngMask;
 }
 
+void populateClientDiagMeasurements(clientDiagGnssMeasurementsStructType* diagGnssMeasPtr,
+        const GnssMeasurements& gnssMeasurements) {
+    diagGnssMeasPtr->count = gnssMeasurements.measurements.size();
+
+    diagGnssMeasPtr->clock.flags =
+            (clientDiagGnssMeasurementsClockFlagsMask)gnssMeasurements.clock.flags;
+    diagGnssMeasPtr->clock.leapSecond = gnssMeasurements.clock.leapSecond;
+    diagGnssMeasPtr->clock.timeNs = gnssMeasurements.clock.timeNs;
+    diagGnssMeasPtr->clock.timeUncertaintyNs = gnssMeasurements.clock.timeUncertaintyNs;
+    diagGnssMeasPtr->clock.fullBiasNs = gnssMeasurements.clock.fullBiasNs;
+    diagGnssMeasPtr->clock.biasNs = gnssMeasurements.clock.biasNs;
+    diagGnssMeasPtr->clock.biasUncertaintyNs = gnssMeasurements.clock.biasUncertaintyNs;
+    diagGnssMeasPtr->clock.driftNsps = gnssMeasurements.clock.driftNsps;
+    diagGnssMeasPtr->clock.driftUncertaintyNsps = gnssMeasurements.clock.driftUncertaintyNsps;
+    diagGnssMeasPtr->clock.hwClockDiscontinuityCount =
+            gnssMeasurements.clock.hwClockDiscontinuityCount;
+
+    for (uint32_t idx = 0; idx < diagGnssMeasPtr->count; ++idx) {
+        diagGnssMeasPtr->measurements[idx].flags =
+                (clientDiagGnssMeasurementsDataFlagsMask)gnssMeasurements.measurements[idx].flags;
+        diagGnssMeasPtr->measurements[idx].svId = gnssMeasurements.measurements[idx].svId;
+        diagGnssMeasPtr->measurements[idx].svType =
+                (clientDiagGnssSvType)gnssMeasurements.measurements[idx].svType;
+        diagGnssMeasPtr->measurements[idx].timeOffsetNs =
+                gnssMeasurements.measurements[idx].timeOffsetNs;
+        diagGnssMeasPtr->measurements[idx].stateMask =
+                (clientDiagGnssMeasurementsStateMask)gnssMeasurements.measurements[idx].stateMask;
+        diagGnssMeasPtr->measurements[idx].receivedSvTimeNs =
+                gnssMeasurements.measurements[idx].receivedSvTimeNs;
+        diagGnssMeasPtr->measurements[idx].receivedSvTimeUncertaintyNs =
+                gnssMeasurements.measurements[idx].receivedSvTimeUncertaintyNs;
+        diagGnssMeasPtr->measurements[idx].carrierToNoiseDbHz =
+                gnssMeasurements.measurements[idx].carrierToNoiseDbHz;
+        diagGnssMeasPtr->measurements[idx].pseudorangeRateMps =
+                gnssMeasurements.measurements[idx].pseudorangeRateMps;
+        diagGnssMeasPtr->measurements[idx].pseudorangeRateUncertaintyMps =
+                gnssMeasurements.measurements[idx].pseudorangeRateUncertaintyMps;
+        diagGnssMeasPtr->measurements[idx].adrStateMask =
+                (clientDiagGnssMeasurementsAdrStateMask)
+                        gnssMeasurements.measurements[idx].adrStateMask;
+        diagGnssMeasPtr->measurements[idx].adrMeters =
+                gnssMeasurements.measurements[idx].adrMeters;
+        diagGnssMeasPtr->measurements[idx].adrUncertaintyMeters =
+                gnssMeasurements.measurements[idx].adrUncertaintyMeters;
+        diagGnssMeasPtr->measurements[idx].carrierFrequencyHz =
+                gnssMeasurements.measurements[idx].carrierFrequencyHz;
+        diagGnssMeasPtr->measurements[idx].carrierCycles =
+                gnssMeasurements.measurements[idx].carrierCycles;
+        diagGnssMeasPtr->measurements[idx].carrierPhase =
+                gnssMeasurements.measurements[idx].carrierPhase;
+        diagGnssMeasPtr->measurements[idx].carrierPhaseUncertainty =
+                gnssMeasurements.measurements[idx].carrierPhaseUncertainty;
+        diagGnssMeasPtr->measurements[idx].multipathIndicator =
+                (clientDiagGnssMeasurementsMultipathIndicator)
+                        gnssMeasurements.measurements[idx].multipathIndicator;
+        diagGnssMeasPtr->measurements[idx].signalToNoiseRatioDb =
+                gnssMeasurements.measurements[idx].signalToNoiseRatioDb;
+        diagGnssMeasPtr->measurements[idx].agcLevelDb =
+                gnssMeasurements.measurements[idx].agcLevelDb;
+    }
+}
+
 void translateDiagGnssSv(clientDiagGnssSv& out, const GnssSv& in) {
 
     /** Unique Identifier */
@@ -366,4 +434,91 @@ void populateClientDiagGnssSv(clientDiagGnssSvStructType* diagGnssSvPtr,
         diagGnssSvPtr->gnssSvs[idx] = diagGnssSv;
     }
 }
+
+void populateClientDiagNmea(clientDiagGnssNmeaStructType *diagGnssNmeaPtr,
+        const LocAPINmeaSerializedPayload &nmeaSerializedPayload) {
+    diagGnssNmeaPtr->timestamp = nmeaSerializedPayload.timestamp;
+    diagGnssNmeaPtr->nmeaLength = nmeaSerializedPayload.length;
+    memcpy(&diagGnssNmeaPtr->nmea, nmeaSerializedPayload.nmea, nmeaSerializedPayload.length);
+}
+
+void populateClientDiagSvPoly(clientDiagGnssSvPoly *diagGnssSvPolyPtr,
+        const GnssSvPoly &gnssSvPoly) {
+
+    diagGnssSvPolyPtr->validityMask =
+            (clientDiagGnssSvPolyValidityMask)gnssSvPoly.validityMask;
+    diagGnssSvPolyPtr->svId = gnssSvPoly.svId;
+    diagGnssSvPolyPtr->svConstellation =
+            (clientDiagGnss_LocSvSystemEnumType) gnssSvPoly.svConstellation;
+    diagGnssSvPolyPtr->gloFrequency = gnssSvPoly.gloFrequency;
+    diagGnssSvPolyPtr->actionType =
+            (clientDiagGnssSvPolyActionType) gnssSvPoly.actionType;
+    diagGnssSvPolyPtr->statusMask =
+            (clientDiagGnssSvPolyStatusMask) gnssSvPoly.statusMask;
+    diagGnssSvPolyPtr->T0 = gnssSvPoly.T0;
+    uint32_t index = 0;
+    if (GNSS_SV_POLY_XYZ_0_TH_ORDER_COF_SIZE ==
+            CLIENT_DIAG_GNSS_SV_POLY_XYZ_0_TH_ORDER_COF_SIZE) {
+        for (index = 0; index < GNSS_SV_POLY_XYZ_0_TH_ORDER_COF_SIZE; index++) {
+            diagGnssSvPolyPtr->polyCofXYZ0[index] = gnssSvPoly.polyCofXYZ0[index];
+        }
+    } else {
+        LOC_LOGe("array size for polyCofXYZ0 not match");
+    }
+
+    if (GNSS_SV_POLY_XYZ_N_TH_ORDER_COF_SIZE ==
+            CLIENT_DIAG_GNSS_SV_POLY_XYZ_N_TH_ORDER_COF_SIZE) {
+        for (index = 0; index < GNSS_SV_POLY_XYZ_N_TH_ORDER_COF_SIZE; index++) {
+            diagGnssSvPolyPtr->polyCofXYZN[index] = gnssSvPoly.polyCofXYZN[index];
+        }
+    } else {
+        LOC_LOGe("array size for polyCofXYZN not match");
+    }
+
+    if (GNSS_SV_POLY_SV_CLKBIAS_COF_SIZE ==
+            CLIENT_DIAG_GNSS_SV_POLY_SV_CLKBIAS_COF_SIZE) {
+        for (index = 0; index < GNSS_SV_POLY_SV_CLKBIAS_COF_SIZE; index++) {
+            diagGnssSvPolyPtr->polyCofClockBias[index] = gnssSvPoly.polyCofClockBias[index];
+        }
+    } else {
+        LOC_LOGe("array size for polyCofClockBias not match");
+    }
+
+    diagGnssSvPolyPtr->iode = gnssSvPoly.iode;
+    diagGnssSvPolyPtr->enhancedIOD = gnssSvPoly.enhancedIOD;
+    diagGnssSvPolyPtr->svPosUnc = gnssSvPoly.svPosUnc;
+    diagGnssSvPolyPtr->ionoDelay = gnssSvPoly.ionoDelay;
+    diagGnssSvPolyPtr->ionoDot = gnssSvPoly.ionoDot;
+    diagGnssSvPolyPtr->sbasIonoDelay = gnssSvPoly.sbasIonoDelay;
+    diagGnssSvPolyPtr->sbasIonoDot = gnssSvPoly.sbasIonoDot;
+    diagGnssSvPolyPtr->tropoDelay = gnssSvPoly.tropoDelay;
+    diagGnssSvPolyPtr->elevation = gnssSvPoly.elevation;
+    diagGnssSvPolyPtr->elevationDot = gnssSvPoly.elevationDot;
+    diagGnssSvPolyPtr->elevationUnc = gnssSvPoly.elevationUnc;
+    if (GNSS_SV_POLY_VELOCITY_COF_SIZE ==
+            CLIENT_DIAG_GNSS_SV_POLY_VELOCITY_COF_SIZE) {
+        for (index = 0; index < GNSS_SV_POLY_VELOCITY_COF_SIZE; index++) {
+            diagGnssSvPolyPtr->velCof[index] = gnssSvPoly.velCof[index];
+        }
+    } else {
+        LOC_LOGe("array size for velCof not match");
+    }
+
+    diagGnssSvPolyPtr->gpsIscL1ca = gnssSvPoly.gpsIscL1ca;
+    diagGnssSvPolyPtr->gpsIscL2c = gnssSvPoly.gpsIscL2c;
+    diagGnssSvPolyPtr->gpsIscL5I5 = gnssSvPoly.gpsIscL5I5;
+    diagGnssSvPolyPtr->gpsIscL5Q5 = gnssSvPoly.gpsIscL5Q5;
+    diagGnssSvPolyPtr->gpsTgd = gnssSvPoly.gpsTgd;
+
+    diagGnssSvPolyPtr->gloTgdG1G2 = gnssSvPoly.gloTgdG1G2;
+    diagGnssSvPolyPtr->bdsTgdB1 = gnssSvPoly.bdsTgdB1;
+    diagGnssSvPolyPtr->bdsTgdB2 = gnssSvPoly.bdsTgdB2;
+    diagGnssSvPolyPtr->bdsTgdB2a = gnssSvPoly.bdsTgdB2a;
+    diagGnssSvPolyPtr->bdsIscB2a = gnssSvPoly.bdsIscB2a;
+    diagGnssSvPolyPtr->galBgdE1E5a = gnssSvPoly.galBgdE1E5a;
+    diagGnssSvPolyPtr->galBgdE1E5b = gnssSvPoly.galBgdE1E5b;
+    diagGnssSvPolyPtr->navicTgdL5 = gnssSvPoly.navicTgdL5;
+
+}
+
 }

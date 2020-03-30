@@ -1,6 +1,6 @@
 #!/bin/bash
 #==========================================================================
-#Copyright (c) 2018, The Linux Foundation. All rights reserved.
+#Copyright (c) 2018-2019, The Linux Foundation. All rights reserved.
 #
 #Redistribution and use in source and binary forms, with or without
 #modification, are permitted provided that the following conditions are
@@ -32,15 +32,15 @@
 #==========================================================================
 #
 # Usage:
-#     mkclientapidoc.sh [output-path]
+#     mkintegrationapidoc.sh [output-path]
 #
 # Note, this script requires the existence of the doxygen tool -
 # This script can be called from any directory
 #==========================================================================
 
 DIR="$( cd "$( dirname "$0" )" && pwd )"
-# the default doxygen configuration is LocationClientApiDoxygen.conf
-CONFIG=$DIR/LocationClientApiDoxygen.conf
+# the default doxygen configuration is LocationIntegrationApiDoxygen.conf
+CONFIG=$DIR/LocationIntegrationApiDoxygen.conf
 OUT="docs"
 
 # Show help message if requested, otherwise create output folder

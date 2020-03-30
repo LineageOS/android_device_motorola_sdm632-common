@@ -7,7 +7,7 @@ AC_PREREQ(2.61)
 # Initialize the location_client_api_testapp package version 1.0.0
 AC_INIT([location_client_api_testapp],1.0.0)
 # Does not strictly follow GNU Coding standards
-AM_INIT_AUTOMAKE([foreign])
+AM_INIT_AUTOMAKE([foreign subdir-objects])
 # Disables auto rebuilding of configure, Makefile.ins
 AM_MAINTAINER_MODE
 # Verifies the --srcdir is correct by checking for the path
@@ -37,6 +37,10 @@ PKG_CHECK_MODULES([LOCCLIENTAPI], [location-client-api])
 AC_SUBST([LOCCLIENTAPI_CFLAGS])
 AC_SUBST([LOCCLIENTAPI_LIBS])
 
+PKG_CHECK_MODULES([LOCINTEGRATIONAPI], [location-integration-api])
+AC_SUBST([LOCINTEGRATIONAPI_CFLAGS])
+AC_SUBST([LOCINTEGRATIONAPI_LIBS])
+
 AC_ARG_WITH([external_ap],
     AC_HELP_STRING([--with-external_ap=@<:@dir@:>@],
         [Using External Application Processor]),
@@ -45,11 +49,6 @@ AC_ARG_WITH([external_ap],
 
 if test "x$with_external_ap" != "xno"; then
     CPPFLAGS="${CPPFLAGS} -DFEATURE_EXTERNAL_AP"
-else
-    # Checks for libraries.
-    PKG_CHECK_MODULES([LOCHALDAEMON], [location-hal-daemon])
-    AC_SUBST([LOCHALDAEMON_CFLAGS])
-    AC_SUBST([LOCHALDAEMON_LIBS])
 fi
 
 AC_ARG_WITH([glib],

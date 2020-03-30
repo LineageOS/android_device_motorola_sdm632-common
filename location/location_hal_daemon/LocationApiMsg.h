@@ -1,4 +1,4 @@
-/* Copyright (c) 2018 The Linux Foundation. All rights reserved.
+/* Copyright (c) 2018-2020, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -53,7 +53,8 @@ Constants
 #define LOCATION_CLIENT_API_QSOCKET_HALDAEMON_INSTANCE_ID   (1)
 #define LOCATION_CLIENT_API_QSOCKET_CLIENT_SERVICE_ID       (5002)
 
-#define sLOCAL SOCKET_LOC_CLIENT_DIR LOC_CLIENT_NAME_PREFIX
+#define s_CLIENTAPI_LOCAL SOCKET_LOC_CLIENT_DIR  LOC_CLIENT_NAME_PREFIX
+#define s_INTAPI_LOCAL    SOCKET_LOC_CLIENT_DIR  LOC_INTAPI_NAME_PREFIX
 #define sEAP EAP_LOC_CLIENT_DIR LOC_CLIENT_NAME_PREFIX
 
 using namespace std;
@@ -108,9 +109,10 @@ public:
     }
     inline Type getNodeType() const {
         Type type = OTHER;
-        if (mNodePathnamePrefix.compare(0, string::npos, sLOCAL, sizeof(sLOCAL)-1) == 0) {
+        if (mNodePathnamePrefix.compare(0, sizeof(SOCKET_LOC_CLIENT_DIR)-1,
+                                        SOCKET_LOC_CLIENT_DIR) == 0) {
             type = LOCAL;
-        } else if (mNodePathnamePrefix.compare(0, string::npos, sEAP, sizeof(sEAP)-1) == 0) {
+        } else if (mNodePathnamePrefix.compare(0, sizeof(sEAP)-1, sEAP) == 0) {
             type = EAP;
         }
         return type;
@@ -134,14 +136,21 @@ public:
     }
 };
 
+enum ClientType {
+    LOCATION_CLIENT_API = 1,
+    LOCATION_INTEGRATION_API = 2,
+};
+
 class SockNodeLocal : public SockNode {
 public:
-    SockNodeLocal(int32_t pid, int32_t tid) : SockNode(pid, tid, sLOCAL) {}
+    SockNodeLocal(ClientType type, int32_t pid, int32_t tid) :
+        SockNode(pid, tid, (LOCATION_CLIENT_API == type) ? s_CLIENTAPI_LOCAL : s_INTAPI_LOCAL) {}
 };
 
 class SockNodeEap : public SockNode {
 public:
-    SockNodeEap(int32_t service, int32_t instance) : SockNode(service, instance, sEAP) {}
+    SockNodeEap(int32_t service, int32_t instance) :
+        SockNode(service, instance, sEAP) {}
 };
 
 /******************************************************************************
@@ -178,6 +187,10 @@ enum ELocMsgID {
     E_LOCAPI_GET_GNSS_ENGERY_CONSUMED_MSG_ID = 17,
 
     E_LOCAPI_LOCATION_SYSTEM_INFO_MSG_ID = 18,
+
+    // engine position report
+    E_LOCAPI_ENGINE_LOCATIONS_INFO_MSG_ID = 19,
+
     // batching session
     E_LOCAPI_START_BATCHING_MSG_ID = 20,
     E_LOCAPI_STOP_BATCHING_MSG_ID = 21,
@@ -196,16 +209,27 @@ enum ELocMsgID {
     //geofence breach
     E_LOCAPI_GEOFENCE_BREACH_MSG_ID = 29,
 
-    // engine position report
-    E_LOCAPI_ENGINE_LOCATIONS_INFO_MSG_ID = 30,
+    // Measurement reports
+    E_LOCAPI_MEAS_MSG_ID = 30,
+
+    // SV poly reports
+    E_LOCAPI_SV_POLY_MSG_ID = 31,
+
 
     // ping
-    E_LOCAPI_PINGTEST_MSG_ID = 99
+    E_LOCAPI_PINGTEST_MSG_ID = 99,
+
+    // integration API config request
+    E_INTAPI_CONFIG_CONSTRAINTED_TUNC_MSG_ID = 200,
+    E_INTAPI_CONFIG_POSITION_ASSISTED_CLOCK_ESTIMATOR_MSG_ID = 201,
+    E_INTAPI_CONFIG_SV_CONSTELLATION_MSG_ID  = 202,
+    E_INTAPI_CONFIG_AIDING_DATA_DELETION_MSG_ID  = 203,
+    E_INTAPI_CONFIG_LEVER_ARM_MSG_ID  = 204,
 };
 
 typedef uint32_t LocationCallbacksMask;
 enum ELocationCallbacksOption {
-    E_LOC_CB_TRACKING_BIT               = (1<<0), /**< Register for Location */
+    E_LOC_CB_DISTANCE_BASED_TRACKING_BIT= (1<<0), /**< Register for DBT location report */
     E_LOC_CB_GNSS_LOCATION_INFO_BIT     = (1<<1), /**< Register for GNSS Location */
     E_LOC_CB_GNSS_SV_BIT                = (1<<2), /**< Register for GNSS SV */
     E_LOC_CB_GNSS_NMEA_BIT              = (1<<3), /**< Register for GNSS NMEA */
@@ -215,13 +239,20 @@ enum ELocationCallbacksOption {
     E_LOC_CB_BATCHING_STATUS_BIT        = (1<<7), /**< Register for Batching  Status*/
     E_LOC_CB_GEOFENCE_BREACH_BIT        = (1<<8), /**< Register for Geofence Breach */
     E_LOC_CB_ENGINE_LOCATIONS_INFO_BIT  = (1<<9), /**< Register for multiple engine reports */
+    E_LOC_CB_SIMPLE_LOCATION_INFO_BIT   = (1<<10), /**< Register for simple location */
+    E_LOC_CB_GNSS_MEAS_BIT              = (1<<11), /**< Register for GNSS Measurements */
+    E_LOC_CB_GNSS_SV_POLY_BIT           = (1<<12), /**< Register for GNSS SV poly reports */
 };
 
 // Mask related to all info that are tied with a position session and need to be unsubscribed
 // when session is stopped
-#define LOCATION_SESSON_ALL_INFO_MASK (E_LOC_CB_TRACKING_BIT|E_LOC_CB_GNSS_LOCATION_INFO_BIT|\
+#define LOCATION_SESSON_ALL_INFO_MASK (E_LOC_CB_DISTANCE_BASED_TRACKING_BIT|\
+                                       E_LOC_CB_GNSS_LOCATION_INFO_BIT|\
                                        E_LOC_CB_GNSS_SV_BIT|E_LOC_CB_GNSS_NMEA_BIT|\
-                                       E_LOC_CB_GNSS_DATA_BIT|E_LOC_CB_ENGINE_LOCATIONS_INFO_BIT)
+                                       E_LOC_CB_GNSS_DATA_BIT|E_LOC_CB_GNSS_MEAS_BIT|\
+                                       E_LOC_CB_ENGINE_LOCATIONS_INFO_BIT|\
+                                       E_LOC_CB_SIMPLE_LOCATION_INFO_BIT|\
+                                       E_LOC_CB_GNSS_SV_POLY_BIT)
 
 typedef uint32_t EngineInfoCallbacksMask;
 enum EEngineInfoCallbacksMask {
@@ -310,8 +341,11 @@ IPC message structure - client registration
 // defintion for message with msg id of E_LOCAPI_CLIENT_REGISTER_MSG_ID
 struct LocAPIClientRegisterReqMsg: LocAPIMsgHeader
 {
-    inline LocAPIClientRegisterReqMsg(const char* name) :
-        LocAPIMsgHeader(name, E_LOCAPI_CLIENT_REGISTER_MSG_ID) { }
+    ClientType mClientType;
+
+    inline LocAPIClientRegisterReqMsg(const char* name, ClientType clientType) :
+        LocAPIMsgHeader(name, E_LOCAPI_CLIENT_REGISTER_MSG_ID),
+        mClientType(clientType) { }
 };
 
 // defintion for message with msg id of E_LOCAPI_CLIENT_DEREGISTER_MSG_ID
@@ -533,6 +567,69 @@ struct LocAPIGetGnssEnergyConsumedReqMsg: LocAPIMsgHeader
         LocAPIMsgHeader(name, E_LOCAPI_GET_GNSS_ENGERY_CONSUMED_MSG_ID) { }
 };
 
+struct LocConfigConstrainedTuncReqMsg: LocAPIMsgHeader
+{
+    bool     mEnable;
+    float    mTuncConstraint;
+    uint32_t mEnergyBudget;
+
+    inline LocConfigConstrainedTuncReqMsg(const char* name,
+                                          bool enable,
+                                          float tuncConstraint,
+                                          uint32_t energyBudget) :
+            LocAPIMsgHeader(name, E_INTAPI_CONFIG_CONSTRAINTED_TUNC_MSG_ID),
+            mEnable(enable),
+            mTuncConstraint(tuncConstraint),
+            mEnergyBudget(energyBudget) { }
+};
+
+struct LocConfigPositionAssistedClockEstimatorReqMsg: LocAPIMsgHeader
+{
+    bool     mEnable;
+    inline LocConfigPositionAssistedClockEstimatorReqMsg(const char* name,
+                                                         bool enable) :
+            LocAPIMsgHeader(name,
+                            E_INTAPI_CONFIG_POSITION_ASSISTED_CLOCK_ESTIMATOR_MSG_ID),
+            mEnable(enable) { }
+};
+
+struct LocConfigSvConstellationReqMsg: LocAPIMsgHeader
+{
+    bool mResetToDefault;
+    GnssSvTypeConfig mSvTypeConfig;
+    GnssSvIdConfig   mSvIdConfig;
+
+    inline LocConfigSvConstellationReqMsg(const char* name,
+                                          bool resetToDefault,
+                                          const GnssSvTypeConfig& svTypeConfig,
+                                          const GnssSvIdConfig& svIdConfig) :
+            LocAPIMsgHeader(name, E_INTAPI_CONFIG_SV_CONSTELLATION_MSG_ID),
+            mResetToDefault(resetToDefault),
+            mSvTypeConfig(svTypeConfig),
+            mSvIdConfig(svIdConfig){ }
+};
+
+// defintion for message with msg id of E_LOCAPI_CONTROL_DELETE_AIDING_DATA_MSG_ID
+struct LocConfigAidingDataDeletionReqMsg: LocAPIMsgHeader
+{
+    GnssAidingData mAidingData;
+
+    inline LocConfigAidingDataDeletionReqMsg(const char* name, GnssAidingData& aidingData) :
+        LocAPIMsgHeader(name, E_INTAPI_CONFIG_AIDING_DATA_DELETION_MSG_ID),
+        mAidingData(aidingData) { }
+};
+
+struct LocConfigLeverArmReqMsg: LocAPIMsgHeader
+{
+    LeverArmConfigInfo mLeverArmConfigInfo;
+
+    inline LocConfigLeverArmReqMsg(const char* name, const
+                                   LeverArmConfigInfo & configInfo) :
+        LocAPIMsgHeader(name, E_INTAPI_CONFIG_LEVER_ARM_MSG_ID),
+        mLeverArmConfigInfo(configInfo) { }
+};
+
+
 /******************************************************************************
 IPC message structure - indications
 ******************************************************************************/
@@ -636,6 +733,28 @@ struct LocAPIDataIndMsg : LocAPIMsgHeader
         GnssDataNotification& dataNotification) :
         LocAPIMsgHeader(name, E_LOCAPI_DATA_MSG_ID),
         gnssDataNotification(dataNotification) { }
+};
+
+// defintion for message with msg id of E_LOCAPI_MEAS_MSG_ID
+struct LocAPIMeasIndMsg : LocAPIMsgHeader
+{
+    GnssMeasurementsNotification gnssMeasurementsNotification;
+
+    inline LocAPIMeasIndMsg(const char* name,
+        GnssMeasurementsNotification& measurementsNotification) :
+        LocAPIMsgHeader(name, E_LOCAPI_MEAS_MSG_ID),
+        gnssMeasurementsNotification(measurementsNotification) { }
+};
+
+// defintion for message with msg id of E_LOCAPI_SV_POLY_MSG_ID
+struct LocAPIGnssSvPolyIndMsg : LocAPIMsgHeader
+{
+    GnssSvPolynomial gnssSvPolynomial;
+
+    inline LocAPIGnssSvPolyIndMsg(const char* name,
+            GnssSvPolynomial& gnssSvPolynomialNotification) :
+            LocAPIMsgHeader(name, E_LOCAPI_SV_POLY_MSG_ID),
+            gnssSvPolynomial(gnssSvPolynomialNotification) { }
 };
 
 // defintion for message with msg id of E_LOCAPI_GET_TOTAL_ENGERY_CONSUMED_BY_GPS_ENGINE_MSG_ID

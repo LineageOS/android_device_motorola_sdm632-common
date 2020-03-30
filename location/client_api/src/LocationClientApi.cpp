@@ -1,4 +1,4 @@
-/* Copyright (c) 2018 The Linux Foundation. All rights reserved.
+/* Copyright (c) 2018-2020, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -86,7 +86,13 @@ bool LocationClientApi::startPositionSession(
     // callback masks
     LocationCallbacks callbacksOption = {0};
     callbacksOption.responseCb = [](::LocationError err, uint32_t id) {};
-    callbacksOption.trackingCb = [](::Location n) {};
+    // only register for trackingCb if distance is not 0
+    if (distanceInMeters != 0) {
+        callbacksOption.trackingCb = [](::Location n) {};
+    } else {
+        // for time based, register gnss location cb
+        callbacksOption.gnssLocationInfoCb = [](::GnssLocationInfoNotification n) {};
+    }
     mApiImpl->updateCallbacks(callbacksOption);
 
     // options
@@ -136,6 +142,9 @@ bool LocationClientApi::startPositionSession(
     }
     if (gnssReportCallbacks.gnssDataCallback) {
        callbacksOption.gnssDataCb = [] (::GnssDataNotification n) {};
+    }
+    if (gnssReportCallbacks.gnssMeasurementsCallback) {
+        callbacksOption.gnssMeasurementsCb = [](::GnssMeasurementsNotification n) {};
     }
     mApiImpl->updateCallbacks(callbacksOption);
 
@@ -189,6 +198,12 @@ bool LocationClientApi::startPositionSession(
     }
     if (engReportCallbacks.gnssDataCallback) {
        callbacksOption.gnssDataCb = [] (::GnssDataNotification n) {};
+    }
+    if (engReportCallbacks.gnssMeasurementsCallback) {
+        callbacksOption.gnssMeasurementsCb = [](::GnssMeasurementsNotification n) {};
+    }
+    if (engReportCallbacks.gnssSvPolyCallback) {
+        callbacksOption.gnssSvPolynomialCb = [](::GnssSvPolynomial n) {};
     }
     mApiImpl->updateCallbacks(callbacksOption);
 
@@ -467,9 +482,13 @@ void LocationClientApi::getGnssEnergyConsumed(
         GnssEnergyConsumedCb gnssEnergyConsumedCallback,
         ResponseCb responseCallback) {
 
-    if (mApiImpl) {
+    if (mApiImpl && gnssEnergyConsumedCallback) {
         mApiImpl->getGnssEnergyConsumed(gnssEnergyConsumedCallback,
                                         responseCallback);
+    } else {
+        if (responseCallback) {
+            responseCallback(LOCATION_RESPONSE_NOT_SUPPORTED);
+        }
     }
 }
 
@@ -477,9 +496,13 @@ void LocationClientApi::updateLocationSystemInfoListener(
     LocationSystemInfoCb locSystemInfoCallback,
     ResponseCb responseCallback) {
 
-    if (mApiImpl) {
+    if (mApiImpl && locSystemInfoCallback) {
         mApiImpl->updateLocationSystemInfoListener(
             locSystemInfoCallback, responseCallback);
+    } else {
+        if (responseCallback) {
+            responseCallback(LOCATION_RESPONSE_NOT_SUPPORTED);
+        }
     }
 }
 
