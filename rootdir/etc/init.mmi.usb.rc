@@ -38,7 +38,6 @@ on init
     mkdir /config/usb_gadget/g1/functions/mtp.gs0
     mkdir /config/usb_gadget/g1/functions/ptp.gs1
     mkdir /config/usb_gadget/g1/functions/accessory.gs2
-    mkdir /config/usb_gadget/g1/functions/audio_source.gs2
     mkdir /config/usb_gadget/g1/functions/audio_source.gs3
     mkdir /config/usb_gadget/g1/functions/midi.gs5
     mkdir /config/usb_gadget/g1/functions/ffs.adb
@@ -215,7 +214,7 @@ on property:sys.usb.config=mtp,cdrom && property:sys.usb.configfs=1
     write /config/usb_gadget/g1/idProduct 0x2e61
     write /config/usb_gadget/g1/idVendor  0x22b8
     write /config/usb_gadget/g1/functions/mass_storage.0/lun.0/cdrom 1
-    write /config/usb_gadget/g1/functions/mass_storage.0/lun.0/file "/system/etc/cdrom"
+    write /config/usb_gadget/g1/functions/mass_storage.0/lun.0/file "/product/etc/cdrom"
     symlink /config/usb_gadget/g1/functions/mtp.gs0 /config/usb_gadget/g1/configs/b.1/f1
     symlink /config/usb_gadget/g1/functions/mass_storage.0  /config/usb_gadget/g1/configs/b.1/f2
     write /config/usb_gadget/g1/UDC ${sys.usb.controller}
@@ -233,7 +232,7 @@ on property:sys.usb.config=mtp,cdrom,adb && property:sys.usb.configfs=1
     write /config/usb_gadget/g1/idProduct 0x2e61
     write /config/usb_gadget/g1/idVendor  0x22b8
     write /config/usb_gadget/g1/functions/mass_storage.0/lun.0/cdrom 1
-    write /config/usb_gadget/g1/functions/mass_storage.0/lun.0/file "/system/etc/cdrom"
+    write /config/usb_gadget/g1/functions/mass_storage.0/lun.0/file "/product/etc/cdrom"
     symlink /config/usb_gadget/g1/functions/mtp.gs0 /config/usb_gadget/g1/configs/b.1/f1
     symlink /config/usb_gadget/g1/functions/mass_storage.0  /config/usb_gadget/g1/configs/b.1/f2
     write /config/usb_gadget/g1/UDC ${sys.usb.controller}
@@ -461,3 +460,112 @@ on property:sys.usb.ffs.ready=1 && property:sys.usb.config=diag,diag_mdm,qdss,qd
    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
    setprop sys.usb.state ${sys.usb.config}
 
+on property:sys.usb.config=rndis,diag,diag_mdm,qdss,qdss_mdm,serial_cdev,dpl && property:sys.usb.configfs=1
+     write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "rndis_diag_diag_mdm_qdss_qdss_mdm_dun_dpl"
+     rm /config/usb_gadget/g1/configs/b.1/f1
+     rm /config/usb_gadget/g1/configs/b.1/f2
+     rm /config/usb_gadget/g1/configs/b.1/f3
+     rm /config/usb_gadget/g1/configs/b.1/f4
+     rm /config/usb_gadget/g1/configs/b.1/f5
+     rm /config/usb_gadget/g1/configs/b.1/f6
+     rm /config/usb_gadget/g1/configs/b.1/f7
+     rm /config/usb_gadget/g1/configs/b.1/f8
+     rm /config/usb_gadget/g1/configs/b.1/f9
+     write /config/usb_gadget/g1/idVendor 0x05C6
+     write /config/usb_gadget/g1/idProduct 0x90E6
+     rmdir /config/usb_gadget/g2/functions/gsi.rndis
+     mkdir /config/usb_gadget/g1/functions/gsi.rndis
+     symlink /config/usb_gadget/g1/functions/${vendor.usb.rndis.func.name}.rndis /config/usb_gadget/g1/configs/b.1/f1
+     symlink /config/usb_gadget/g1/functions/diag.diag /config/usb_gadget/g1/configs/b.1/f2
+     symlink /config/usb_gadget/g1/functions/diag.diag_mdm /config/usb_gadget/g1/configs/b.1/f3
+     symlink /config/usb_gadget/g1/functions/qdss.qdss /config/usb_gadget/g1/configs/b.1/f4
+     symlink /config/usb_gadget/g1/functions/qdss.qdss_mdm /config/usb_gadget/g1/configs/b.1/f5
+     symlink /config/usb_gadget/g1/functions/cser.dun.0 /config/usb_gadget/g1/configs/b.1/f6
+     symlink /config/usb_gadget/g1/functions/${vendor.usb.rmnet.func.name}.${vendor.usb.dpl.inst.name} /config/usb_gadget/g1/configs/b.1/f7
+     write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+     setprop sys.usb.state ${sys.usb.config}
+
+ on property:sys.usb.config=rndis,diag,diag_mdm,qdss,qdss_mdm,serial_cdev,dpl,adb && property:sys.usb.configfs=1
+     start adbd
+
+ on property:sys.usb.ffs.ready=1 && property:sys.usb.config=rndis,diag,diag_mdm,qdss,qdss_mdm,serial_cdev,dpl,adb && property:sys.usb.configfs=1
+     write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "rndis_diag_diag_mdm_qdss_qdss_mdm_dun_dpl_adb"
+     rm /config/usb_gadget/g1/configs/b.1/f1
+     rm /config/usb_gadget/g1/configs/b.1/f2
+     rm /config/usb_gadget/g1/configs/b.1/f3
+     rm /config/usb_gadget/g1/configs/b.1/f4
+     rm /config/usb_gadget/g1/configs/b.1/f5
+     rm /config/usb_gadget/g1/configs/b.1/f6
+     rm /config/usb_gadget/g1/configs/b.1/f7
+     rm /config/usb_gadget/g1/configs/b.1/f8
+     rm /config/usb_gadget/g1/configs/b.1/f9
+     write /config/usb_gadget/g1/idVendor 0x05C6
+     write /config/usb_gadget/g1/idProduct 0x90E7
+     rmdir /config/usb_gadget/g2/functions/gsi.rndis
+     mkdir /config/usb_gadget/g1/functions/gsi.rndis
+     symlink /config/usb_gadget/g1/functions/${vendor.usb.rndis.func.name}.rndis /config/usb_gadget/g1/configs/b.1/f1
+     symlink /config/usb_gadget/g1/functions/diag.diag /config/usb_gadget/g1/configs/b.1/f2
+     symlink /config/usb_gadget/g1/functions/diag.diag_mdm /config/usb_gadget/g1/configs/b.1/f3
+     symlink /config/usb_gadget/g1/functions/qdss.qdss /config/usb_gadget/g1/configs/b.1/f4
+     symlink /config/usb_gadget/g1/functions/qdss.qdss_mdm /config/usb_gadget/g1/configs/b.1/f5
+     symlink /config/usb_gadget/g1/functions/cser.dun.0 /config/usb_gadget/g1/configs/b.1/f6
+     symlink /config/usb_gadget/g1/functions/${vendor.usb.rmnet.func.name}.${vendor.usb.dpl.inst.name} /config/usb_gadget/g1/configs/b.1/f7
+     symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f8
+     write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+     setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.config=diag,diag_mdm,qdss,qdss_mdm,serial_cdev,serial_cdev_mdm,mass_storage && property:sys.usb.configfs=1
+   write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "diag_diag_mdm,qdss_qdss_mdm_dun_dun_mdm_dpl_rmnet"
+   rm /config/usb_gadget/g1/configs/b.1/f1
+   rm /config/usb_gadget/g1/configs/b.1/f2
+   rm /config/usb_gadget/g1/configs/b.1/f3
+   rm /config/usb_gadget/g1/configs/b.1/f4
+   rm /config/usb_gadget/g1/configs/b.1/f5
+   rm /config/usb_gadget/g1/configs/b.1/f6
+   rm /config/usb_gadget/g1/configs/b.1/f7
+   rm /config/usb_gadget/g1/configs/b.1/f8
+   rm /config/usb_gadget/g1/configs/b.1/f9
+   write /config/usb_gadget/g1/idVendor 0x05C6
+   write /config/usb_gadget/g1/idProduct 0x90DD
+   symlink /config/usb_gadget/g1/functions/diag.diag /config/usb_gadget/g1/configs/b.1/f1
+   symlink /config/usb_gadget/g1/functions/diag.diag_mdm /config/usb_gadget/g1/configs/b.1/f2
+   symlink /config/usb_gadget/g1/functions/qdss.qdss /config/usb_gadget/g1/configs/b.1/f3
+   symlink /config/usb_gadget/g1/functions/qdss.qdss_mdm /config/usb_gadget/g1/configs/b.1/f4
+   symlink /config/usb_gadget/g1/functions/cser.dun.0 /config/usb_gadget/g1/configs/b.1/f5
+   symlink /config/usb_gadget/g1/functions/cser.dun.2 /config/usb_gadget/g1/configs/b.1/f6
+   write /config/usb_gadget/g1/functions/mass_storage.0/lun.0/cdrom 1
+   write /config/usb_gadget/g1/functions/mass_storage.0/lun.0/file "/product/etc/cdrom"
+   symlink /config/usb_gadget/g1/functions/mass_storage.0  /config/usb_gadget/g1/configs/b.1/f7
+   symlink /config/usb_gadget/g1/functions/mtp.gs0 /config/usb_gadget/g1/configs/b.1/f8
+   write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+   setprop sys.usb.state ${sys.usb.config}
+
+on property:sys.usb.config=diag,diag_mdm,qdss,qdss_mdm,serial_cdev,serial_cdev_mdm,mass_storage,adb && property:sys.usb.configfs=1
+   start adbd
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=diag,diag_mdm,qdss,qdss_mdm,serial_cdev,serial_cdev_mdm,mass_storage,adb && property:sys.usb.configfs=1
+   write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "diag_diag_mdm,qdss_qdss_mdm_dun_dun_mdm_dpl_rmnet_adb"
+   rm /config/usb_gadget/g1/configs/b.1/f1
+   rm /config/usb_gadget/g1/configs/b.1/f2
+   rm /config/usb_gadget/g1/configs/b.1/f3
+   rm /config/usb_gadget/g1/configs/b.1/f4
+   rm /config/usb_gadget/g1/configs/b.1/f5
+   rm /config/usb_gadget/g1/configs/b.1/f6
+   rm /config/usb_gadget/g1/configs/b.1/f7
+   rm /config/usb_gadget/g1/configs/b.1/f8
+   rm /config/usb_gadget/g1/configs/b.1/f9
+   write /config/usb_gadget/g1/idVendor 0x05C6
+   write /config/usb_gadget/g1/idProduct 0x90DE
+   symlink /config/usb_gadget/g1/functions/diag.diag /config/usb_gadget/g1/configs/b.1/f1
+   symlink /config/usb_gadget/g1/functions/diag.diag_mdm /config/usb_gadget/g1/configs/b.1/f2
+   symlink /config/usb_gadget/g1/functions/qdss.qdss /config/usb_gadget/g1/configs/b.1/f3
+   symlink /config/usb_gadget/g1/functions/qdss.qdss_mdm /config/usb_gadget/g1/configs/b.1/f4
+   symlink /config/usb_gadget/g1/functions/cser.dun.0 /config/usb_gadget/g1/configs/b.1/f5
+   symlink /config/usb_gadget/g1/functions/cser.dun.2 /config/usb_gadget/g1/configs/b.1/f6
+   write /config/usb_gadget/g1/functions/mass_storage.0/lun.0/cdrom 1
+   write /config/usb_gadget/g1/functions/mass_storage.0/lun.0/file "/product/etc/cdrom"
+   symlink /config/usb_gadget/g1/functions/mass_storage.0  /config/usb_gadget/g1/configs/b.1/f7
+   symlink /config/usb_gadget/g1/functions/mtp.gs0 /config/usb_gadget/g1/configs/b.1/f8
+   symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f9
+   write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+   setprop sys.usb.state ${sys.usb.config}
