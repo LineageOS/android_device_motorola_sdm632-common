@@ -19,6 +19,8 @@ on init
    # Change ownership for for cabc feature
    chown system system /sys/class/graphics/fb0/cabc
    setprop sys.usb.ffs.aio_compat 1
+   # Set lz4 compression algorithm as default
+   write /sys/block/zram0/comp_algorithm lz4
 
 on boot
    # change permission for capsensor

@@ -3,6 +3,11 @@ on boot
     # Change permission for type C params
     chown root oem_5004 /sys/devices/soc/78b6000.i2c/i2c-2/2-0022/CC_state
     chown root oem_5004 /sys/devices/soc/78b6000.i2c/i2c-2/2-0022/enable_vconn
+
+    # usb driver parameter permissions
+    chown root oem_5004 /sys/module/phy_msm_usb/parameters/host_mode_disable
+    chmod 0660 /sys/module/phy_msm_usb/parameters/host_mode_disable
+
     # Change ownership and permission for AMPS factory testing
     chown root oem_5004 /sys/class/i2c-adapter/i2c-2/2-002d/enable
     chmod 0660 /sys/class/i2c-adapter/i2c-2/2-002d/enable
