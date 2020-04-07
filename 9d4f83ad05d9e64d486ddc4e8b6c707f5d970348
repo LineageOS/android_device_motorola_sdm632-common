@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0787b8b1_55f469f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 13028
+      },
+      "writtenOn": "2020-04-07T08:18:49Z",
+      "side": 1,
+      "message": "Code says that you are vibrating when disabling DND as well if I read that correctly. Commit message should reflect that as well",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 65
+      },
+      "revId": "9d4f83ad05d9e64d486ddc4e8b6c707f5d970348",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d793c79d_391017c7",
+        "filename": "LineageActions/src/org/lineageos/settings/device/actions/FlipToMute.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 13028
+      },
+      "writtenOn": "2020-04-07T08:18:49Z",
+      "side": 1,
+      "message": "This has been deprecated in API level 26 (Android 8.0) (see https://developer.android.com/reference/android/os/Vibrator#vibrate(long) )\nUse\nv.vibrate(VibrationEffect.createOneShot(250, VibrationEffect.DEFAULT_AMPLITUDE));\ninstead\nAlso would recommend to check if vibrator returns a valid object and allows vibration at all:\n\nVibrator v \u003d (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);\nif (v !\u003d null \u0026\u0026 v.hasVibrator()) {\n    v.vibrate(VibrationEffect.createOneShot(250, VibrationEffect.DEFAULT_AMPLITUDE));\n}",
+      "range": {
+        "startLine": 127,
+        "startChar": 8,
+        "endLine": 127,
+        "endChar": 23
+      },
+      "revId": "9d4f83ad05d9e64d486ddc4e8b6c707f5d970348",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": true
+    }
+  ]
+}
