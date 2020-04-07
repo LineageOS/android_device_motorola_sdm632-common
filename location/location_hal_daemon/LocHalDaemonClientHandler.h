@@ -1,4 +1,4 @@
-/* Copyright (c) 2018, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2018-2020, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -48,9 +48,11 @@ LocHalDaemonClientHandler
 class LocHalDaemonClientHandler
 {
 public:
-    inline LocHalDaemonClientHandler(LocationApiService* service, const std::string& clientname) :
+    inline LocHalDaemonClientHandler(LocationApiService* service, const std::string& clientname,
+                                     ClientType clientType) :
                 mService(service),
                 mName(clientname),
+                mClientType(clientType),
                 mCapabilityMask(0),
                 mTracking(false),
                 mBatching(false),
@@ -58,13 +60,19 @@ public:
                 mBatchingId(0),
                 mBatchingMode(BATCHING_MODE_NO_AUTO_REPORT),
                 mLocationApi(nullptr),
+                mCallbacks{},
                 mPendingMessages(),
                 mGfPendingMessages(),
                 mSubscriptionMask(0),
+                mEngineInfoRequestMask(0),
                 mGeofenceIds(nullptr),
                 mIpcSender(createSender(clientname.c_str())) {
-        updateSubscription(0);
-        mLocationApi = LocationAPI::createInstance(mCallbacks);
+
+
+        if (mClientType == LOCATION_CLIENT_API) {
+            updateSubscription(E_LOC_CB_GNSS_LOCATION_INFO_BIT);
+            mLocationApi = LocationAPI::createInstance(mCallbacks);
+        }
     }
 
     static shared_ptr<LocIpcSender> createSender(const string socket);
@@ -80,6 +88,7 @@ public:
     void stopTracking();
     void updateTrackingOptions(LocationOptions & locOptions);
     void onGnssEnergyConsumedInfoAvailable(LocAPIGnssEnergyConsumedIndMsg &msg);
+    void onControlResponseCb(LocationError err, ELocMsgID msgId);
     bool hasPendingEngineInfoRequest(uint32_t mask);
     void addEngineInfoRequst(uint32_t mask);
 
@@ -126,7 +135,8 @@ private:
     void onGnssSvCb(GnssSvNotification gnssSvNotification);
     void onGnssNmeaCb(GnssNmeaNotification);
     void onGnssDataCb(GnssDataNotification gnssDataNotification);
-    void onGnssMeasurementsCb(GnssMeasurementsNotification);
+    void onGnssMeasurementsCb(GnssMeasurementsNotification gnssMeasurementsNotification);
+    void onGnssSvPolynomialCb(GnssSvPolynomial gnssSvPolynomialNotification);
     void onLocationSystemInfoCb(LocationSystemInfo);
     void onLocationApiDestroyCompleteCb();
 
@@ -141,11 +151,14 @@ private:
         return LocIpc::send(*mIpcSender, pmsg, msglen);
     }
 
+    uint32_t getSupportedTbf (uint32_t tbfMsec);
+
     // pointer to parent service
     LocationApiService* mService;
 
     // name of this client
     const std::string mName;
+    ClientType mClientType;
 
     // LocationAPI interface
     LocationCapabilitiesMask mCapabilityMask;

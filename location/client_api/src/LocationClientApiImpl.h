@@ -1,4 +1,4 @@
-/* Copyright (c) 2018 The Linux Foundation. All rights reserved.
+/* Copyright (c) 2018-2020, The Linux Foundation. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -70,9 +70,15 @@ static void translateDiagGnssMeasUsageInfo(clientDiagGnssMeasUsageInfo& out,
         const GnssMeasUsageInfo& in);
 void populateClientDiagLocation(clientDiagGnssLocationStructType* diagGnssLocPtr,
         const GnssLocation& gnssLocation);
+void populateClientDiagMeasurements(clientDiagGnssMeasurementsStructType* diagGnssMeasPtr,
+        const GnssMeasurements& gnssMeasurements);
 static void translateDiagGnssSv(clientDiagGnssSv& out, const GnssSv& in);
 void populateClientDiagGnssSv(clientDiagGnssSvStructType* diagGnssSvPtr,
         std::vector<GnssSv>& gnssSvs);
+void populateClientDiagNmea(clientDiagGnssNmeaStructType *diagGnssNmeaPtr,
+        const LocAPINmeaSerializedPayload &nmeaSerializedPayload);
+void populateClientDiagSvPoly(clientDiagGnssSvPoly *diagGnssSvPolyPtr,
+        const GnssSvPoly &gnssSvPoly);
 #endif // FEATURE_EXTERNAL_AP
 
 enum ReportCbEnumType {
@@ -84,6 +90,17 @@ enum ReportCbEnumType {
      *  etc and also for location of other engines running in the
      *  system */
     REPORT_CB_ENGINE_INFO = 2,
+};
+
+struct ClientCallbacks {
+    CapabilitiesCb capabilitycb;
+    ResponseCb responsecb;
+    CollectiveResponseCb collectivecb;
+    LocationCb locationcb;
+    BatchingCb batchingcb;
+    GeofenceBreachCb gfbreachcb;
+    GnssReportCbs gnssreportcbs;
+    EngineReportCbs engreportcbs;
 };
 
 typedef std::function<void(
@@ -150,6 +167,14 @@ public:
     // other
     virtual uint32_t* gnssUpdateConfig(GnssConfig config) override;
     virtual uint32_t gnssDeleteAidingData(GnssAidingData& data) override;
+    // config API
+    virtual uint32_t resetConstellationConfig() override;
+    virtual uint32_t configConstellations(const GnssSvTypeConfig& svTypeConfig,
+                                          const GnssSvIdConfig&   svIdConfig) override;
+    virtual uint32_t configConstrainedTimeUncertainty(
+            bool enable, float tuncThreshold, uint32_t energyBudget) override;
+    virtual uint32_t configPositionAssistedClockEstimator(bool enable) override;
+    virtual uint32_t configLeverArm(const LeverArmConfigInfo& configInfo) override;
 
     // other interface
     void updateNetworkAvailability(bool available);
@@ -216,6 +241,8 @@ private:
     GnssSvCb                mGnssSvCb;
     GnssNmeaCb              mGnssNmeaCb;
     GnssDataCb              mGnssDataCb;
+    GnssMeasurementsCb      mGnssMeasurementsCb;
+    GnssSvPolyCb            mGnssSvPolyCb;
 
     GnssEnergyConsumedCb    mGnssEnergyConsumedInfoCb;
     ResponseCb              mGnssEnergyConsumedResponseCb;

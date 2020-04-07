@@ -4,7 +4,7 @@ AM_CFLAGS = \
     $(GPSUTILS_CFLAGS) \
     $(LOCUTILS_CFLAGS) \
     $(LOCCLIENTAPI_CFLAGS) \
-    $(LOCHALDAEMON_CFLAGS) \
+    $(LOCINTEGRATIONAPI_CFLAGS) \
     -std=c++11
 # HALDAEMON is requird only for msg.h
 
@@ -12,7 +12,8 @@ ACLOCAL_AMFLAGS = -I m4
 AM_CPPFLAGS = -std=c++11
 
 requiredlibs = \
-    $(LOCCLIENTAPI_LIBS)
+    $(LOCCLIENTAPI_LIBS) \
+    $(LOCINTEGRATIONAPI_LIBS)
 
 h_sources =
 

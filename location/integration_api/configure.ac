@@ -1,11 +1,11 @@
-# configure.ac -- Autoconf script for gps location-client-api
+# configure.ac -- Autoconf script for gps location-integration-api
 #
 # Process this file with autoconf to produce a configure script
 
 # Requires autoconf tool later than 2.61
 AC_PREREQ(2.61)
-# Initialize the location_client_api package version 1.0.0
-AC_INIT([location-client-api],1.0.0)
+# Initialize the location_integration_api package version 1.0.0
+AC_INIT([location-integration-api],1.0.0)
 # Does not strictly follow GNU Coding standards
 AM_INIT_AUTOMAKE([foreign subdir-objects])
 # Disables auto rebuilding of configure, Makefile.ins
@@ -42,15 +42,6 @@ AC_ARG_WITH([external_ap],
 
 if test "x$with_external_ap" != "xno"; then
     CPPFLAGS="${CPPFLAGS} -DFEATURE_EXTERNAL_AP"
-else
-    # Checks for libraries.
-    PKG_CHECK_MODULES([DIAGIFACE], [loc-diag-iface])
-    AC_SUBST([DIAGIFACE_CFLAGS])
-    AC_SUBST([DIAGIFACE_LIBS])
-
-    PKG_CHECK_MODULES([DIAG], [diag])
-    AC_SUBST([DIAG_CFLAGS])
-    AC_SUBST([DIAG_LIBS])
 fi
 
 AM_CONDITIONAL(USE_EXTERNAL_AP, test "x${with_external_ap}" = "xyes")
@@ -76,7 +67,7 @@ AM_CONDITIONAL(USE_GLIB, test "x${with_glib}" = "xyes")
 
 AC_CONFIG_FILES([ \
         Makefile \
-        location-client-api.pc
+        location-integration-api.pc
         ])
 
 AC_OUTPUT
