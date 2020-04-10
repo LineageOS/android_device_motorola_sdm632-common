@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "936163e6_5412bc3e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 13028
+      },
+      "writtenOn": "2020-04-10T06:12:24Z",
+      "side": 1,
+      "message": "which \"depreciated\" code was updated?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 25
+      },
+      "revId": "ecf62b7b8484047a29e8969cc6192f4cd58ae82d",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5eb9ae60_ba615749",
+        "filename": "LineageActions/src/org/lineageos/settings/device/actions/FlipToMute.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 13028
+      },
+      "writtenOn": "2020-04-10T06:12:24Z",
+      "side": 1,
+      "message": "if you change the var declaration to name this \"mCanVibrate\", you obviously should rename the occurances as well",
+      "range": {
+        "startLine": 113,
+        "startChar": 12,
+        "endLine": 113,
+        "endChar": 30
+      },
+      "revId": "ecf62b7b8484047a29e8969cc6192f4cd58ae82d",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef24fd34_47546a08",
+        "filename": "LineageActions/src/org/lineageos/settings/device/actions/FlipToMute.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 13028
+      },
+      "writtenOn": "2020-04-10T06:12:24Z",
+      "side": 1,
+      "message": "same",
+      "range": {
+        "startLine": 119,
+        "startChar": 16,
+        "endLine": 119,
+        "endChar": 26
+      },
+      "revId": "ecf62b7b8484047a29e8969cc6192f4cd58ae82d",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d396ad6f_86117e6a",
+        "filename": "LineageActions/src/org/lineageos/settings/device/actions/FlipToMute.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 13028
+      },
+      "writtenOn": "2020-04-10T06:12:24Z",
+      "side": 1,
+      "message": "spaces instead of tabs",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 130,
+        "endChar": 2
+      },
+      "revId": "ecf62b7b8484047a29e8969cc6192f4cd58ae82d",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": true
+    }
+  ]
+}
