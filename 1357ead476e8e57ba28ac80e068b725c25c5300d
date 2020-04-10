@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94fd32c4_7e3f1fd5",
+        "filename": "LineageActions/src/org/lineageos/settings/device/actions/FlipToMute.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 13028
+      },
+      "writtenOn": "2020-04-10T08:19:56Z",
+      "side": 1,
+      "message": "4 spaces, not 8?!",
+      "range": {
+        "startLine": 126,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 5
+      },
+      "revId": "1357ead476e8e57ba28ac80e068b725c25c5300d",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": true
+    }
+  ]
+}
