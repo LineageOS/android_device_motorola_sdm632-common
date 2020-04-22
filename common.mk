@@ -240,6 +240,7 @@ PRODUCT_PACKAGES += \
     init.mmi.usb.rc \
     init.mmi.rc \
     init.qcom.rc \
+    init.system_fm.rc \
     init.target.rc \
     fstab.qcom \
     ueventd.qcom.rc

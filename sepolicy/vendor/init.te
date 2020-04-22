@@ -9,3 +9,5 @@ allow init mnt_product_file:dir mounton;
 allow init bt_firmware_file:filesystem getattr;
 allow init firmware_file:filesystem getattr;
 allow init fsg_firmware_file:filesystem getattr;
+
+allow init sysfs_fm:file rw_file_perms;
