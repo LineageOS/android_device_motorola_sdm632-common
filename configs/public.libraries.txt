@@ -12,3 +12,5 @@ libOpenCL.so
 libfastcvopt.so
 libmcf-qc-fd-offline.so
 libadspd.so
+libprotobuf-cpp-full.so
+libprotobuf-cpp-lite.so
