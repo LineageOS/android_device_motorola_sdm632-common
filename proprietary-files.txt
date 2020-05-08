@@ -1,3 +1,5 @@
+### All blobs from this list, unless pinned and noted as otherwise,
+##  are from river-user-10-QPU30.52-2-5ecf2
 # ADSP
 vendor/bin/adsprpcd
 vendor/lib/libadsp_default_listener.so
