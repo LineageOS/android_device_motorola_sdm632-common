@@ -656,14 +656,6 @@ vendor/radio/qcril_database/upgrade/16_version_qcrildb.sql
 
 # Radio - IMS
 -product/priv-app/ims/ims.apk|d25e4324fc021325eb7882c55583c5587c51b4a0
-lib/android.hardware.camera.common@1.0.so
-lib/android.hardware.camera.device@1.0.so
-lib/android.hardware.camera.device@3.2.so
-lib/android.hardware.camera.provider@2.4.so
-lib64/android.hardware.camera.common@1.0.so
-lib64/android.hardware.camera.device@1.0.so
-lib64/android.hardware.camera.device@3.2.so
-lib64/android.hardware.camera.provider@2.4.so
 product/framework/com.qualcomm.qti.imscmservice-V2.0-java.jar
 product/framework/com.qualcomm.qti.imscmservice-V2.1-java.jar
 product/framework/com.qualcomm.qti.imscmservice-V2.2-java.jar
