@@ -37,6 +37,7 @@
 #include <android-base/properties.h>
 #define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
 #include <sys/_system_properties.h>
+#include <init/DeviceLibinit.h>
 
 #include "vendor_init.h"
 #include "property_service.h"
@@ -109,4 +110,6 @@ void vendor_load_properties()
     // Setting carrier prop
     std::string carrier = GetProperty("ro.boot.carrier", "unknown");
     property_override("ro.carrier", carrier.c_str());
+
+    vendor_load_device_properties();
 }

@@ -14,12 +14,16 @@
 // limitations under the License.
 //
 
-cc_library_static {
+motorola_sdm632_init_library_static {
     name: "libinit_sdm632",
     recovery_available: true,
-    srcs: ["init_sdm632.cpp"],
+    srcs: [
+        "init_sdm632.cpp",
+        "DeviceLibinit.cpp"
+    ],
     include_dirs: [
         "system/core/base/include",
-        "system/core/init"
+        "system/core/init",
+        "device/motorola/sdm632-common"
     ]
 }
