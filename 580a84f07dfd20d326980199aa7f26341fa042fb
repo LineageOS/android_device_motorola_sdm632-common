@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a9103896_07855eb6",
+        "filename": "rootdir/etc/init.target.rc",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2020-07-22T05:49:00Z",
+      "side": 1,
+      "message": "this whole bit was removed in later CLs I think: https://review.lineageos.org/c/LineageOS/android_device_oneplus_bacon/+/279654",
+      "range": {
+        "startLine": 91,
+        "startChar": 1,
+        "endLine": 94,
+        "endChar": 45
+      },
+      "revId": "580a84f07dfd20d326980199aa7f26341fa042fb",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": true
+    }
+  ]
+}
