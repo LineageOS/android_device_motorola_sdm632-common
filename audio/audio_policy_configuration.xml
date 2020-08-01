@@ -172,33 +172,6 @@
             </routes>
         </module>
 
-        <module name="vx_motvr" halVersion="2.0">
-            <mixPorts>
-                <mixPort name="primary input" role="sink" flags="AUDIO_INPUT_FLAG_HW_HOTWORD">
-                    <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
-                             samplingRates="16000"
-                             channelMasks="AUDIO_CHANNEL_IN_MONO"/>
-                </mixPort>
-                <mixPort name="trigger" role="sink" flags="AUDIO_INPUT_FLAG_HW_HOTWORD|AUDIO_INPUT_FLAG_CAPTURE_TRIGGER_AUDIO">
-                    <profile name="" format="AUDIO_FORMAT_PCM_16_BIT"
-                             samplingRates="16000"
-                             channelMasks="AUDIO_CHANNEL_IN_MONO"/>
-                </mixPort>
-            </mixPorts>
-            <devicePorts>
-                <devicePort tagName="Built-In Mic" type="AUDIO_DEVICE_IN_BUILTIN_MIC" role="source" address="bottom">
-                </devicePort>
-                <devicePort tagName="Wired Headset Mic" type="AUDIO_DEVICE_IN_WIRED_HEADSET" role="source">
-                </devicePort>
-            </devicePorts>
-            <routes>
-                <route type="mix" sink="primary input"
-                       sources="Built-In Mic,Wired Headset Mic"/>
-                <route type="mix" sink="trigger"
-                       sources="Built-In Mic,Wired Headset Mic"/>
-            </routes>
-        </module>
-
         <!-- A2DP Input Audio HAL -->
         <xi:include href="a2dp_in_audio_policy_configuration.xml"/>
 
