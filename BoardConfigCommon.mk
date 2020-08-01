@@ -238,7 +238,7 @@ TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.qcom
 BOARD_ROOT_EXTRA_FOLDERS := persist
 
 # Vendor Security Patch Level
-VENDOR_SECURITY_PATCH := 2019-11-01
+VENDOR_SECURITY_PATCH := 2020-03-01
 
 # SELinux
 include device/qcom/sepolicy-legacy-um/sepolicy.mk
