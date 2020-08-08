@@ -56,6 +56,4 @@
 
 /(vendor|system/vendor)/bin/capsense_reset              u:object_r:capsense_reset_exec:s0
 
-/(vendor|system/vendor)/bin/init\.oem\.panel\.sh        u:object_r:init-oem-panel-sh_exec:s0
-
 /data/vendor/misc/cutback(/.*)?                         u:object_r:vendor_radio_data_file:s0

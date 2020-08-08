@@ -21,9 +21,6 @@ on init
     chown system log /proc/driver/mmi_annotate
     chmod 0640 /proc/driver/mmi_annotate
 
-on fs
-    start vendor.oem-panel-sh
-
 on post-fs
     mkdir /mnt/vendor/persist/camera 0755 oem_5004 oem_5004
     mkdir /mnt/vendor/persist/camera/dualcal 0775 camera oem_5004
@@ -277,12 +274,6 @@ on property:ro.vendor.hw.dualsim=false
 
 on property:sys.sysctl.swappiness=*
     write /proc/sys/vm/swappiness ${sys.sysctl.swappiness}
-
-service vendor.oem-panel-sh /vendor/bin/init.oem.panel.sh
-    class core
-    user root
-    oneshot
-    disabled
 
 service vendor.charge_only_mode /vendor/bin/charge_only_mode
     user root
