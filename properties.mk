@@ -50,13 +50,15 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 # Bluetooth
 PRODUCT_PROPERTY_OVERRIDES += \
     bluetooth.hfp.client=1 \
-    ro.qualcomm.bt.hci_transport=smd
+    ro.qualcomm.bt.hci_transport=smd \
+    persist.vendor.qcom.bluetooth.enable.splita2dp=false
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
     vidc.enc.dcvs.extra-buff-count=2 \
     persist.vendor.camera.preview.ubwc=0 \
-    vendor.video.disable.ubwc=1
+    vendor.video.disable.ubwc=1 \
+    vendor.vidc.disable.split.mode=1
 
 # Codec2 switch
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -85,6 +87,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # FM
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.fm.use_audio_session=true
+
+# Media
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    media.stagefright.thumbnail.prefer_hw_codecs=true
 
 # OMX
 # Rank OMX SW codecs lower than OMX HW codecs
@@ -182,7 +188,8 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     ro.surface_flinger.vsync_event_phase_offset_ns=2000000 \
     ro.surface_flinger.vsync_sf_event_phase_offset_ns=6000000 \
     ro.surface_flinger.has_wide_color_display=true \
-    ro.surface_flinger.use_color_management=true
+    ro.surface_flinger.use_color_management=true \
+    ro.surface_flinger.running_without_sync_framework=true
 
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.early_phase_offset_ns=1500000 \
