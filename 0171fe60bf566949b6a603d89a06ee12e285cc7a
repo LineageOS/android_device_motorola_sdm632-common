@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "23a42d5e_bc6e3da9",
+        "filename": "properties.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 17793
+      },
+      "writtenOn": "2020-08-17T11:57:16Z",
+      "side": 1,
+      "message": "\"pronto\" is default for this props",
+      "revId": "0171fe60bf566949b6a603d89a06ee12e285cc7a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cdecff9_b0fa7956",
+        "filename": "properties.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 17793
+      },
+      "writtenOn": "2020-08-17T11:57:16Z",
+      "side": 1,
+      "message": "is this really needed? what does it fix?",
+      "revId": "0171fe60bf566949b6a603d89a06ee12e285cc7a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": true
+    }
+  ]
+}
