@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "bc2dc22c_d78bd60c",
+        "filename": "properties.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2020-08-17T22:41:13Z",
+      "side": 1,
+      "message": "they\u0027re not important to this device - really only important on other platforms.",
+      "revId": "0171fe60bf566949b6a603d89a06ee12e285cc7a",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0cdecff9_b0fa7956",
         "filename": "properties.mk",
         "patchSetId": 1
