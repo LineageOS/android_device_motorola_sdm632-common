@@ -9,3 +9,9 @@ set_prop(vendor_init, vendor_aov_prop)
 unix_socket_connect(hal_audio_default, property, init)
 allow hal_audio_default self:binder { call transfer };
 allow hal_audio_default self:fd use;
+
+allow hal_audio_default cutback_socket:sock_file write;
+allow hal_audio_default fwk_sensor_hwservice:hwservice_manager find;
+allow hal_audio_default mnt_vendor_file:file { getattr open read };
+allow hal_audio_default rild:unix_stream_socket connectto;
+allow hal_audio_default system_server:binder { call transfer };
