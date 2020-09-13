@@ -411,6 +411,7 @@ PRODUCT_PACKAGES += \
 
 # Shims
 PRODUCT_PACKAGES += \
+    libcutils_shim \
     libqsap_shim
 
 # Soong
