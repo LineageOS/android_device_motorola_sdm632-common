@@ -44,7 +44,7 @@ on post-fs
     mkdir /mnt/vendor/persist/wifi 0755 oem_5004 oem_5004
     mkdir /mnt/vendor/persist/bt 0755 oem_5004 bluetooth
     mkdir /persist/public/usc_dm 0775 radio radio
-    mkdir /persist/sds 0700 vold vold
+    mkdir /persist/sds 0700 system system
     mkdir /mnt/vendor/persist/rfs/msm/mpss/mot_rfs 0771 vendor_rfs system
     mkdir /mnt/vendor/persist/rfs/mdm/mpss/mot_rfs 0771 vendor_rfs system
 
