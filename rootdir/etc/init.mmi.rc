@@ -198,7 +198,7 @@ on post-fs-data
 
     # Required by FingerPrint Cards (FPC) via init so we don't need to give qseecomd or fingerprintd permissions to create them
     mkdir /data/vendor/fpc 0700 system system
-    mkdir /data/vendor/.fps 0770 system fingerp
+    mkdir /data/vendor/.fps 0770 system oem_5015
 
 on boot
     # MOTO, NJH348, IKHALFMWK-1864, change system max tcp buffer sizes based on RAT changes
