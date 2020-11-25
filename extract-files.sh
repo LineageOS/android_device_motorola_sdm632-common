@@ -60,6 +60,9 @@ fi
 
 function blob_fixup() {
     case "${1}" in
+        system_ext/etc/permissions/qcrilhook.xml|system_ext/etc/permissions/telephonyservice.xml)
+            sed -i "s/\/product\/framework\//\/system_ext\/framework\//g" "${2}"
+            ;;
         # Fix camera recording
         vendor/lib/libmmcamera2_pproc_modules.so)
             sed -i "s/ro.product.manufacturer/ro.product.nopefacturer/" "${2}"
@@ -71,8 +74,9 @@ function blob_fixup() {
             done
             ;;
         # Fix xml version
-        product/etc/permissions/vendor.qti.hardware.data.connection-V1.0-java.xml | product/etc/permissions/vendor.qti.hardware.data.connection-V1.1-java.xml)
+        system_ext/etc/permissions/vendor.qti.hardware.data.connection-V1.0-java.xml | system_ext/etc/permissions/vendor.qti.hardware.data.connection-V1.1-java.xml | system_ext/etc/permissions/com.qualcomm.qti.imscmservice-V2.0-java.xml | system_ext/etc/permissions/com.qualcomm.qti.imscmservice-V2.1-java.xml)
             sed -i 's/xml version="2.0"/xml version="1.0"/' "${2}"
+            sed -i "s/\/product\/framework\//\/system_ext\/framework\//g" "${2}"
             ;;
         # Fix missing symbols
         product/lib64/lib-imscamera.so | product/lib64/lib-imsvideocodec.so | product/lib/lib-imscamera.so | product/lib/lib-imsvideocodec.so)
