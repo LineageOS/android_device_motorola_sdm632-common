@@ -426,7 +426,6 @@ product/etc/permissions/com.motorola.motodisplay.xml
 product/etc/permissions/com.motorola.camera2.denali.xml:vendor/etc/permissions/com.motorola.camera2.denali.xml
 
 # Offmode charging
-vendor/bin/charge_only_mode
 vendor/bin/hvdcp_opti
 
 # Perf
