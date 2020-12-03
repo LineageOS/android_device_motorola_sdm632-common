@@ -96,6 +96,10 @@ PRODUCT_PACKAGES += \
     libbson.vendor \
     vendor.qti.hardware.camera.device@1.0:64
 
+# Configstore
+PRODUCT_PACKAGES += \
+    disable_configstore
+
 # Dalvik
 $(call inherit-product, frameworks/native/build/phone-xhdpi-4096-dalvik-heap.mk)
 
