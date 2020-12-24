@@ -354,17 +354,17 @@ vendor/firmware/a540_gpmu.fw2
 # IPA
 vendor/bin/ipacm-diag
 
-# Keymaster - from lake QPW30.61-18
-vendor/bin/hw/android.hardware.keymaster@4.0-service-qti|e77067e7dcb04c9a319789776bee3ac4d684e1b5
-vendor/etc/init/android.hardware.keymaster@4.0-service-qti.rc|c8999fb1bccbef81e6b362059e9a6ebd023de98f
-vendor/lib/libkeymasterdeviceutils.so|f1a8432b1d679cb2090965ded308bfacdd80d983
-vendor/lib/libkeymasterprovision.so|51d4c1ce11916ab3b86f2cf7a22f67ac1db27a43
-vendor/lib/libkeymasterutils.so|afd16c9545a022b5bc8cb0f41d574711e954d2ce
-vendor/lib/libqtikeymaster4.so|e704c44cad0f9340d73e642b1752ea83adabaaf1
-vendor/lib64/libkeymasterdeviceutils.so|fff58f25da60594a6f68bd16343f9052a6d0ff3e
-vendor/lib64/libkeymasterprovision.so|2693b87a139c4b1e7c7c5dd41eadbe88e80773c8
-vendor/lib64/libkeymasterutils.so|5396c6ebe00320c5013a6080e8f94bd643db1c18
-vendor/lib64/libqtikeymaster4.so|2e5d80377415c47e25a0340cc26a4d3ab5830d9a
+# Keymaster
+vendor/bin/hw/android.hardware.keymaster@4.0-service-qti
+vendor/etc/init/android.hardware.keymaster@4.0-service-qti.rc
+vendor/lib/libkeymasterdeviceutils.so
+vendor/lib/libkeymasterprovision.so
+vendor/lib/libkeymasterutils.so
+vendor/lib/libqtikeymaster4.so
+vendor/lib64/libkeymasterdeviceutils.so
+vendor/lib64/libkeymasterprovision.so
+vendor/lib64/libkeymasterutils.so
+vendor/lib64/libqtikeymaster4.so
 
 # Listen
 vendor/lib/libgcs-calwrapper.so
