@@ -74,7 +74,6 @@ product/lib64/vendor.qti.data.slm@1.0.so
 product/lib64/vendor.qti.hardware.radio.uim_remote_client@1.2.so
 product/lib64/vendor.qti.hardware.slmadapter@1.0.so
 -vendor/app/CneApp/CneApp.apk
-vendor/bin/cnd
 vendor/etc/cne/profileSlm.xml
 vendor/etc/cne/slm.conf
 vendor/etc/cne/wqeclient/ATT/ATT_profile1.xml
@@ -106,7 +105,6 @@ vendor/etc/cne/wqeclient/VZW/VZW_profile5.xml
 vendor/etc/cne/wqeclient/VZW/VZW_profile6.xml
 vendor/etc/init/cnd.rc
 vendor/lib64/libcacertclient.so
-vendor/lib64/libcne.so
 vendor/lib64/libcneapiclient.so
 vendor/lib64/libcneoplookup.so
 vendor/lib64/libcneqmiutils.so
@@ -130,6 +128,10 @@ vendor/lib64/vendor.qti.hardware.factory@1.0.so
 vendor/lib64/vendor.qti.hardware.factory@1.1.so
 vendor/lib64/vendor.qti.hardware.slmadapter@1.0.so
 vendor/lib64/vendor.qti.latency@2.0.so
+
+# CNE - from lake QPW30.61-18
+vendor/bin/cnd|ca653a8064fe83a12a12798a73c9cc8c1fecf758
+vendor/lib64/libcne.so|1344c4749026a55eee9e3a814c7a71b6733e08fb
 
 # DRM - HDCP
 vendor/lib/libmm-hdcpmgr.so
