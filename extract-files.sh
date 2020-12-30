@@ -77,6 +77,11 @@ function blob_fixup() {
         patchelf --add-needed libcutils_shim.so "${2}"
         ;;
 
+    # Fix camera recording
+    vendor/lib/libmmcamera2_pproc_modules.so)
+        sed -i "s/ro.product.manufacturer/ro.product.nopefacturer/" "${2}"
+        ;;
+
     # Fix xml version
     product/etc/permissions/vendor.qti.hardware.data.connection-V1.0-java.xml | product/etc/permissions/vendor.qti.hardware.data.connection-V1.1-java.xml)
         sed -i 's/xml version="2.0"/xml version="1.0"/' "${2}"
