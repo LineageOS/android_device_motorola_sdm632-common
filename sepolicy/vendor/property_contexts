@@ -10,7 +10,6 @@ ro.boot.hardware.sku       u:object_r:moto_boot_prop:s0
 ro.boot.carrier            u:object_r:moto_boot_prop:s0
 ro.boot.cid                u:object_r:moto_boot_prop:s0
 ro.boot.fsg-id             u:object_r:moto_boot_prop:s0
-ro.boot.hwrev              u:object_r:moto_boot_prop:s0
 ro.boot.powerup_reason     u:object_r:moto_boot_prop:s0
 ro.boot.bl_state           u:object_r:moto_boot_prop:s0
 ro.boot.revision           u:object_r:moto_boot_prop:s0
@@ -30,8 +29,8 @@ ro.vendor.fsg-id           u:object_r:moto_boot_prop:s0
 ro.vendor.zygote           u:object_r:moto_boot_prop:s0
 vendor.boot_completed      u:object_r:moto_boot_prop:s0
 
+ro.boot.hwrev              u:object_r:hwrev_prop:s0
 ro.vendor.hw.hwrev         u:object_r:hwrev_prop:s0
-ro.vendor.boot.hwrev       u:object_r:hwrev_prop:s0
 
 # property related to aov
 vendor.hw.aov.                    u:object_r:vendor_aov_prop:s0
