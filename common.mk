@@ -263,10 +263,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.light@2.0-service.msm8953
 
-# LineageActions
-PRODUCT_PACKAGES += \
-    LineageActions
-
 # LiveDisplay
 PRODUCT_PACKAGES += \
     vendor.lineage.livedisplay@2.0-service-sdm \
@@ -284,6 +280,10 @@ PRODUCT_COPY_FILES += \
 # Media / StagefrightCodec 2.0
 PRODUCT_PACKAGES += \
     libstagefright_ccodec
+
+# MotoActions
+PRODUCT_PACKAGES += \
+    MotoActions
 
 # Network
 PRODUCT_PACKAGES += \
