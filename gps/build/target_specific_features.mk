@@ -7,7 +7,7 @@ GNSS_CFLAGS := \
     -Wno-error=missing-braces \
     -Wno-error=self-assign \
     -Wno-enum-conversion \
-    -Wno-error=logical-op-parentheses \
+    -Wno-logical-op-parentheses \
     -Wno-error=null-arithmetic \
     -Wno-error=null-conversion \
     -Wno-error=parentheses-equality \
