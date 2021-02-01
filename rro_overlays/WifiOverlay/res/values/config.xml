@@ -38,9 +38,6 @@
     <!-- Boolean indicating whether 802.11r Fast BSS Transition is enabled on this platform -->
     <bool translatable="false" name="config_wifi_fast_bss_transition_enabled">true</bool>
 
-    <!-- Boolean indicating whether framework needs to set the tx power limit for meeting SAR requirements -->
-    <bool translatable="false" name="config_wifi_framework_enable_sar_tx_power_limit">true</bool>
-
     <!-- Integer threshold for low network score, should be somewhat less than the entry threshhold -->
     <integer name="config_wifi_framework_wifi_score_bad_rssi_threshold_24GHz">-85</integer>
     <integer name="config_wifi_framework_wifi_score_bad_rssi_threshold_5GHz">-82</integer>
@@ -58,7 +55,7 @@
 
     <!-- Boolean indicating whether or not to revert to default country code when cellular
          radio is unable to find any MCC information to infer wifi country code from -->
-    <bool translatable="false" name="config_wifi_revert_country_code_on_cellular_loss">true</bool>
+    <bool translatable="false" name="config_wifi_revert_country_code_on_cellular_loss">false</bool>
 
     <!-- Wifi driver supports Automatic channel selection (ACS) for softap -->
     <bool translatable="false" name="config_wifi_softap_acs_supported">true</bool>
@@ -68,5 +65,5 @@
     <string name="config_wifi_tcp_buffers" translatable="false">131072,262144,6287200,4096,221184,3145728</string>
 
     <!-- Boolean indicating whether or not wifi should turn off when emergency call is made -->
-    <bool translatable="false" name="config_wifi_turn_off_during_emergency_call">true</bool>
+    <bool translatable="false" name="config_wifi_turn_off_during_emergency_call">false</bool>
 </resources>
