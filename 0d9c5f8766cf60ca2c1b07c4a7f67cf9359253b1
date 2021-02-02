@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86ace9f5_df1596f6",
+        "filename": "rro_overlays/WifiOverlay/Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2021-02-02T20:30:49Z",
+      "side": 1,
+      "message": "these don\u0027t need copyrights.",
+      "revId": "0d9c5f8766cf60ca2c1b07c4a7f67cf9359253b1",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": true
+    }
+  ]
+}
