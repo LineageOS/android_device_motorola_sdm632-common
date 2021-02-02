@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "86288bb3_77573da4",
+        "filename": "rro_overlays/TetheringOverlay/res/values/config.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 23878
+      },
+      "writtenOn": "2021-02-02T19:04:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5a83fe5_e7def7b3",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 19
+      },
+      "revId": "fb7458ae90b7112160bb758200843807a21f8123",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eaa9eccc_fdfb1f13",
         "filename": "rro_overlays/WifiOverlay/res/values/config.xml",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "fb7458ae90b7112160bb758200843807a21f8123",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07660d90_6ec4dbc4",
+        "filename": "rro_overlays/WifiOverlay/res/values/config.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 23878
+      },
+      "writtenOn": "2021-02-02T19:04:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eaa9eccc_fdfb1f13",
+      "range": {
+        "startLine": 42,
+        "startChar": 37,
+        "endLine": 42,
+        "endChar": 84
+      },
+      "revId": "fb7458ae90b7112160bb758200843807a21f8123",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
