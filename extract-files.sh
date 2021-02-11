@@ -66,7 +66,9 @@ function blob_fixup() {
             ;;
         # Fix missing symbols
         vendor/lib64/libril-qc-hal-qmi.so)
-            $"{PATCHELF}" --add-needed libcutils_shim.so "${2}"
+            for  LIBRIL_SHIM in $(grep -L "libcutils_shim.so" "${2}"); do
+                $"{PATCHELF}" --add-needed "libcutils_shim.so" "$LIBRIL_SHIM"
+            done
             ;;
         # Fix xml version
         product/etc/permissions/vendor.qti.hardware.data.connection-V1.0-java.xml | product/etc/permissions/vendor.qti.hardware.data.connection-V1.1-java.xml)
@@ -74,11 +76,15 @@ function blob_fixup() {
             ;;
         # memset shim
         vendor/bin/charge_only_mode)
-            $"{PATCHELF}" --add-needed libmemset_shim.so "${2}"
+            for  LIBMEMSET_SHIM in $(grep -L "libmemset_shim.so" "${2}"); do
+                "${PATCHELF}" --add-needed "libmemset_shim.so" "$LIBMEMSET_SHIM"
+            done
             ;;
         # qsap shim
         vendor/lib64/libmdmcutback.so)
-            $"{PATCHELF}" --add-needed libqsap_shim.so "${2}"
+            for  LIBQSAP_SHIM in $(grep -L "libqsap_shim.so" "${2}"); do
+                $"{PATCHELF}" --add-needed "libqsap_shim.so" "$LIBQSAP_SHIM"
+            done
             ;;
     esac
 }
