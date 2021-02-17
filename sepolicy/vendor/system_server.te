@@ -8,3 +8,8 @@ allow system_server vendor_idc_file:dir r_dir_perms;
 allow system_server vendor_idc_file:file r_file_perms;
 
 allow system_server hal_audio_default:binder { call transfer };
+
+allow system_server zygote:process { getpgid };
+allow system_server app_zygote:process { getpgid };
+allow system_server sysfs_kgsl:lnk_file { read };
+allow system_server media_rw_data_file:dir { setattr };
