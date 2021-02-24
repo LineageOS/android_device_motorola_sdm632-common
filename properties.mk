@@ -182,7 +182,7 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
     persist.vendor.cne.feature=1 \
     persist.vendor.dpm.feature=0 \
     DEVICE_PROVISIONED=1 \
-    ril.subscription.types=NV,RUIM \
+    ril.subscription.types=RUIM \
     telephony.lteOnCdmaDevice=1
 
 # SurfaceFlinger
