@@ -345,6 +345,7 @@ PRODUCT_PACKAGES += \
 
 # Radio
 PRODUCT_PACKAGES += \
+    CarrierConfigOverlay \
     librmnetctl \
     libprotobuf-cpp-full
 
