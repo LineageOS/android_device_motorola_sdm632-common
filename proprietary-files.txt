@@ -1,5 +1,5 @@
 ### All blobs from this list, unless pinned and noted as otherwise,
-##  are from river-user-10-QPU30.52-2-5ecf2
+##  are from motorola/river_retail/river:10/QPUS30.52-33-11/df129:user/release-keys
 # ADSP
 vendor/bin/adsprpcd
 vendor/lib/libadsp_default_listener.so
