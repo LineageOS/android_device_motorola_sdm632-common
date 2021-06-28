@@ -115,7 +115,6 @@ on post-fs-data
     mkdir /mnt/vendor/persist/data/tz 0700 system system
     mkdir /data/misc/dts 0770 media audio
 #    mkdir /data/vendor/hbtp 0750 system system
-    mkdir /data/vendor/tloc 0700 system drmrpc
 
 
 #Create folder for mm-qcamera-daemon
@@ -211,7 +210,7 @@ on boot
 # Add a cpuset for the camera daemon
 # We want all cores for camera
     mkdir /dev/cpuset/camera-daemon
-    write /dev/cpuset/camera-daemon/cpus 0-3
+    write /dev/cpuset/camera-daemon/cpus 4-7
     write /dev/cpuset/camera-daemon/mems 0
     chown cameraserver cameraserver /dev/cpuset/camera-daemon
     chown cameraserver cameraserver /dev/cpuset/camera-daemon/tasks
