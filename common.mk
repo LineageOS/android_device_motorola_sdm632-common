@@ -480,5 +480,5 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libmediaextractorservice
 
-PRODUCT_BOOT_JARS += \
+#PRODUCT_BOOT_JARS += \
     WfdCommon
