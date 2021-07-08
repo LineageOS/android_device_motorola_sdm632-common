@@ -20,3 +20,5 @@ set_prop(vendor_init, moto_boot_prop)
 get_prop(vendor_init, vendor_aov_prop)
 set_prop(vendor_init, vendor_aov_prop)
 set_prop(vendor_init, vendor_fm_prop)
+
+allow vendor_init media_rw_data_file:file getattr;
