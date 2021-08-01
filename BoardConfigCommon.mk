@@ -54,6 +54,7 @@ AB_OTA_PARTITIONS += \
     boot \
     dtbo \
     system \
+    vbmeta \
     vendor
 
 # Audio
@@ -215,7 +216,7 @@ BOARD_PLAT_PRIVATE_SEPOLICY_DIR += $(PLATFORM_PATH)/sepolicy/private
 BOARD_VNDK_VERSION := current
 
 # Verified Boot
-BOARD_AVB_ENABLE := false
+BOARD_AVB_ENABLE := true
 BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
 
 # Wifi
