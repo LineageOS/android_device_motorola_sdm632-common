@@ -11,6 +11,10 @@ allow hal_audio_default self:fd use;
 
 allow hal_audio_default cutback_socket:sock_file write;
 allow hal_audio_default fwk_sensor_hwservice:hwservice_manager find;
+allow hal_audio_default input_device:dir search;
+allow hal_audio_default mnt_vendor_file:dir search;
 allow hal_audio_default mnt_vendor_file:file { getattr open read };
 allow hal_audio_default rild:unix_stream_socket connectto;
+allow hal_audio_default sysfs:file read;
+allow hal_audio_default sysfs_sensor:dir search;
 allow hal_audio_default system_server:binder { call transfer };
