@@ -4,3 +4,8 @@ allow hal_camera_default sysfs_battery_supply:file { getattr open read };
 allow hal_camera_default mnt_vendor_file:file rw_file_perms;
 allow hal_camera_default camera_prop:property_service set;
 allow hal_camera_default sysfs_healthd:dir search;
+
+get_prop(hal_camera_default, bootanim_system_prop)
+get_prop(hal_camera_default, camera_prop)
+dontaudit hal_camera_default persist_debug_prop:file read;
+dontaudit hal_camera_default radio_prop:file read;
