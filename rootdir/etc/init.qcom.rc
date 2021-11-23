@@ -373,14 +373,6 @@ on post-fs-data
     chown radio radio /data/vendor/radio/db_check_done
     chmod 0660 /data/vendor/radio/db_check_done
 
-    # qti-logkit data
-    #mkdir /data/vendor/qti-logkit/ 0771 system system
-    #mkdir /data/vendor/qti-logkit/shared-privileged/ 2770 system system
-    #mkdir /data/vendor/qti-logkit/shared-public/ 2770 system diag
-    #mkdir /data/vendor/qti-logkit/socket-privileged/ 2770 system system
-    #mkdir /data/vendor/qti-logkit/socket-public/ 2750 system diag
-    #mkdir /data/vendor/qti-logkit/logdata/ 2750 system shell
-
     #Create SWAP related dirs
     mkdir /data/vendor/swap 0770 root system
     chmod 2770 /data/vendor/swap
@@ -501,12 +493,6 @@ on property:persist.debug.trace=1
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd
 
-#on property:vendor.bluetooth.dun.status=running
-#    start vendor.bt-dun
-
-#on property:vendor.bluetooth.dun.status=stopped
-#    stop vendor.bt-dun
-
 on property:ro.bluetooth.ftm_enabled=true
     start ftmd
 
@@ -570,13 +556,6 @@ service vendor.start_hci_filter /system/vendor/bin/wcnss_filter
     group bluetooth diag system wakelock
     seclabel u:r:bluetooth:s0
     disabled
-
-#service vendor.bt-dun /system/bin/dun-server /dev/smd7 /dev/rfcomm0
-#    class late_start
-#    user bluetooth
-#    group bluetooth net_bt_admin inet
-#    disabled
-#    oneshot
 
 service vendor.bt_logger /system/bin/bt_logger
    user bluetooth
@@ -699,26 +678,6 @@ service iprenew_wigig0 /system/bin/dhcpcd -n
     disabled
     oneshot
 
-#service ptt_socket_app /system/vendor/bin/ptt_socket_app -d
-#    class main
-#    user wifi
-#    group wifi system inet net_admin
-#    capabilities NET_ADMIN
-#    oneshot
-
-#service ptt_ffbm /system/vendor/bin/ptt_socket_app -f -d
-#    user root
-#    group root
-#    disabled
-#    oneshot
-
-#service wifi_ftmd /system/vendor/bin/wifi_ftmd
-#    user system
-#    group system inet net_admin
-#    socket wififtmd_server dgram 0660 system system
-#    disabled
-#    oneshot
-
 on property:wifi.ftmd.load=true
     insmod /system/lib/modules/pronto/pronto_wlan.ko con_mode=5
 
@@ -749,18 +708,6 @@ service iprenew_bt-pan /system/bin/dhcpcd -n
     disabled
     oneshot
 
-#service ssgqmigd /vendor/bin/ssgqmigd
-#    class late_start
-#    user radio
-#    group radio gps system
-#    socket ssgqmig seqpacket 0660 radio inet
-
-#service ssgtzd /vendor/bin/ssgtzd
-#    class late_start
-#    user system
-#    group system
-#    socket ssgtzd stream 0660 system inet
-
 service mlid /vendor/bin/mlid
     class late_start
     user gps
@@ -775,18 +722,6 @@ service loc_launcher /system/vendor/bin/loc_launcher
 on property:crypto.driver.load=1
      insmod /system/lib/modules/qce.ko
      insmod /system/lib/modules/qcedev.ko
-
-service drmdiag /system/vendor/bin/drmdiagapp
-    class late_start
-     user root
-     disabled
-     oneshot
-
-on property:drmdiag.load=1
-    start drmdiag
-
-on property:drmdiag.load=0
-    stop drmdiag
 
 service qcom-sh /vendor/bin/init.qcom.sh
     class late_start
@@ -906,46 +841,6 @@ service vendor.ssr_diag /system/vendor/bin/ssr_diag
     group system
     disabled
 
-#service hvdcp /system/bin/hvdcp
-#    class core
-#    user root
-#    disabled
-
-#on property:persist.usb.hvdcp.detect=true
-#    start hvdcp
-
-#on property:persist.usb.hvdcp.detect=false
-#    stop hvdcp
-
-#service charger_monitor /system/bin/charger_monitor
-#    user root
-#    group root
-#    disabled
-
-#service qbcharger /charger -m 1
-#    disabled
-#    oneshot
-
-#on property:sys.qbcharger.enable=true
-#    start qbcharger
-
-#on property:sys.qbcharger.enable=false
-#    stop qbcharger
-
-#service diag_mdlog_start /system/vendor/bin/diag_mdlog
-#    class late_start
-#    user shell
-#    group system oem_2901 sdcard_rw sdcard_r media_rw
-#    disabled
-#    oneshot
-
-#service diag_mdlog_stop /system/vendor/bin/diag_mdlog -k
-#    class late_start
-#    user shell
-#    group system oem_2901 sdcard_rw sdcard_r media_rw
-#    disabled
-#    oneshot
-
 service qlogd /system/xbin/qlogd
     socket qlogd stream 0662 system system
     class main
@@ -1053,13 +948,6 @@ service vendor.power_off_alarm /vendor/bin/power_off_alarm
     group system
     disabled
     oneshot
-
-#service vendor.hbtp /vendor/bin/hbtp_daemon
-#     class main
-#     user system
-#     group system
-#     capabilities SYS_NICE
-#     disabled
 
 service chre /vendor/bin/chre
     class late_start
