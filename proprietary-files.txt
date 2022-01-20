@@ -757,14 +757,12 @@ vendor/lib/libsensor1.so
 vendor/lib/sensor_calibrate.so
 vendor/lib/sensors.rp.so
 vendor/lib64/hw/activity_recognition.msm8953.so
+vendor/lib/sensors.ssc.so
 vendor/lib64/libsensor_reg.so
 vendor/lib64/libsensor1.so
 vendor/lib64/sensor_calibrate.so
 vendor/lib64/sensors.rp.so
-
-# Sensors - from lake - QPW30.61-18
-vendor/lib/sensors.ssc.so|8d311851599fd687fff7ba3a13faecd87a04b4e7
-vendor/lib64/sensors.ssc.so|d3471c08181b097b92d35683d260e38358d7a13a
+vendor/lib64/sensors.ssc.so
 
 # Thermal
 vendor/bin/thermal-engine
