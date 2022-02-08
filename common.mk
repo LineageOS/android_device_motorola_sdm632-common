@@ -71,7 +71,6 @@ PRODUCT_PACKAGES += \
     android.hardware.audio@5.0-impl:32 \
     android.hardware.audio.service \
     android.hardware.audio.effect@5.0-impl:32 \
-    audio.a2dp.default \
     audio.r_submix.default \
     audio.usb.default \
     libaacwrapper \
