@@ -149,8 +149,8 @@ PRODUCT_PACKAGES += \
 
 # FM
 PRODUCT_PACKAGES += \
-    FMRadio \
-    libfmjni
+    FM2 \
+    qcom.fmradio
 
 $(call soong_config_set_bool,libfmjni,no_fm_firmware,true)
 $(call soong_config_set,libfmjni,vendor,qcom)
@@ -216,6 +216,7 @@ PRODUCT_PACKAGES += \
     init.qcom.post_boot.sh \
     init.qcom.sh \
     init.qcom.sensors.sh \
+    init.qti.fm.sh \
     init.qti.qseecomd.sh
 
 PRODUCT_PACKAGES += \
@@ -224,6 +225,7 @@ PRODUCT_PACKAGES += \
     init.mmi.chipset.rc \
     init.mmi.overlay.rc \
     init.qcom.rc \
+    init.qti.fm.rc \
     init.target.rc \
     ueventd.qcom.rc
 
