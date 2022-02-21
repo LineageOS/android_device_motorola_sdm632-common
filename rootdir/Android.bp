@@ -36,6 +36,12 @@ sh_binary {
 }
 
 sh_binary {
+    name: "init.qti.fm.sh",
+    src: "bin/init.qti.fm.sh",
+    vendor: true,
+}
+
+sh_binary {
     name: "init.qti.qseecomd.sh",
     src: "bin/init.qti.qseecomd.sh",
     vendor: true,
@@ -82,6 +88,13 @@ prebuilt_etc {
     name: "init.qcom.rc",
     src: "etc/init.qcom.rc",
     sub_dir: "init/hw",
+    vendor: true,
+}
+
+prebuilt_etc {
+    name: "init.qti.fm.rc",
+    src: "etc/init.qti.fm.rc",
+    sub_dir: "init",
     vendor: true,
 }
 
