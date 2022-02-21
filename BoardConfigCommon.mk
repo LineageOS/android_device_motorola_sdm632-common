@@ -120,9 +120,12 @@ TARGET_USES_ION := true
 TARGET_USES_HWC2 := true
 TARGET_USES_GRALLOC1 := true
 
+<<<<<<< PATCH SET (612d3a sdm632-common: Switch to FM2)
+=======
 # FM
 BOARD_HAVE_QCOM_FM := true
 
+>>>>>>> BASE      (29411c sdm632-common: Adapt to new no FM firmware download flag)
 # GPS
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
 LOC_HIDL_VERSION := 3.0
