@@ -77,8 +77,8 @@ vendor/etc/cne/wqeclient/VZW/VZW_profile5.xml
 vendor/etc/cne/wqeclient/VZW/VZW_profile6.xml
 
 # CNE - from lake QPWS30.142-Q3-28-25-9
-product/etc/permissions/vendor.qti.hardware.data.connection-V1.0-java.xml|75e8a824d368cd4172985c884796381327d950da
-product/etc/permissions/vendor.qti.hardware.data.connection-V1.1-java.xml|620c9fa0047bb681e918af2d1e7a98c648f45fb7
+product/etc/permissions/vendor.qti.hardware.data.connection-V1.0-java.xml|335d6da6763240d58a1598f95bed50bb80e3e71d|75e8a824d368cd4172985c884796381327d950da
+product/etc/permissions/vendor.qti.hardware.data.connection-V1.1-java.xml|f21207db1805ec6ba512f526b795822794ff6274|620c9fa0047bb681e918af2d1e7a98c648f45fb7
 product/framework/vendor.qti.data.factory-V1.0-java.jar|f0a14b08ab6c2fb85342383235be6b75d67806fb
 product/framework/vendor.qti.data.factory-V2.0-java.jar|df667317984cf08e06bad7957a6a6390fe5f2bb4
 product/framework/vendor.qti.data.factory-V2.1-java.jar|3f8d28716003c02d9720c8c83a6d108a82359eae
