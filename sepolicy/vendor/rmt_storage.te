@@ -19,3 +19,5 @@ allow rmt_storage sysfs_data:file r_file_perms;
 allow rmt_storage modem_efs_partition_device:blk_file rw_file_perms;
 get_prop(rmt_storage, radio_control_prop)
 get_prop(rmt_storage, vendor_radio_prop)
+
+get_prop(rmt_storage, hwrev_prop)
