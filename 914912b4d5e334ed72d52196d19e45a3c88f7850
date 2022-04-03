@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d782f7dd_e40e5873",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2022-04-03T19:51:18Z",
+      "side": 1,
+      "message": "we don\u0027t have mods, but the retailmode still is valid",
+      "revId": "914912b4d5e334ed72d52196d19e45a3c88f7850",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
