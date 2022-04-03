@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3614a4f_4a0925e7",
+        "filename": "properties.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 28232
+      },
+      "writtenOn": "2022-04-03T19:30:52Z",
+      "side": 1,
+      "message": "https://github.com/teamb58/android_device_fairphone_FP3/commit/3bafc9aaba4e4541be3d5023ede404f74923f43b\n\nUsing SDM632 causes com.google.android.os.gts.GoogleRequirementFreezeTest#testChipsetInfo to fail with error: Invalid SOC_MODEL/SOC_MANUFACTURER defined: Qualcomm#SDM632",
+      "range": {
+        "startLine": 195,
+        "startChar": 17,
+        "endLine": 195,
+        "endChar": 23
+      },
+      "revId": "b00017db0584ec919ade494429d84488bcd9143c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
