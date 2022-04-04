@@ -20,6 +20,7 @@ allow vendor_toolbox {
     persist_bluetooth_file
     persist_bms_file
     persist_camera_file
+    persist_chargeonly_file
     persist_display_file
     persist_drm_file
     persist_file
