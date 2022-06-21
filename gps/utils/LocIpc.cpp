@@ -313,7 +313,7 @@ public:
             mAbortCalled(false),
             mLocIpc(locIpc),
             mIpcRecver(std::move(ipcRecver)) {}
-    inline bool run() override {
+    inline virtual bool run() override {
         if (mIpcRecver != nullptr) {
             mLocIpc.startBlockingListening(*(mIpcRecver.get()));
             if (!mAbortCalled) {
