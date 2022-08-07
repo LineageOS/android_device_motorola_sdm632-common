@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "255a9e12_57080e50",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 28232
+      },
+      "writtenOn": "2022-08-07T06:32:22Z",
+      "side": 1,
+      "message": "But, I see the usage in \"./external/wpa_supplicant_8/wpa_supplicant/eap_proxy_qmi_oc.mk\". Is it still fine to drop this?",
+      "revId": "b2da39be02d7ea195c55c47927b22c5ce211fca3",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
