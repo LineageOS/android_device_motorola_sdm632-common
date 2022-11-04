@@ -262,7 +262,8 @@ PRODUCT_COPY_FILES += \
 
 # MotoActions
 PRODUCT_PACKAGES += \
-    MotoActions
+    MotoActions \
+    MotoCommonOverlay
 
 # Network
 PRODUCT_PACKAGES += \
