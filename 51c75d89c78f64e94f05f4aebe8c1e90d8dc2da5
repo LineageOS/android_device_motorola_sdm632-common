@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fa1418f_b7b1ea32",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 19252
+      },
+      "writtenOn": "2023-01-04T20:24:34Z",
+      "side": 1,
+      "message": "optional, but \"both berlin and dubai\" could be changed to \"Motorola sdm632 devices\" or something like that",
+      "revId": "51c75d89c78f64e94f05f4aebe8c1e90d8dc2da5",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
