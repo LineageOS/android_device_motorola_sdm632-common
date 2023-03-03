@@ -424,6 +424,9 @@ firmware_directories /vendor/firmware_mnt/image/
 # socinfo
 /sys/devices/soc0        serial_number 0000   root      root
 
+# Charger
+/sys/class/power_supply/battery  charging_enabled    0660    system  system
+
 # Trustonic TEE device
 /dev/mobicore             0600   system     system
 /dev/mobicore-user        0666   system     system
