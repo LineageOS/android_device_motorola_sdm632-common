@@ -1,2 +1,4 @@
+allow ueventd debugfs:dir r_dir_perms;
+allow ueventd debugfs:file r_file_perms;
 allow ueventd metadata_file:dir search;
 allow ueventd self:capability sys_nice;
