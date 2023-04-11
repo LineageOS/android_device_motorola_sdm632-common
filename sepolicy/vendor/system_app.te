@@ -20,3 +20,4 @@ dontaudit system_app {
 binder_call(system_app, hal_power_default)
 allow system_app hal_power_default:binder call;
 allow system_app proc_vmallocinfo:file { getattr open read };
+allow system_app fm_radio_device:chr_file r_file_perms;
