@@ -51,3 +51,5 @@ allow vendor_toolbox {
     persist_time_file
     sensors_persist_file
 }:file { r_file_perms setattr };
+
+dontaudit vendor_toolbox self:capability { dac_override dac_read_search };
