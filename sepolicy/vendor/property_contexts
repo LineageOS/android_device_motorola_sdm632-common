@@ -75,3 +75,6 @@ ro.vendor.ril.svdo         u:object_r:vendor_radio_prop:s0
 # Fingerprint
 fpc_kpi u:object_r:vendor_fp_prop:s0
 false_touch_quality u:object_r:vendor_fp_prop:s0
+
+# wlan
+vendor.wlan.driver.ath u:object_r:vendor_qcom_wlan_pro:s0
