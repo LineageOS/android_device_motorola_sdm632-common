@@ -49,7 +49,7 @@ vendor/lib64/vendor.qti.hardware.bluetooth_sar@1.0.so
 etc/permissions/com.motorola.motosignature.xml:vendor/etc/permissions/com.motorola.motosignature.xml
 framework/com.motorola.motosignature.jar:vendor/framework/com.motorola.motosignature.jar
 product/etc/permissions/privapp-permissions-com.motorola.camera2.xml
--product/priv-app/MotCamera2/MotCamera2.apk;OVERRIDES=Aperture|6734a30a655807eca8b33ffc045adb70f429d772
+-product/priv-app/MotCamera2/MotCamera2.apk|6734a30a655807eca8b33ffc045adb70f429d772
 
 # Camera - MotCamera2 - libs
 product/lib64/libBulkSNPE.so|c5f677f26fe72cbc4ebbae3f19d0eb495502a79e
