@@ -24,6 +24,13 @@ genfscon sysfs /devices/platform/soc/78b5000.i2c/i2c-1/1-005a/leds/vibrator     
 genfscon sysfs /devices/platform/soc/78b5000.i2c/i2c-1/1-007f/leds/vibrator     u:object_r:sysfs_leds:s0
 genfscon sysfs /devices/platform/soc/78b6000.i2c/i2c-2/2-005b/leds/vibrator     u:object_r:sysfs_leds:s0
 
-genfscon sysfs /kernel/aov                                                    		u:object_r:sysfs_adspd:s0
+genfscon sysfs /kernel/aov                                                                                              u:object_r:sysfs_adspd:s0
 genfscon sysfs /devices/platform/soc/7af7000.spi/spi_master/spi7/spi7.0/madera-extcon/input/input7/capabilities		u:object_r:sysfs_adspd:s0
+genfscon sysfs /devices/platform/soc/200f000.qcom,spmi/spmi-0/spmi0-02/200f000.qcom,spmi:qcom,pmi632@2:qcom,qpnp-smb5/extcon/extcon1/cable.1/name u:object_r:sysfs_adspd:s0
+genfscon sysfs /devices/platform/soc/200f000.qcom,spmi/spmi-0/spmi0-02/200f000.qcom,spmi:qcom,pmi632@2:qcom,qpnp-smb5/extcon/extcon1/cable.0/name u:object_r:sysfs_adspd:s0
+genfscon sysfs /devices/platform/soc/7af7000.spi/spi_master/spi7/spi7.0/madera-extcon/extcon/extcon2/cable.1/name u:object_r:sysfs_adspd:s0
+genfscon sysfs /devices/platform/soc/7af7000.spi/spi_master/spi7/spi7.0/madera-extcon/extcon/extcon2/cable.2/name u:object_r:sysfs_adspd:s0
+genfscon sysfs /devices/platform/soc/7af7000.spi/spi_master/spi7/spi7.0/madera-extcon/extcon/extcon2/cable.0/name u:object_r:sysfs_adspd:s0
+genfscon sysfs /devices/platform/soc/7af7000.spi/spi_master/spi7/spi7.0/madera-extcon/extcon/extcon2/cable.3/name u:object_r:sysfs_adspd:s0
+genfscon sysfs /devices/platform/soc/soc:qcom,mdss_wb_panel/extcon/extcon0/cable.0/name       u:object_r:sysfs_adspd:s0
 genfscon sysfs /devices/virtual/input/input0/capabilities		                     u:object_r:sysfs_adspd:s0
