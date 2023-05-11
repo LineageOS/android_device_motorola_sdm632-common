@@ -421,6 +421,9 @@ firmware_directories /vendor/firmware_mnt/image/
 /sys/class/leds/vibrator extra        0660    system    system
 /sys/class/leds/vibrator seq          0660    system    system
 
+# socinfo
+/sys/devices/soc0        serial_number 0000   root      root
+
 # Trustonic TEE device
 /dev/mobicore             0600   system     system
 /dev/mobicore-user        0666   system     system
