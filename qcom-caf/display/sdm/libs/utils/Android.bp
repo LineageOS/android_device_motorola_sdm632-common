@@ -1,0 +1,17 @@
+cc_library_shared {
+    name: "libsdmutils",
+    defaults: ["display_defaults"],
+    vendor: true,
+    header_libs: ["display_headers"],
+    cflags: [
+        "-DLOG_TAG=\"SDM\""
+    ],
+    srcs: [
+        "debug.cpp",
+        "rect.cpp",
+        "sys.cpp",
+        "formats.cpp",
+        "utils.cpp",
+    ],
+}
+
