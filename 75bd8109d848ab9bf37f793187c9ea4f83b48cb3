@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87ed3831_e13c76a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2023-09-16T04:00:25Z",
+      "side": 1,
+      "message": "init.qcom.post_boot.sh\n\n        # Enable adaptive LMK for all targets \u0026\n        # use Google default LMK series for all 64-bit targets \u003e\u003d2GB.\n        echo 1 \u003e /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk\n\n        # moto add, Disable adaptive LMK for target \u003e 3GB\n        if [ $MemTotal -gt 3145728 ]; then\n            echo 0 \u003e /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk\n        fi",
+      "revId": "75bd8109d848ab9bf37f793187c9ea4f83b48cb3",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
