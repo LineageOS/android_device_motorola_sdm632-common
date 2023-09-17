@@ -74,6 +74,9 @@ debug.media.codec2=2
 # Color Mode
 vendor.display.enable_default_color_mode=1
 
+# Dex
+pm.dexopt.shared=quicken
+
 # Display
 ro.sf.hwc_set_default_colormode=true
 debug.renderengine.backend=skiaglthreaded
