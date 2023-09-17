@@ -76,6 +76,7 @@ vendor.display.enable_default_color_mode=1
 
 # Display
 ro.sf.hwc_set_default_colormode=true
+debug.hwui.renderer=vulkan
 debug.renderengine.backend=skiaglthreaded
 debug.sf.hw=1
 debug.sf.latch_unsignaled=0
