@@ -448,7 +448,7 @@ PRODUCT_PACKAGES += \
 # Update this list with what each blob is actually for
 # libstdc++: camera.msm8953
 PRODUCT_PACKAGES += \
-    libstdc++.vendor \
+    libstdc++_vendor \
     libgui_vendor:32
 
 PRODUCT_COPY_FILES += \
