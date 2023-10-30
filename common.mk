@@ -24,6 +24,8 @@
 
 $(call inherit-product, vendor/motorola/sdm632-common/sdm632-common-vendor.mk)
 
+PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := true
+
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay \
