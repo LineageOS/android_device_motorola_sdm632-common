@@ -86,6 +86,10 @@ function blob_fixup() {
                 "${PATCHELF}" --add-needed "libmemset_shim.so" "$LIBMEMSET_SHIM"
             done
             ;;
+        # Fix missing symbols
+        vendor/bin/pm-service)
+            grep -q libutils-v33.so "${2}" || "${PATCHELF}" --add-needed "libutils-v33.so" "${2}"
+            ;;
         # Move to vendor
         vendor/etc/permissions/com.motorola.motosignature.xml)
             sed -i 's|/system/framework|/vendor/framework|' "${2}"
