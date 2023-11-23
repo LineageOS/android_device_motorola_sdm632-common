@@ -4,8 +4,12 @@ use.voice.path.for.pcm.voip=false
 # Media
 media.stagefright.thumbnail.prefer_hw_codecs=true
 
+# Moto
+ro.mot.build.customerid=retail
+
 # Radio
 persist.radio.aosp_usr_pref_sel=true
+persist.radio.fi_supported=1
 persist.vendor.cne.feature=1
 persist.vendor.dpm.feature=0
 DEVICE_PROVISIONED=1
