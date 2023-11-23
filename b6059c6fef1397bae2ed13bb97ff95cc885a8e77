@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4a2fb08_64fb4953",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 23878
+      },
+      "writtenOn": "2023-11-23T15:26:06Z",
+      "side": 1,
+      "message": "on deletion of directory system can now properly create and access contents",
+      "revId": "b6059c6fef1397bae2ed13bb97ff95cc885a8e77",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
