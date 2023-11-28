@@ -214,19 +214,23 @@ PRODUCT_PACKAGES += \
 
 # Init
 PRODUCT_PACKAGES += \
+    fstab.qcom
+
+PRODUCT_PACKAGES += \
     init.class_main.sh \
     init.qcom.early_boot.sh \
     init.qcom.post_boot.sh \
-    init.qcom.sensors.sh \
     init.qcom.sh \
-    init.qti.qseecomd.sh \
+    init.qcom.sensors.sh \
+    init.qti.qseecomd.sh
+
+PRODUCT_PACKAGES += \
     init.hidl.sensor.rc \
+    init.mmi.rc \
     init.mmi.chipset.rc \
     init.mmi.overlay.rc \
-    init.mmi.rc \
     init.qcom.rc \
     init.target.rc \
-    fstab.qcom \
     ueventd.qcom.rc
 
 # IPACM
