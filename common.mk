@@ -269,6 +269,10 @@ PRODUCT_PACKAGES += \
     MotoActions \
     MotoCommonOverlay
 
+# netmgrd
+PRODUCT_PACKAGES += \
+    android.system.net.netd@1.1.vendor
+
 # Network
 PRODUCT_PACKAGES += \
     netutils-wrapper-1.0
@@ -360,12 +364,14 @@ PRODUCT_PACKAGES += \
 
 # Radio
 PRODUCT_PACKAGES += \
-    android.hardware.radio@1.4.vendor \
-    android.hardware.radio.config@1.2.vendor \
-    android.hardware.radio.deprecated@1.0.vendor \
-    android.system.net.netd@1.1.vendor \
     librmnetctl \
     libprotobuf-cpp-full
+
+# RIL
+PRODUCT_PACKAGES += \
+    android.hardware.radio@1.4.vendor \
+    android.hardware.radio.config@1.2.vendor \
+    android.hardware.radio.deprecated@1.0.vendor
 
 # Recovery
 TARGET_RECOVERY_DENSITY := xhdpi
@@ -416,7 +422,6 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_BOOT_JARS += \
     telephony-ext
-
 
 # Thermal
 PRODUCT_PACKAGES += \
@@ -471,8 +476,11 @@ PRODUCT_PACKAGES += \
     libqsap_sdk \
     libwifi-hal-qcom \
     libwpa_client \
-    wcnss_service \
     wificond \
     WifiOverlay \
     wpa_supplicant \
-    wpa_supplicant.conf \
+    wpa_supplicant.conf
+
+# WCNSS
+PRODUCT_PACKAGES += \
+    wcnss_service
