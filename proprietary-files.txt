@@ -201,10 +201,10 @@ vendor/lib64/vendor.qti.hardware.qteeconnector@1.0.so
 vendor/bin/hw/android.hardware.drm@1.2-service.widevine
 vendor/etc/init/android.hardware.drm@1.2-service.widevine.rc
 vendor/lib/mediadrm/libwvdrmengine.so
-vendor/lib64/mediadrm/libwvdrmengine.so
 vendor/lib64/libcpion.so
 vendor/lib64/libhdcpsrm.so
 vendor/lib64/libwvhidl.so
+vendor/lib64/mediadrm/libwvdrmengine.so
 
 # DRM
 vendor/bin/qseecomd
@@ -221,6 +221,7 @@ vendor/lib64/librpmb.so
 vendor/lib64/libssd.so
 
 # DSP
+vendor/lib/libsdsprpc.so
 vendor/lib/rfsa/adsp/libadsp_fd_skel.so
 vendor/lib/rfsa/adsp/libapps_mem_heap.so
 vendor/lib/rfsa/adsp/libdspCV_skel.so
@@ -229,7 +230,6 @@ vendor/lib/rfsa/adsp/libfastcvadsp_skel.so
 vendor/lib/rfsa/adsp/libscveBlobDescriptor_skel.so
 vendor/lib/rfsa/adsp/libscveObjectSegmentation_skel.so
 vendor/lib/rfsa/adsp/libscveT2T_skel.so
-vendor/lib/libsdsprpc.so
 vendor/lib64/libsdsprpc.so
 
 # DSP - SCVE
@@ -488,8 +488,8 @@ lib/libqti-perfd-client_system.so
 lib/libqti_performance.so
 lib64/libqti-perfd-client_system.so
 lib64/libqti_performance.so
-vendor/bin/hw/vendor.qti.hardware.perf@2.0-service
 vendor/bin/energy-awareness
+vendor/bin/hw/vendor.qti.hardware.perf@2.0-service
 vendor/etc/init/vendor.qti.hardware.perf@2.0-service.rc
 vendor/etc/perf/commonresourceconfigs.xml
 vendor/etc/perf/perfboostsconfig.xml
@@ -578,9 +578,9 @@ product/framework/QtiTelephonyServicelibrary.jar
 product/framework/qcrilhook.jar
 product/framework/qti-telephony-common.jar|96154b2576114dd566bbc99a2d9af612de8849df
 -product/priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk
-vendor/bin/hw/qcrild
 vendor/bin/ATFWD-daemon
 vendor/bin/adpl
+vendor/bin/hw/qcrild
 vendor/bin/ipacm-diag
 vendor/bin/netmgrd
 vendor/bin/port-bridge
@@ -682,6 +682,7 @@ vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.0.so
 vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.1.so
 vendor/lib64/vendor.qti.hardware.radio.uim_remote_client@1.2.so
 vendor/lib64/vendor.qti.hardware.radio.uim_remote_server@1.0.so
+vendor/radio/qcril_database/qcril.db
 vendor/radio/qcril_database/upgrade/0_initial.sql
 vendor/radio/qcril_database/upgrade/10_version_qcrildb.sql
 vendor/radio/qcril_database/upgrade/11_version_qcrildb.sql
@@ -698,7 +699,6 @@ vendor/radio/qcril_database/upgrade/6_version_qcrildb.sql
 vendor/radio/qcril_database/upgrade/7_version_qcrildb.sql
 vendor/radio/qcril_database/upgrade/8_version_qcrildb.sql
 vendor/radio/qcril_database/upgrade/9_version_qcrildb.sql
-vendor/radio/qcril_database/qcril.db
 
 # Radio - IMS
 product/etc/permissions/com.qualcomm.qti.imscmservice-V2.0-java.xml
