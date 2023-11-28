@@ -68,9 +68,6 @@ persist.vendor.camera.preview.ubwc=0
 vendor.video.disable.ubwc=1
 vendor.vidc.disable.split.mode=1
 
-# Codec2 switch
-debug.media.codec2=2
-
 # Color Mode
 vendor.display.enable_default_color_mode=1
 
