@@ -164,6 +164,8 @@ ifeq ($(WITH_GMS),true)
 GMS_MAKEFILE=gms_minimal.mk
 endif
 
+PRODUCT_GMS_CLIENTID_BASE := android-motorola
+
 # GPS
 PRODUCT_PACKAGES += \
     android.hardware.gnss@2.0-impl-qti:64 \
@@ -386,7 +388,7 @@ PRODUCT_PACKAGES += \
 
 # Seccomp
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/seccomp/mediacodec-seccomp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy \
+    $(LOCAL_PATH)/seccomp/mediacodec-seccomp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy
 
 # Sensors
 PRODUCT_PACKAGES += \
