@@ -478,8 +478,11 @@ PRODUCT_PACKAGES += \
     libqsap_sdk \
     libwifi-hal-qcom \
     libwpa_client \
-    wcnss_service \
     wificond \
     WifiOverlay \
     wpa_supplicant \
     wpa_supplicant.conf
+
+# WCNSS
+PRODUCT_PACKAGES += \
+    wcnss_service
