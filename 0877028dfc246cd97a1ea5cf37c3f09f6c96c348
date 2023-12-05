@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5967f46_840167a3",
+        "filename": "common.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 10067
+      },
+      "writtenOn": "2023-12-05T17:05:30Z",
+      "side": 0,
+      "message": "isn\u0027t this part enough?",
+      "range": {
+        "startLine": 432,
+        "startChar": 0,
+        "endLine": 432,
+        "endChar": 42
+      },
+      "revId": "0877028dfc246cd97a1ea5cf37c3f09f6c96c348",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
