@@ -203,6 +203,7 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     init.class_main.sh \
+    init.mmi.usb.sh \
     init.qcom.early_boot.sh \
     init.qcom.post_boot.sh \
     init.qcom.sh \
@@ -214,6 +215,7 @@ PRODUCT_PACKAGES += \
     init.mmi.rc \
     init.mmi.chipset.rc \
     init.mmi.overlay.rc \
+    init.mmi.usb.rc \
     init.qcom.rc \
     init.target.rc \
     ueventd.qcom.rc
@@ -416,6 +418,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libtinyxml2
 
+# Trust HAL
+PRODUCT_PACKAGES += \
+    vendor.lineage.trust@1.0-service
+
 # Update Engine
 PRODUCT_PACKAGES += \
     otapreopt_script \
@@ -429,11 +435,7 @@ PRODUCT_PACKAGES_DEBUG += \
 
 # USB
 PRODUCT_PACKAGES += \
-    android.hardware.usb@1.3-service-qti \
-    init.qcom.usb.rc \
-    init.qcom.usb.sh
-
-PRODUCT_SOONG_NAMESPACES += vendor/qcom/opensource/usb/etc
+    android.hardware.usb@1.0-service
 
 # Vibrator
 PRODUCT_PACKAGES += \
