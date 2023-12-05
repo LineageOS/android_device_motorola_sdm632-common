@@ -416,6 +416,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libtinyxml2
 
+# Trust HAL
+PRODUCT_PACKAGES += \
+    vendor.lineage.trust@1.0-service
+
 # Update Engine
 PRODUCT_PACKAGES += \
     otapreopt_script \
@@ -429,7 +433,7 @@ PRODUCT_PACKAGES_DEBUG += \
 
 # USB
 PRODUCT_PACKAGES += \
-    android.hardware.usb@1.3-service-qti \
+    android.hardware.usb@1.0-service \
     init.qcom.usb.rc \
     init.qcom.usb.sh
 
