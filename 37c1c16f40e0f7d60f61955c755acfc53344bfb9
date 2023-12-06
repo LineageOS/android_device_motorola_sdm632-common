@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90c016ff_6bc1c135",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2023-12-06T16:07:35Z",
+      "side": 1,
+      "message": "virtual v+ after Brunos commit msg change",
+      "revId": "37c1c16f40e0f7d60f61955c755acfc53344bfb9",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
