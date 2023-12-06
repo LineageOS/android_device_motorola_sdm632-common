@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1d01a83_704e5085",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 23878
+      },
+      "writtenOn": "2023-12-06T09:34:23Z",
+      "side": 1,
+      "message": "Swapping back from QTI USB the modes work again while still solving adb on/off preference saving after reboot.",
+      "revId": "d4f01e6c33597a8ee3412a1b6ade0ded197749f2",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
