@@ -29,10 +29,6 @@
         <boolean name="use_rcs_presence_bool" value="true" />
         <boolean name="show_iccid_in_sim_status_bool" value="true" />
     </carrier_config>
-    <carrier_config mcc="001" customerid="sprint">
-        <boolean name="carrier_volte_available_bool" value="false" />
-        <boolean name="carrier_vt_available_bool" value="false" />
-    </carrier_config>
     <carrier_config mcc="001" carrierid="att">
         <boolean name="editable_wfc_mode_bool" value="false" />
         <int name="carrier_default_wfc_ims_mode_int" value="1" />
