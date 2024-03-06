@@ -68,6 +68,6 @@
 /dev/socket/cutback                                     u:object_r:cutback_socket:s0
 
 # Charger
-/data/vendor/chargeonly(/.*)?                            u:object_r:chargeonly_data_file:s0
+/data/vendor/chargeonly(/.*)?                            u:object_r:chargeonly_vendor_data_file:s0
 /(mnt/vendor/persist|persist)/chargeonly(/.*)?           u:object_r:persist_chargeonly_file:s0
 /(vendor|system/vendor)/bin/charge_only_mode             u:object_r:charge_only_exec:s0
