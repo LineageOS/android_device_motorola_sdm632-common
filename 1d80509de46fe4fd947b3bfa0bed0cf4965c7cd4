@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34d3f388_744806f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19979
+      },
+      "writtenOn": "2024-03-20T23:01:16Z",
+      "side": 1,
+      "message": "Sorry for the drastic rewrite of libinit, i was using libinit from oplus dre as my base.",
+      "revId": "1d80509de46fe4fd947b3bfa0bed0cf4965c7cd4",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
