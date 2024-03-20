@@ -139,6 +139,11 @@ void OverrideCarrierProperties() {
         }
         ro_prop_override(nullptr, "description", "channel_revvl-user 10 QPY30.85-18 6572f release-keys", false);
         ro_prop_override(nullptr, "product", "channel_revvl", false);
+        OverrideProperty("persist.vendor.radio.customer_mbns", "tmo_usa_ims_default.mbn;sprint_usa_ims.mbn");
+        OverrideProperty("persist.vendor.radio.data_con_rprt", "1");
+        OverrideProperty("persist.vendor.ims.playout_delay", "10");
+        OverrideProperty("persist.vendor.ims.cam_sensor_delay", "20");
+        OverrideProperty("persist.vendor.ims.display_delay", "40");
     }
 }
 
