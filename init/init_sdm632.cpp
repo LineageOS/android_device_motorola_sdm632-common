@@ -28,44 +28,53 @@
    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <cstdlib>
-#include <fstream>
-#include <string.h>
 #include <sys/sysinfo.h>
-#include <unistd.h>
-
+#include <android-base/logging.h>
 #include <android-base/properties.h>
+
 #define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
 #include <sys/_system_properties.h>
-#include <init/DeviceLibinit.h>
-
-#include "vendor_init.h"
-#include "property_service.h"
 
 using android::base::GetProperty;
 using android::base::SetProperty;
 
-char const *heapstartsize;
-char const *heapgrowthlimit;
-char const *heapsize;
-char const *heapminfree;
-char const *heapmaxfree;
-char const *heaptargetutilization;
+constexpr const char* RO_PROP_SOURCES[] = {
+    nullptr,
+    "bootimage.",
+    "odm.",
+    "odm_dlkm.",
+    "product.",
+    "system.",
+    "system_dlkm.",
+    "system_ext.",
+    "vendor.",
+    "vendor_dlkm.",
+};
 
-void property_override(char const prop[], char const value[], bool add = true)
-{
-    prop_info *pi;
+/*
+ * SetProperty does not allow updating read only properties and as a result
+ * does not work for our use case. Write "OverrideProperty" to do practically
+ * the same thing as "SetProperty" without this restriction.
+ */
+void OverrideProperty(const char* name, const char* value) {
+    size_t valuelen = strlen(value);
 
-    pi = (prop_info*) __system_property_find(prop);
-    if (pi)
-    __system_property_update(pi, value, strlen(value));
-    else if (add)
-    __system_property_add(prop, strlen(prop), value, strlen(value));
+    prop_info* pi = (prop_info*)__system_property_find(name);
+    if (pi != nullptr) {
+        __system_property_update(pi, value, valuelen);
+    } else {
+        __system_property_add(name, strlen(name), value, valuelen);
+    }
 }
 
-void check_device()
-{
+void OverrideMemoryProperties() {
     struct sysinfo sys;
+    std::string heapstartsize;
+    std::string heapgrowthlimit;
+    std::string heapsize;
+    std::string heaptargetutilization;
+    std::string heapminfree;
+    std::string heapmaxfree;
 
     sysinfo(&sys);
 
@@ -94,22 +103,46 @@ void check_device()
         heapminfree = "512k";
         heapmaxfree = "8m";
     }
+
+    OverrideProperty("dalvik.vm.heapstartsize", heapstartsize.c_str());
+    OverrideProperty("dalvik.vm.heapgrowthlimit", heapgrowthlimit.c_str());
+    OverrideProperty("dalvik.vm.heapsize", heapsize.c_str());
+    OverrideProperty("dalvik.vm.heaptargetutilization", heaptargetutilization.c_str());
+    OverrideProperty("dalvik.vm.heapminfree", heapminfree.c_str());
+    OverrideProperty("dalvik.vm.heapmaxfree", heapmaxfree.c_str());
 }
 
-void vendor_load_properties()
-{
-    check_device();
+void OverrideCarrierProperties() {
+    const auto ro_prop_override = [](const char* source, const char* prop, const char* value,
+                                     bool product) {
+        std::string prop_name = "ro.";
 
-    SetProperty("dalvik.vm.heapstartsize", heapstartsize);
-    SetProperty("dalvik.vm.heapgrowthlimit", heapgrowthlimit);
-    SetProperty("dalvik.vm.heapsize", heapsize);
-    SetProperty("dalvik.vm.heaptargetutilization", heaptargetutilization);
-    SetProperty("dalvik.vm.heapminfree", heapminfree);
-    SetProperty("dalvik.vm.heapmaxfree", heapmaxfree);
+        if (product) prop_name += "product.";
+        if (source != nullptr) prop_name += source;
+        if (!product) prop_name += "build.";
+        prop_name += prop;
+
+        OverrideProperty(prop_name.c_str(), value);
+    };
 
     // Setting carrier prop
     std::string carrier = GetProperty("ro.boot.carrier", "unknown");
-    property_override("ro.carrier", carrier.c_str());
+    OverrideProperty("ro.carrier", carrier.c_str());
 
-    vendor_load_device_properties();
+    std::string sku = GetProperty("ro.boot.hardware.sku", "");
+    if (sku == "XT1952-T") {
+        /* T-Mobile REVVLRY */
+        for (const auto &source : RO_PROP_SOURCES) {
+            ro_prop_override(source, "fingerprint", "motorola/channel_revvl/channel:10/QPY30.85-18/6572f:user/release-keys", true);
+            ro_prop_override(source, "model", "REVVLRY", true);
+            ro_prop_override(source, "name", "channel_revvl", true);
+        }
+        ro_prop_override(nullptr, "description", "channel_revvl-user 10 QPY30.85-18 6572f release-keys", false);
+        ro_prop_override(nullptr, "product", "channel_revvl", false);
+    }
+}
+
+void vendor_load_properties() {
+    OverrideMemoryProperties();
+    OverrideCarrierProperties();
 }
