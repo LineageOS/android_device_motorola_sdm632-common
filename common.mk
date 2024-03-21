@@ -399,10 +399,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libtinyxml2
 
-# Trust HAL
-PRODUCT_PACKAGES += \
-    vendor.lineage.trust@1.0-service
-
 # Update Engine
 PRODUCT_PACKAGES += \
     otapreopt_script \
