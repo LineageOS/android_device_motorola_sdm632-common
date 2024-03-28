@@ -104,7 +104,7 @@ product/framework/vendor.qti.hardware.data.latency-V1.0-java.jar:system_ext/fram
 product/framework/vendor.qti.hardware.factory-V1.0-java.jar:system_ext/framework/vendor.qti.hardware.factory-V1.0-java.jar|0ecc597e18701978179bd54d0d6f701a7a97fce2
 product/framework/vendor.qti.hardware.factory-V1.1-java.jar:system_ext/framework/vendor.qti.hardware.factory-V1.1-java.jar|d8fa470013d6a0eb2801c3ac556d62ec8bbf1136
 product/framework/vendor.qti.latency-V2.0-java.jar:system_ext/framework/vendor.qti.latency-V2.0-java.jar|d345e24271b83faecdb1abe1361db812fae0646f
-vendor/app/CneApp/CneApp.apk|239c2ff019f1dd46af5f1b37c3f1d421a5a5fdc7
+vendor/app/CneApp/CneApp.apk;REQUIRED=CneApp.libvndfwk_detect_jni.qti_symlink|239c2ff019f1dd46af5f1b37c3f1d421a5a5fdc7
 vendor/bin/cnd|3b4bd3a67c3e13042dd81b48f7242dad84c67a10
 vendor/etc/init/cnd.rc|ff205cff8e00ec6805fd1e19f3ca6ff86700cbb6
 vendor/lib/libxml.so|34dd76abe1fa95065e80e945d13213f4256fbc81
