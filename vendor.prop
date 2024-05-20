@@ -76,6 +76,7 @@ pm.dexopt.shared=quicken
 
 # Display
 ro.sf.hwc_set_default_colormode=true
+debug.hwui.skia_atrace_enabled=false
 debug.renderengine.backend=skiaglthreaded
 debug.sf.hw=1
 debug.sf.latch_unsignaled=0
