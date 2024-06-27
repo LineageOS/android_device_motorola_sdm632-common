@@ -1,3 +1,17 @@
+# Audio
+audio.offload.disable           u:object_r:vendor_audio_prop:s0
+ro.qc.sdk.audio.fluencetype     u:object_r:vendor_audio_prop:s0
+ro.qc.sdk.audio.ssr             u:object_r:vendor_audio_prop:s0
+
+# BT
+bluetooth.hfp.client            u:object_r:bluetooth_prop:s0
+ro.qualcomm.bt.hci_transport    u:object_r:bluetooth_prop:s0
+
+# Display
+ro.sf.hwc_set_default_colormode u:object_r:vendor_display_prop:s0
+vidc.enc.dcvs.extra-buff-count  u:object_r:vendor_display_prop:s0
+gpu.stats.debug.level           u:object_r:vendor_display_prop:s0
+
 vendor.ril.                u:object_r:vendor_radio_prop:s0
 rild.libpath               u:object_r:vendor_radio_prop:s0
 vendor.net.qmi.rev_ip_info u:object_r:vendor_radio_prop:s0
@@ -38,8 +52,6 @@ ro.vendor.hw.hwrev         u:object_r:hwrev_prop:s0
 vendor.hw.aov.                    u:object_r:vendor_aov_prop:s0
 
 ro.vendor.fm.                     u:object_r:vendor_fm_prop:s0
-
-gpu.stats.debug.level      u:object_r:vendor_display_prop:s0
 
 # Camera
 camera. u:object_r:camera_prop:s0
