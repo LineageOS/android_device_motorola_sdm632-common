@@ -16,6 +16,23 @@
       "message": "Let\u0027s hold off on merging as I\u0027m not sure I did this properly",
       "revId": "c814f754286fe07d67e2dd2f329105ee569c343d",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08cf5a01_9fff1537",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2024-06-27T15:58:28Z",
+      "side": 1,
+      "message": "the property labeling tracks to me, but fsck no, figure out what file it wants (grab the ino out of the denial, cd /sys \u0026\u0026 find -inum $whatever), then label that and allow fsck permissions needed on that.",
+      "revId": "c814f754286fe07d67e2dd2f329105ee569c343d",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
