@@ -56,7 +56,8 @@ PRODUCT_PACKAGES += \
     libaacwrapper \
     libaudio-resampler \
     libqcomvoiceprocessing \
-    libvolumelistener
+    libvolumelistener \
+    libstagefright_softomx_plugin.vendor
 
 PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/a2dp_in_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_in_audio_policy_configuration.xml \
@@ -160,7 +161,8 @@ PRODUCT_PACKAGES += \
     libgnss \
     libgnsspps \
     libsynergy_loc_api \
-    libwifi-hal-ctrl
+    libwifi-hal-ctrl \
+    libcurl
 
 PRODUCT_PACKAGES += \
     apdr.conf \
