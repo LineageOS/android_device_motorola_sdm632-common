@@ -169,8 +169,7 @@ PRODUCT_PACKAGES += \
     gps.conf \
     izat.conf \
     lowi.conf \
-    sap.conf \
-    xtwifi.conf
+    sap.conf
 
 # GMS
 PRODUCT_GMS_CLIENTID_BASE := android-motorola
