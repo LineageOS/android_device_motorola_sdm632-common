@@ -49,7 +49,7 @@ vendor/lib64/vendor.qti.hardware.bluetooth_sar@1.0.so
 system/etc/permissions/com.motorola.motosignature.xml:vendor/etc/permissions/com.motorola.motosignature.xml
 system/framework/com.motorola.motosignature.jar:vendor/framework/com.motorola.motosignature.jar
 product/etc/permissions/privapp-permissions-com.motorola.camera2.xml
--product/priv-app/MotCamera2/MotCamera2.apk;;PRESIGNED
+-product/priv-app/MotCamera2/MotCamera2.apk;PRESIGNED
 
 # CNE
 vendor/etc/cne/wqeclient/ATT/ATT_profile1.xml
