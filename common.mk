@@ -76,11 +76,9 @@ PRODUCT_COPY_FILES += \
 
 # Bluetooth
 PRODUCT_PACKAGES += \
-    android.hardware.bluetooth@1.0.vendor \
     android.hardware.bluetooth.audio-impl:32 \
     audio.bluetooth.default \
-    libbt-vendor \
-    vendor.qti.hardware.btconfigstore@1.0.vendor
+    libbt-vendor
 
 # Boot animation
 TARGET_BOOTANIMATION_HALF_RES := true
@@ -124,16 +122,11 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.mapper@2.0-impl-2.1 \
     gralloc.msm8953 \
     hwcomposer.msm8953 \
-    libdisplayconfig \
-    libqdMetaData.system \
-    libvulkan \
-    libtinyxml \
     vendor.qti.hardware.memtrack-service
 
 # DRM
 PRODUCT_PACKAGES += \
     android.hardware.drm-service.clearkey \
-    android.hardware.drm@1.3.vendor \
     libcrypto_shim.vendor \
     libhidlmemory.vendor
 
@@ -143,7 +136,6 @@ PRODUCT_PACKAGES += \
 
 # Gatekeeper
 PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0.vendor \
     libion.vendor
 
 # FM
@@ -188,17 +180,6 @@ PRODUCT_PACKAGES += \
     android.hardware.health@2.1-impl.recovery \
     android.hardware.health@2.1-service
 
-# HIDL
-PRODUCT_PACKAGES += \
-    android.hidl.base@1.0 \
-    android.hidl.base@1.0.vendor \
-    android.hidl.manager@1.0 \
-    android.hidl.manager@1.0.vendor \
-    libhidltransport \
-    libhidltransport.vendor \
-    libhwbinder \
-    libhwbinder.vendor
-
 # IMS
 PRODUCT_PACKAGES += \
     ims-ext-common \
@@ -239,10 +220,6 @@ PRODUCT_COPY_FILES += \
 # IRSC
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sec_config:$(TARGET_COPY_OUT_VENDOR)/etc/sec_config
-
-# Keymaster
-PRODUCT_PACKAGES += \
-    android.hardware.keymaster@4.0.vendor
 
 # Lights
 PRODUCT_PACKAGES += \
@@ -314,7 +291,6 @@ PRODUCT_PACKAGES += \
 
 # OMX
 PRODUCT_PACKAGES += \
-    libc2dcolorconvert \
     libOmxCore \
     libOmxVdec \
     libOmxVenc \
@@ -323,15 +299,9 @@ PRODUCT_PACKAGES += \
 # Power
 PRODUCT_PACKAGES += \
     android.hardware.power-service-qti \
-    android.hardware.power@1.2.vendor \
-    vendor.qti.hardware.perf@2.0.vendor
+    android.hardware.power@1.2.vendor
 
 # QCOM
-PRODUCT_PACKAGES += \
-    libqti_vndfwk_detect \
-    libvndfwk_detect_jni.qti \
-    libvndfwk_detect_jni.qti.vendor
-
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/telephony_system_ext_privapp-permissions-qti.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/telephony_system_ext_privapp-permissions-qti.xml \
     $(LOCAL_PATH)/configs/privapp-permissions-qti.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-qti.xml \
@@ -339,14 +309,12 @@ PRODUCT_COPY_FILES += \
 
 # QMI
 PRODUCT_PACKAGES += \
-    libjson
+    libvndfwk_detect_jni.qti.vendor # Needed by CNE app
 
 # Radio
 PRODUCT_PACKAGES += \
     CarrierConfigOverlay \
-    librmnetctl \
-    libprotobuf-cpp-full \
-    libsqlite.vendor
+    libprotobuf-cpp-full
 
 # Recovery
 TARGET_RECOVERY_DENSITY := xhdpi
@@ -359,20 +327,12 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     rfs_msm_mpss_readonly_vendor_fsg_symlink
 
-# RIL
-PRODUCT_PACKAGES += \
-    android.hardware.radio@1.4.vendor \
-    android.hardware.radio.config@1.2.vendor \
-    android.hardware.radio.deprecated@1.0.vendor \
-    libsysutils.vendor
-
 # Seccomp
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/seccomp/mediacodec-seccomp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy
 
 # Sensors
 PRODUCT_PACKAGES += \
-    android.frameworks.sensorservice@1.0.vendor \
     android.hardware.sensors@1.0-impl:64 \
     android.hardware.sensors@1.0-service \
     libpower.vendor \
