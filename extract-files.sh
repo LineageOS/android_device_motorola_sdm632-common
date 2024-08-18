@@ -109,6 +109,10 @@ function blob_fixup() {
                 "${PATCHELF}" --add-needed "libqsap_shim.so" "$LIBQSAP_SHIM"
             done
             ;;
+        vendor/lib64/libmotext_inf.so)
+            [ "$2" = "" ] && return 0
+            ${PATCHELF} --remove-needed "libril.so" "${2}"
+            ;;
         # libutils-v32
         vendor/lib/sensors.rp.so | vendor/lib64/sensors.rp.so)
             [ "$2" = "" ] && return 0
