@@ -41,6 +41,10 @@ function lib_to_package_fixup_vendor_variants() {
         vendor.qti.hardware.fm@1.0)
             echo "$1-vendor"
             ;;
+        libqsap_sdk | \
+            libril | \
+            libmm-omxcore | \
+            libwpa_client) ;;
         *)
             return 1
             ;;
