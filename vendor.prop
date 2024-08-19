@@ -77,6 +77,7 @@ pm.dexopt.shared=quicken
 # Display
 ro.sf.hwc_set_default_colormode=true
 debug.renderengine.backend=skiaglthreaded
+debug.sf.enable_gl_backpressure=false
 debug.sf.hw=1
 debug.sf.auto_latch_unsignaled=0
 vendor.gralloc.enable_fb_ubwc=1
