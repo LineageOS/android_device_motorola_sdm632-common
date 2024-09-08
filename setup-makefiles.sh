@@ -59,6 +59,9 @@ function lib_to_package_fixup_vendor_variants() {
             vendor.qti.imsrtpservice@2.0)
             echo "$1-vendor"
             ;;
+        libprotobuf-cpp-full)
+            echo "libprotobuf-cpp-full-vendorcompat"
+            ;;
         libqsap_sdk | \
             libqsap_shim | \
             libril | \
