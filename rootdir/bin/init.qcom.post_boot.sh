@@ -482,32 +482,12 @@ else
     MemTotalStr=`cat /proc/meminfo | grep MemTotal`
     MemTotal=${MemTotalStr:16:8}
 
-        # Set PPR parameters
-        if [ -f /sys/devices/soc0/soc_id ]; then
-            soc_id=`cat /sys/devices/soc0/soc_id`
-        else
-            soc_id=`cat /sys/devices/system/soc/soc0/id`
-        fi
-
-        case "$soc_id" in
-          # Do not set PPR parameters for premium targets
-          # sdm845 - 321, 341
-          # msm8998 - 292, 319
-          # msm8996 - 246, 291, 305, 312
-          # channel - 349 (IKSWQ-54948)
-          "321" | "341" | "292" | "319" | "246" | "291" | "305" | "312" | "349")
-            ;;
-          *)
-            #Set PPR parameters for all other targets.
-            echo $set_almk_ppr_adj > /sys/module/process_reclaim/parameters/min_score_adj
-            echo 1 > /sys/module/process_reclaim/parameters/enable_process_reclaim
-            echo 50 > /sys/module/process_reclaim/parameters/pressure_min
-            echo 70 > /sys/module/process_reclaim/parameters/pressure_max
-            echo 30 > /sys/module/process_reclaim/parameters/swap_opt_eff
-            echo 512 > /sys/module/process_reclaim/parameters/per_swap_size
-            ;;
-        esac
-    fi
+    #Set PPR parameters for all targets.
+    echo 1 > /sys/module/process_reclaim/parameters/enable_process_reclaim
+    echo 50 > /sys/module/process_reclaim/parameters/pressure_min
+    echo 70 > /sys/module/process_reclaim/parameters/pressure_max
+    echo 30 > /sys/module/process_reclaim/parameters/swap_opt_eff
+    echo 512 > /sys/module/process_reclaim/parameters/per_swap_size
 
     # Set allocstall_threshold to 0 for all targets.
     # Set swappiness to 100 for all targets
@@ -1988,7 +1968,7 @@ case "$target" in
             #default value for hispeed_load is 90, for sdm632 it should be 85
             echo 85 > /sys/devices/system/cpu/cpu4/cpufreq/schedutil/hispeed_load
             # sched_load_boost as -6 is equivalent to target load as 85.
-            echo -6 >  /sys/devices/system/cpu/cpu4/sched_load_boost
+            echo -6 > /sys/devices/system/cpu/cpu4/sched_load_boost
             echo -6 > /sys/devices/system/cpu/cpu5/sched_load_boost
             echo -6 > /sys/devices/system/cpu/cpu7/sched_load_boost
             echo -6 > /sys/devices/system/cpu/cpu6/sched_load_boost
@@ -2047,14 +2027,15 @@ case "$target" in
             echo 90 > /proc/sys/kernel/sched_group_upmigrate
             echo 1 > /proc/sys/kernel/sched_walt_rotate_big_tasks
 
+	    # Input Boost
+	    echo "0:1401600" > /sys/module/cpu_boost/parameters/input_boost_freq
+            echo 120 > /sys/module/cpu_boost/parameters/input_boost_ms
+
             # Enable min frequency adjustment for big cluster
             if [ -f /sys/module/big_cluster_min_freq_adjust/parameters/min_freq_cluster ]; then
                 echo "4-7" > /sys/module/big_cluster_min_freq_adjust/parameters/min_freq_cluster
             fi
             echo 1 > /sys/module/big_cluster_min_freq_adjust/parameters/min_freq_adjust
-
-            # Log kernel wake-up source
-            echo 1 > /sys/module/msm_show_resume_irq/parameters/debug_mask
 
             ;;
         esac
