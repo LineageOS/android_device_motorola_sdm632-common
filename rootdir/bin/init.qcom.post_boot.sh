@@ -1979,8 +1979,6 @@ case "$target" in
             # cpuset settings
             echo 0-3 > /dev/cpuset/background/cpus
             echo 0-3 > /dev/cpuset/system-background/cpus
-            # choose idle CPU for top app tasks
-            echo 1 > /dev/stune/top-app/schedtune.prefer_idle
 
             # re-enable thermal & BCL core_control now
             echo 1 > /sys/module/msm_thermal/core_control/enabled
@@ -2030,7 +2028,7 @@ case "$target" in
 	    # Input Boost
 	    echo "0:1401600" > /sys/module/cpu_boost/parameters/input_boost_freq
             echo 120 > /sys/module/cpu_boost/parameters/input_boost_ms
-
+	        
             # Enable min frequency adjustment for big cluster
             if [ -f /sys/module/big_cluster_min_freq_adjust/parameters/min_freq_cluster ]; then
                 echo "4-7" > /sys/module/big_cluster_min_freq_adjust/parameters/min_freq_cluster
