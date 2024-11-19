@@ -1,0 +1,24 @@
+cc_library_shared {
+    name: "libgrallocutils",
+    defaults: ["display_defaults"],
+    vendor: true,
+    srcs: [
+        "gr_utils.cpp",
+        "gr_adreno_info.cpp",
+    ],
+    shared_libs: [
+        "libqdMetaData",
+        "libdl",
+        "android.hardware.graphics.common@1.1",
+    ],
+    cflags: [
+        "-DLOG_TAG=\"grallocutils\"",
+        "-Wno-sign-conversion",
+        "-Wno-unused-parameter",
+        "-Wno-unused-variable",
+    ],
+    header_libs: [
+        "display_headers",
+        "qti_kernel_headers",
+    ],
+}
