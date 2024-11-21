@@ -379,7 +379,8 @@ PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-impl:64 \
     android.hardware.sensors@1.0-service \
     libpower.vendor \
-    libutils-v32
+    libutils-v32 \
+    libutils-v33
 
 # Shims
 PRODUCT_PACKAGES += \
@@ -451,9 +452,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     libstdc++_vendor \
     libgui_vendor:32
-
-PRODUCT_COPY_FILES += \
-    prebuilts/vndk/v33/arm64/arch-arm64-armv8-a/shared/vndk-sp/libutils.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libutils-v33.so
 
 # Wifi
 PRODUCT_COPY_FILES += \
