@@ -79,7 +79,8 @@ function blob_fixup() {
             done
             ;;
         # Fix xml version
-        system_ext/etc/permissions/vendor.qti.hardware.data.connection-V1.0-java.xml | system_ext/etc/permissions/vendor.qti.hardware.data.connection-V1.1-java.xml | system_ext/etc/permissions/com.qualcomm.qti.imscmservice-V2.0-java.xml | system_ext/etc/permissions/com.qualcomm.qti.imscmservice-V2.1-java.xml)
+        system_ext/etc/permissions/vendor.qti.hardware.data.connection-V1.0-java.xml | system_ext/etc/permissions/vendor.qti.hardware.data.connection-V1.1-java.xml | \
+        system_ext/etc/permissions/com.qualcomm.qti.imscmservice-V2.0-java.xml | system_ext/etc/permissions/com.qualcomm.qti.imscmservice-V2.1-java.xml)
             [ "$2" = "" ] && return 0
             sed -i 's/xml version="2.0"/xml version="1.0"/' "${2}"
             sed -i "s/\/product\/framework\//\/system_ext\/framework\//g" "${2}"

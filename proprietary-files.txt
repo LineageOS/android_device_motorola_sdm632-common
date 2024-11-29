@@ -51,6 +51,8 @@ system/framework/com.motorola.motosignature.jar:vendor/framework/com.motorola.mo
 product/etc/permissions/privapp-permissions-com.motorola.camera2.xml
 
 # CNE
+product/etc/permissions/vendor.qti.hardware.data.connection-V1.0-java.xml:system_ext/etc/permissions/vendor.qti.hardware.data.connection-V1.0-java.xml
+product/etc/permissions/vendor.qti.hardware.data.connection-V1.1-java.xml:system_ext/etc/permissions/vendor.qti.hardware.data.connection-V1.1-java.xml
 vendor/etc/cne/wqeclient/ATT/ATT_profile1.xml
 vendor/etc/cne/wqeclient/ATT/ATT_profile2.xml
 vendor/etc/cne/wqeclient/ATT/ATT_profile3.xml
@@ -80,24 +82,22 @@ vendor/etc/cne/wqeclient/VZW/VZW_profile5.xml
 vendor/etc/cne/wqeclient/VZW/VZW_profile6.xml
 
 # CNE - from lake QPWS30.142-Q3-28-25-9
-product/etc/permissions/vendor.qti.hardware.data.connection-V1.0-java.xml|335d6da6763240d58a1598f95bed50bb80e3e71d|75e8a824d368cd4172985c884796381327d950da
-product/etc/permissions/vendor.qti.hardware.data.connection-V1.1-java.xml|f21207db1805ec6ba512f526b795822794ff6274|620c9fa0047bb681e918af2d1e7a98c648f45fb7
-product/framework/vendor.qti.data.factory-V1.0-java.jar|f0a14b08ab6c2fb85342383235be6b75d67806fb
-product/framework/vendor.qti.data.factory-V2.0-java.jar|df667317984cf08e06bad7957a6a6390fe5f2bb4
-product/framework/vendor.qti.data.factory-V2.1-java.jar|3f8d28716003c02d9720c8c83a6d108a82359eae
-product/framework/vendor.qti.data.slm-V1.0-java.jar|ef645973c076873a6d34258475d0ef3d6b22d253
-product/framework/vendor.qti.hardware.data.connection-V1.0-java.jar|b42d139ba5c502f1cd2092c35d6bd867c60284f5
-product/framework/vendor.qti.hardware.data.connection-V1.1-java.jar|a502d317d28d322fe375aa0fd1f46b32d016624a
-product/framework/vendor.qti.hardware.data.dynamicdds-V1.0-java.jar|2d2d18476583ab286920313cf3add3a682bc2dea
-product/framework/vendor.qti.hardware.data.iwlan-V1.0-java.jar|853b3d936a1c99c399ec5087051fb863ccebad4f
-product/framework/vendor.qti.hardware.data.latency-V1.0-java.jar|c6c5d5bbf50b068df0184aef8551b95daa5f4791
-product/framework/vendor.qti.hardware.factory-V1.0-java.jar|0ecc597e18701978179bd54d0d6f701a7a97fce2
-product/framework/vendor.qti.hardware.factory-V1.1-java.jar|d8fa470013d6a0eb2801c3ac556d62ec8bbf1136
-product/framework/vendor.qti.latency-V2.0-java.jar|d345e24271b83faecdb1abe1361db812fae0646f
-product/lib/vendor.qti.data.factory@2.1.so|ae2986e8c7fec0434b0c036a1b790df34fb8b679
-product/lib/vendor.qti.data.slm@1.0.so|f1e4dc2209ef645e4367a20c8a5ce9e4648f72db
-product/lib64/vendor.qti.data.factory@2.1.so|a311260fce9e7627548decfff5198da6730ccac1
-product/lib64/vendor.qti.data.slm@1.0.so|4fa940ff74e5329ecc998cefde109d512d0df237
+product/framework/vendor.qti.data.factory-V1.0-java.jar:system_ext/framework/vendor.qti.data.factory-V1.0-java.jar|f0a14b08ab6c2fb85342383235be6b75d67806fb
+product/framework/vendor.qti.data.factory-V2.0-java.jar:system_ext/framework/vendor.qti.data.factory-V2.0-java.jar|df667317984cf08e06bad7957a6a6390fe5f2bb4
+product/framework/vendor.qti.data.factory-V2.1-java.jar:system_ext/framework/vendor.qti.data.factory-V2.1-java.jar|3f8d28716003c02d9720c8c83a6d108a82359eae
+product/framework/vendor.qti.data.slm-V1.0-java.jar:system_ext/framework/vendor.qti.data.slm-V1.0-java.jar|ef645973c076873a6d34258475d0ef3d6b22d253
+product/framework/vendor.qti.hardware.data.connection-V1.0-java.jar:system_ext/framework/vendor.qti.hardware.data.connection-V1.0-java.jar|b42d139ba5c502f1cd2092c35d6bd867c60284f5
+product/framework/vendor.qti.hardware.data.connection-V1.1-java.jar:system_ext/framework/vendor.qti.hardware.data.connection-V1.1-java.jar|a502d317d28d322fe375aa0fd1f46b32d016624a
+product/framework/vendor.qti.hardware.data.dynamicdds-V1.0-java.jar:system_ext/framework/vendor.qti.hardware.data.dynamicdds-V1.0-java.jar|2d2d18476583ab286920313cf3add3a682bc2dea
+product/framework/vendor.qti.hardware.data.iwlan-V1.0-java.jar:system_ext/framework/vendor.qti.hardware.data.iwlan-V1.0-java.jar|853b3d936a1c99c399ec5087051fb863ccebad4f
+product/framework/vendor.qti.hardware.data.latency-V1.0-java.jar:system_extproduct/framework/vendor.qti.hardware.data.latency-V1.0-java.jar|c6c5d5bbf50b068df0184aef8551b95daa5f4791
+product/framework/vendor.qti.hardware.factory-V1.0-java.jar:system_ext/framework/vendor.qti.hardware.factory-V1.0-java.jar|0ecc597e18701978179bd54d0d6f701a7a97fce2
+product/framework/vendor.qti.hardware.factory-V1.1-java.jar:system_ext/framework/vendor.qti.hardware.factory-V1.1-java.jar|d8fa470013d6a0eb2801c3ac556d62ec8bbf1136
+product/framework/vendor.qti.latency-V2.0-java.jar:system_ext/framework/vendor.qti.latency-V2.0-java.jar|d345e24271b83faecdb1abe1361db812fae0646f
+product/lib/vendor.qti.data.factory@2.1.so:system_ext/lib/vendor.qti.data.factory@2.1.so|ae2986e8c7fec0434b0c036a1b790df34fb8b679
+product/lib/vendor.qti.data.slm@1.0.so:system_ext/lib/vendor.qti.data.slm@1.0.so|f1e4dc2209ef645e4367a20c8a5ce9e4648f72db
+product/lib64/vendor.qti.data.factory@2.1.so:system_ext/lib64/vendor.qti.data.factory@2.1.so|a311260fce9e7627548decfff5198da6730ccac1
+product/lib64/vendor.qti.data.slm@1.0.so:system_ext/lib64/vendor.qti.data.slm@1.0.so|4fa940ff74e5329ecc998cefde109d512d0df237
 -vendor/app/CneApp/CneApp.apk|239c2ff019f1dd46af5f1b37c3f1d421a5a5fdc7
 vendor/bin/cnd|3b4bd3a67c3e13042dd81b48f7242dad84c67a10
 vendor/etc/init/cnd.rc|ff205cff8e00ec6805fd1e19f3ca6ff86700cbb6
@@ -122,7 +122,7 @@ vendor/lib64/vendor.qti.hardware.data.dynamicdds@1.0.so|54d061b1718a5f80a6e8020f
 vendor/lib64/vendor.qti.hardware.data.iwlan@1.0.so|4dcce2603f3e94a0d33650ca60cf6f87f71285ad
 vendor/lib64/vendor.qti.hardware.data.latency@1.0.so|2624bbff90f7ae596ed2f319aeb2ca04ad6da6f4
 vendor/lib64/vendor.qti.hardware.data.qmi@1.0.so|dfedda144d19622e3e579186033da2b7f3c80d32
-vendor/lib64/vendor.qti.hardware.factory@1.0.so|dfedda144d19622e3e579186033da2b7f3c80d32
+vendor/lib64/vendor.qti.hardware.factory@1.0.so|0dd3c1f75eb6fca226b41d947289b0ac089fe01f
 vendor/lib64/vendor.qti.hardware.factory@1.1.so|3f29c8dc900a392d8abac76e774814ae0fdfdfc3
 vendor/lib64/vendor.qti.latency@2.0.so|a015b96b999c5253d7b9af2e87a17e5e58412964
 
@@ -621,7 +621,7 @@ product/lib/libimsmedia_jni.so:system_ext/lib/libimsmedia_jni.so
 product/lib/vendor.qti.hardware.camera.device@1.0.so:system_ext/lib/vendor.qti.hardware.camera.device@1.0.so
 product/lib/vendor.qti.ims.callinfo@1.0.so:system_ext/lib/vendor.qti.ims.callinfo@1.0.so
 product/lib/vendor.qti.ims.rcsconfig@1.0.so:system_ext/lib/vendor.qti.ims.rcsconfig@1.0.so
-product/lib/vendor.qti.ims.rcsconfig@1.1.so:system_ext/lib/vendor.qti.ims.rcsconfig@1.1.s
+product/lib/vendor.qti.ims.rcsconfig@1.1.so:system_ext/lib/vendor.qti.ims.rcsconfig@1.1.so
 product/lib/vendor.qti.imsrtpservice@2.0.so:system_ext/lib/vendor.qti.imsrtpservice@2.0.so
 product/lib/vendor.qti.imsrtpservice@2.1.so:system_ext/lib/vendor.qti.imsrtpservice@2.1.so
 product/lib64/com.qualcomm.qti.imscmservice@1.0.so:system_ext/lib64/com.qualcomm.qti.imscmservice@1.0.so
