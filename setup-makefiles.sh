@@ -38,12 +38,34 @@ function lib_to_package_fixup_vendor_variants() {
     fi
 
     case "$1" in
-        vendor.qti.hardware.fm@1.0)
+        com.qualcomm.qti.imscmservice@1.0 | \
+            com.qualcomm.qti.imscmservice@2.0 | \
+            com.qualcomm.qti.imscmservice@2.1 | \
+            com.qualcomm.qti.imscmservice@2.2 | \
+            com.qualcomm.qti.uceservice@2.0 | \
+            com.qualcomm.qti.uceservice@2.1 | \
+            vendor.qti.data.factory@2.1 | \
+            vendor.qti.data.slm@1.0 | \
+            vendor.qti.hardware.fm@1.0 | \
+            vendor.qti.hardware.iop@1.0 | \
+            vendor.qti.hardware.iop@2.0 | \
+            vendor.qti.hardware.scve.objecttracker@1.0 | \
+            vendor.qti.hardware.scve.panorama@1.0 | \
+            vendor.qti.ims.callinfo@1.0 | \
+            vendor.qti.ims.rcsconfig@1.0 | \
+            vendor.qti.ims.rcsconfig@1.1 | \
+            vendor.qti.imsrtpservice@2.0 | \
+            vendor.qti.imsrtpservice@2.1 | \
+            vendor.qti.imsrtpservice@2.0)
             echo "$1-vendor"
             ;;
         libqsap_sdk | \
+            libqsap_shim | \
             libril | \
             libmm-omxcore | \
+            libc2dcolorconvert | \
+            libkeymasterdeviceutils | \
+            libkeymasterprovision | \
             libwpa_client) ;;
         *)
             return 1
