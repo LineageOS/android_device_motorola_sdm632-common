@@ -3,20 +3,26 @@
 
 # Current blobs with ELF checks disabled:
 # imsdatadaemon, libcne, libwqe, lowi-server depend on libwpa_client, which is a gnu makefile target
-# libmdmcutback depends on libqsap_sdk, which is a gnu makefile target
+# libmdmcutback depends on libqsap_sdk, libqsap_shim which are gnu makefile targets
 # libmotext_inf, libril-qcril-hook-oem depend on libril, which is a gnu makefile target
 # libOmxVpp depends on libmm-omxcore, which is a gnu makefile target
+# 32bit libq3dtools_esx, libwvdrmengine, libloc_api_v02, librcc, libfastcvopt, lib-imsvtcore, libllvm-qcom, libllvm-glnext, sensors.rp, lib-rtpcore, libGLESv2_adreno, libscvePanorama, android.hardware.bluetooth@1.0-impl-qti are unable to resolved the following symbols:
+# __aeabi_ldivmod, __aeabi_uldivmod
+# 32bit libgsl, libCB, libq3dtools_adreno, libtime_genoff, libOmxDsdDec, libizat_core, libsensor1, libOmxAlacDecSw, libOmxAacDec, libOmxApeDecSw, vulkan.msm8953, libmmosal_proprietary, libdiag, libscvePanorama_lite are unable to resolved the following symbol:
+# __aeabi_uldivmod
+# 32bit libGLESv1_CM_adreno, lib-imsSDP, libOmxVpp, vendor.qti.gnss@3.0-impl, liblocationservice are unable to resolved the following symbol:
+# __aeabi_ldivmod
 
 # ADSP
 vendor/bin/adsprpcd
 vendor/lib/libadsp_default_listener.so
 vendor/lib/libadsprpc.so
 vendor/lib/libfastcvadsp_stub.so
-vendor/lib/libfastcvopt.so
+vendor/lib/libfastcvopt.so;DISABLE_CHECKELF
 vendor/lib64/libadsp_default_listener.so
 vendor/lib64/libadsprpc.so
 vendor/lib64/libfastcvadsp_stub.so
-vendor/lib64/libfastcvopt.so
+vendor/lib64/libfastcvopt.so;DISABLE_CHECKELF
 
 # Audio
 vendor/lib/libacdb-fts.so
@@ -39,7 +45,9 @@ vendor/lib64/libqtigef.so
 # Bluetooth
 vendor/bin/hw/android.hardware.bluetooth@1.0-service-qti
 vendor/etc/init/android.hardware.bluetooth@1.0-service-qti.rc
-vendor/lib64/hw/android.hardware.bluetooth@1.0-impl-qti.so
+vendor/lib/hw/android.hardware.bluetooth@1.0-impl-qti.so;DISABLE_CHECKELF
+vendor/lib/libbtnv.so
+vendor/lib64/hw/android.hardware.bluetooth@1.0-impl-qti.so;DISABLE_CHECKELF
 vendor/lib64/libbt-hidlclient.so
 vendor/lib64/libbtnv.so
 
@@ -107,6 +115,7 @@ product/lib64/vendor.qti.data.slm@1.0.so:system_ext/lib64/vendor.qti.data.slm@1.
 vendor/app/CneApp/CneApp.apk|239c2ff019f1dd46af5f1b37c3f1d421a5a5fdc7
 vendor/bin/cnd|3b4bd3a67c3e13042dd81b48f7242dad84c67a10
 vendor/etc/init/cnd.rc|ff205cff8e00ec6805fd1e19f3ca6ff86700cbb6
+vendor/lib/libxml.so|34dd76abe1fa95065e80e945d13213f4256fbc81
 vendor/lib64/libcacertclient.so|e04aa49d3b3b4534f5eb2b1ccea69ff8fee0182c
 vendor/lib64/libcne.so;DISABLE_CHECKELF|d17ca29b9fa1e1fc491921fe27aa0c85d28d3b8e
 vendor/lib64/libcneapiclient.so|00465d29c6e4ea19fc3f3787f9869b2c830a4eea
@@ -116,8 +125,8 @@ vendor/lib64/libwms.so|9d4e07c9fa9c2170451a030a8645662269a827bb
 vendor/lib64/libwqe.so;DISABLE_CHECKELF|24cc68c56545f8a2c1419099f71986cc411ab6c9
 vendor/lib64/libxml.so|3d6ddc759b5804b2279f66471c9879636a70d801
 vendor/lib64/vendor.qti.data.factory@2.0.so|6b5b3d3e007ecbc47c7a451cd7712f8a242a12c9
-vendor/lib64/vendor.qti.data.factory@2.1.so|852dc59b489fb44a594be0a51630f3f70e55ab9f
-vendor/lib64/vendor.qti.data.slm@1.0.so|5599d530936d35d5cfddfa2c4e47304c92d01fc8
+vendor/lib64/vendor.qti.data.factory@2.1.so;MODULE=vendor.qti.data.factory@2.1-vendor|852dc59b489fb44a594be0a51630f3f70e55ab9f
+vendor/lib64/vendor.qti.data.slm@1.0.so;MODULE=vendor.qti.data.slm@1.0-vendor|5599d530936d35d5cfddfa2c4e47304c92d01fc8
 vendor/lib64/vendor.qti.hardware.cacert@1.0.so|b6ff1fa5d685ff3572993cbe8325c36654eea4d8
 vendor/lib64/vendor.qti.hardware.data.cne.internal.api@1.0.so|1fa1ea98c1f28e12a1399c0f2e34e1f1a1e0c21b
 vendor/lib64/vendor.qti.hardware.data.cne.internal.constants@1.0.so|3604bfc152d5e6417e5478dc80d74110cfca934f
@@ -145,11 +154,11 @@ vendor/lib64/vendor.qti.hardware.qteeconnector@1.0.so
 # DRM - Widevine
 vendor/bin/hw/android.hardware.drm@1.2-service.widevine
 vendor/etc/init/android.hardware.drm@1.2-service.widevine.rc
-vendor/lib/mediadrm/libwvdrmengine.so
+vendor/lib/mediadrm/libwvdrmengine.so;DISABLE_CHECKELF
 vendor/lib64/libcpion.so
 vendor/lib64/libhdcpsrm.so
 vendor/lib64/libwvhidl.so
-vendor/lib64/mediadrm/libwvdrmengine.so
+vendor/lib64/mediadrm/libwvdrmengine.so;DISABLE_CHECKELF
 
 # DRM
 vendor/bin/qseecomd
@@ -158,12 +167,15 @@ vendor/lib/libcppf.so
 vendor/lib64/libGPreqcancel.so
 vendor/lib64/libGPreqcancel_svc.so
 vendor/lib64/libQSEEComAPI.so
+vendor/lib64/libsecureui_svcsock.so
 vendor/lib64/libSecureUILib.so
 vendor/lib64/libdrmfs.so
 vendor/lib64/libdrmtime.so
 vendor/lib64/libqisl.so
 vendor/lib64/librpmb.so
+vendor/lib64/libStDrvInt.so
 vendor/lib64/libssd.so
+vendor/lib64/vendor.qti.hardware.tui_comm@1.0.so
 
 # DSP
 vendor/lib/libsdsprpc.so
@@ -194,10 +206,10 @@ vendor/lib/libscveObjectSegmentation.so
 vendor/lib/libscveObjectSegmentation_stub.so
 vendor/lib/libscveObjectTracker.so
 vendor/lib/libscveObjectTracker_stub.so
-vendor/lib/libscvePanorama.so
-vendor/lib/libscvePanorama_lite.so
-vendor/lib/vendor.qti.hardware.scve.objecttracker@1.0.so
-vendor/lib/vendor.qti.hardware.scve.panorama@1.0.so
+vendor/lib/libscvePanorama.so;DISABLE_CHECKELF
+vendor/lib/libscvePanorama_lite.so;DISABLE_CHECKELF
+vendor/lib/vendor.qti.hardware.scve.objecttracker@1.0.so;MODULE=vendor.qti.hardware.scve.objecttracker@1.0-vendor
+vendor/lib/vendor.qti.hardware.scve.panorama@1.0.so;MODULE=vendor.qti.hardware.scve.panorama@1.0-vendor
 vendor/lib64/libscveBlobDescriptor.so
 vendor/lib64/libscveBlobDescriptor_stub.so
 vendor/lib64/libscveCommon.so
@@ -206,10 +218,10 @@ vendor/lib64/libscveObjectSegmentation.so
 vendor/lib64/libscveObjectSegmentation_stub.so
 vendor/lib64/libscveObjectTracker.so
 vendor/lib64/libscveObjectTracker_stub.so
-vendor/lib64/libscvePanorama.so
-vendor/lib64/libscvePanorama_lite.so
-vendor/lib64/vendor.qti.hardware.scve.objecttracker@1.0.so
-vendor/lib64/vendor.qti.hardware.scve.panorama@1.0.so
+vendor/lib64/libscvePanorama.so;DISABLE_CHECKELF
+vendor/lib64/libscvePanorama_lite.so;DISABLE_CHECKELF
+vendor/lib64/vendor.qti.hardware.scve.objecttracker@1.0.so;MODULE=vendor.qti.hardware.scve.objecttracker@1.0-vendor
+vendor/lib64/vendor.qti.hardware.scve.panorama@1.0.so;MODULE=vendor.qti.hardware.scve.panorama@1.0-vendor
 
 # FM
 system/lib/fm_helium.so:system_ext/lib/fm_helium.so
@@ -220,14 +232,14 @@ product/lib/vendor.qti.hardware.fm@1.0.so:system_ext/lib/vendor.qti.hardware.fm@
 product/lib64/vendor.qti.hardware.fm@1.0.so:system_ext/lib64/vendor.qti.hardware.fm@1.0.so
 vendor/bin/fm_qsoc_patches
 vendor/lib/hw/vendor.qti.hardware.fm@1.0-impl.so
+vendor/lib/vendor.qti.hardware.fm@1.0.so;MODULE=vendor.qti.hardware.fm@1.0-vendor
 vendor/lib64/hw/vendor.qti.hardware.fm@1.0-impl.so
 vendor/lib64/vendor.qti.hardware.fm@1.0.so;MODULE=vendor.qti.hardware.fm@1.0-vendor
 
 # Gatekeeper
 vendor/bin/hw/android.hardware.gatekeeper@1.0-service-qti
 vendor/etc/init/android.hardware.gatekeeper@1.0-service-qti.rc
-vendor/lib/hw/android.hardware.gatekeeper@1.0-impl-qti.so
-vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl-qti.so
+vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl-qti.so;DISABLE_CHECKELF
 
 # GPS
 vendor/bin/garden_app
@@ -237,7 +249,16 @@ vendor/bin/xtra-daemon
 vendor/bin/xtwifi-client
 vendor/bin/xtwifi-inet-agent
 vendor/etc/vintf/manifest/vendor.qti.gnss@3.0-service.xml
-vendor/lib/hw/vendor.qti.gnss@3.0-impl.so
+vendor/lib/hw/vendor.qti.gnss@3.0-impl.so;DISABLE_CHECKELF
+vendor/lib/libdataitems.so
+vendor/lib/libizat_client_api.so
+vendor/lib/libizat_core.so;DISABLE_CHECKELF
+vendor/lib/liblbs_core.so
+vendor/lib/libloc_api_v02.so;DISABLE_CHECKELF
+vendor/lib/liblocationservice.so;DISABLE_CHECKELF
+vendor/lib/liblocationservice_glue.so
+vendor/lib/liblowi_client.so
+vendor/lib/libxtadapter.so
 vendor/lib/vendor.qti.gnss@1.0.so
 vendor/lib/vendor.qti.gnss@1.1.so
 vendor/lib/vendor.qti.gnss@1.2.so
@@ -245,16 +266,16 @@ vendor/lib/vendor.qti.gnss@2.0.so
 vendor/lib/vendor.qti.gnss@2.1.so
 vendor/lib/vendor.qti.gnss@3.0-service.so
 vendor/lib/vendor.qti.gnss@3.0.so
-vendor/lib64/hw/vendor.qti.gnss@3.0-impl.so
+vendor/lib64/hw/vendor.qti.gnss@3.0-impl.so;DISABLE_CHECKELF
 vendor/lib64/libdataitems.so
 vendor/lib64/libgarden.so
 vendor/lib64/libgarden_haltests_e2e.so
 vendor/lib64/libgdtap.so
 vendor/lib64/libizat_client_api.so
-vendor/lib64/libizat_core.so
+vendor/lib64/libizat_core.so;DISABLE_CHECKELF
 vendor/lib64/liblbs_core.so
-vendor/lib64/libloc_api_v02.so
-vendor/lib64/liblocationservice.so
+vendor/lib64/libloc_api_v02.so;DISABLE_CHECKELF
+vendor/lib64/liblocationservice.so;DISABLE_CHECKELF
 vendor/lib64/liblocationservice_glue.so
 vendor/lib64/liblowi_client.so
 vendor/lib64/liblowi_wifihal.so
@@ -274,20 +295,20 @@ vendor/bin/hw/vendor.display.color@1.0-service
 vendor/etc/init/vendor.display.color@1.0-service.rc
 vendor/lib/egl/eglSubDriverAndroid.so
 vendor/lib/egl/libEGL_adreno.so;SYMLINK=vendor/lib/libEGL_adreno.so
-vendor/lib/egl/libGLESv1_CM_adreno.so
-vendor/lib/egl/libGLESv2_adreno.so;SYMLINK=vendor/lib/libGLESv2_adreno.so
+vendor/lib/egl/libGLESv1_CM_adreno.so;DISABLE_CHECKELF
+vendor/lib/egl/libGLESv2_adreno.so;SYMLINK=vendor/lib/libGLESv2_adreno.so;DISABLE_CHECKELF
 vendor/lib/egl/libQTapGLES.so
-vendor/lib/egl/libq3dtools_adreno.so
-vendor/lib/egl/libq3dtools_esx.so
-vendor/lib/hw/vulkan.msm8953.so
+vendor/lib/egl/libq3dtools_adreno.so;DISABLE_CHECKELF
+vendor/lib/egl/libq3dtools_esx.so;DISABLE_CHECKELF
+vendor/lib/hw/vulkan.msm8953.so;DISABLE_CHECKELF
 vendor/lib/libC2D2.so
-vendor/lib/libCB.so
+vendor/lib/libCB.so;DISABLE_CHECKELF
 vendor/lib/libOpenCL.so
 vendor/lib/libadreno_utils.so
 vendor/lib/libc2d30_bltlib.so
-vendor/lib/libgsl.so
-vendor/lib/libllvm-glnext.so
-vendor/lib/libllvm-qcom.so
+vendor/lib/libgsl.so;DISABLE_CHECKELF
+vendor/lib/libllvm-glnext.so;DISABLE_CHECKELF
+vendor/lib/libllvm-qcom.so;DISABLE_CHECKELF
 vendor/lib/libsdedrm.so
 vendor/lib/libsdm-color.so
 vendor/lib/libsdm-diag.so
@@ -300,19 +321,19 @@ vendor/lib/vendor.display.postproc@1.0.so
 vendor/lib64/egl/eglSubDriverAndroid.so
 vendor/lib64/egl/libEGL_adreno.so;SYMLINK=vendor/lib64/libEGL_adreno.so
 vendor/lib64/egl/libGLESv1_CM_adreno.so
-vendor/lib64/egl/libGLESv2_adreno.so;SYMLINK=vendor/lib64/libGLESv2_adreno.so
+vendor/lib64/egl/libGLESv2_adreno.so;SYMLINK=vendor/lib64/libGLESv2_adreno.so;DISABLE_CHECKELF
 vendor/lib64/egl/libQTapGLES.so
-vendor/lib64/egl/libq3dtools_adreno.so;SYMLINK=vendor/lib64/libq3dtools_adreno.so
-vendor/lib64/egl/libq3dtools_esx.so
-vendor/lib64/hw/vulkan.msm8953.so
+vendor/lib64/egl/libq3dtools_adreno.so;SYMLINK=vendor/lib64/libq3dtools_adreno.so;DISABLE_CHECKELF
+vendor/lib64/egl/libq3dtools_esx.so;DISABLE_CHECKELF
+vendor/lib64/hw/vulkan.msm8953.so;DISABLE_CHECKELF
 vendor/lib64/libC2D2.so
-vendor/lib64/libCB.so
+vendor/lib64/libCB.so;DISABLE_CHECKELF
 vendor/lib64/libOpenCL.so
 vendor/lib64/libadreno_utils.so
 vendor/lib64/libc2d30_bltlib.so
-vendor/lib64/libgsl.so
-vendor/lib64/libllvm-glnext.so
-vendor/lib64/libllvm-qcom.so
+vendor/lib64/libgsl.so;DISABLE_CHECKELF
+vendor/lib64/libllvm-glnext.so;DISABLE_CHECKELF
+vendor/lib64/libllvm-qcom.so;DISABLE_CHECKELF
 vendor/lib64/libsdedrm.so
 vendor/lib64/libsdm-color.so
 vendor/lib64/libsdm-diag.so
@@ -347,16 +368,12 @@ vendor/firmware/a540_gpmu.fw2
 vendor/bin/ipacm-diag
 
 # Keymaster
-vendor/bin/hw/android.hardware.keymaster@4.0-service-qti
+vendor/bin/hw/android.hardware.keymaster@4.0-service-qti;DISABLE_CHECKELF
 vendor/etc/init/android.hardware.keymaster@4.0-service-qti.rc
-vendor/lib/libkeymasterdeviceutils.so
-vendor/lib/libkeymasterprovision.so
-vendor/lib/libkeymasterutils.so
-vendor/lib/libqtikeymaster4.so
-vendor/lib64/libkeymasterdeviceutils.so
-vendor/lib64/libkeymasterprovision.so
-vendor/lib64/libkeymasterutils.so
-vendor/lib64/libqtikeymaster4.so
+vendor/lib64/libkeymasterdeviceutils.so;DISABLE_CHECKELF
+vendor/lib64/libkeymasterprovision.so;DISABLE_CHECKELF
+vendor/lib64/libkeymasterutils.so;DISABLE_CHECKELF
+vendor/lib64/libqtikeymaster4.so;DISABLE_CHECKELF
 
 # Listen
 vendor/lib/libgcs-calwrapper.so
@@ -373,11 +390,11 @@ vendor/lib64/vendor.qti.voiceprint@1.0.so
 # Media
 vendor/lib/libOmxVpp.so;DISABLE_CHECKELF
 vendor/lib/libgpustats.so
-vendor/lib/libmmosal_proprietary.so
+vendor/lib/libmmosal_proprietary.so;DISABLE_CHECKELF
 vendor/lib/libvqzip.so
 vendor/lib64/libOmxVpp.so;DISABLE_CHECKELF
 vendor/lib64/libgpustats.so
-vendor/lib64/libmmosal_proprietary.so
+vendor/lib64/libmmosal_proprietary.so;DISABLE_CHECKELF
 vendor/lib64/libvpplibrary.so
 
 # Moto Permissions
@@ -417,12 +434,12 @@ product/lib64/vendor.qti.hardware.iop@1.0.so:system_ext/lib64/vendor.qti.hardwar
 product/lib64/vendor.qti.hardware.iop@2.0.so:system_ext/lib64/vendor.qti.hardware.iop@2.0.so
 vendor/lib/hw/vendor.qti.hardware.iop@2.0-impl.so
 vendor/lib/libqti-iopd-client.so
-vendor/lib/vendor.qti.hardware.iop@1.0.so
-vendor/lib/vendor.qti.hardware.iop@2.0.so
+vendor/lib/vendor.qti.hardware.iop@1.0.so;MODULE=vendor.qti.hardware.iop@1.0-vendor
+vendor/lib/vendor.qti.hardware.iop@2.0.so;MODULE=vendor.qti.hardware.iop@2.0-vendor
 vendor/lib64/hw/vendor.qti.hardware.iop@2.0-impl.so
 vendor/lib64/libqti-iopd-client.so
-vendor/lib64/vendor.qti.hardware.iop@1.0.so
-vendor/lib64/vendor.qti.hardware.iop@2.0.so
+vendor/lib64/vendor.qti.hardware.iop@1.0.so;MODULE=vendor.qti.hardware.iop@1.0-vendor
+vendor/lib64/vendor.qti.hardware.iop@2.0.so;MODULE=vendor.qti.hardware.iop@2.0-vendor
 
 # Peripheral manager
 vendor/bin/pm-proxy
@@ -435,7 +452,7 @@ vendor/lib64/libdisp-aba.so
 
 # QMI
 vendor/bin/irsc_util
-vendor/lib/libdiag.so
+vendor/lib/libdiag.so;DISABLE_CHECKELF
 vendor/lib/libdsi_netctrl.so
 vendor/lib/libdsutils.so
 vendor/lib/libidl.so
@@ -450,7 +467,7 @@ vendor/lib/libqmi_client_qmux.so
 vendor/lib/libqmi_common_so.so
 vendor/lib/libqmi_csi.so
 vendor/lib/libqmi_encdec.so
-vendor/lib64/libdiag.so
+vendor/lib64/libdiag.so;DISABLE_CHECKELF
 vendor/lib64/libdsi_netctrl.so
 vendor/lib64/libdsutils.so
 vendor/lib64/libidl.so
@@ -652,54 +669,58 @@ vendor/etc/init/ims_rtp_daemon.rc
 vendor/etc/init/imsdatadaemon.rc
 vendor/etc/init/imsqmidaemon.rc
 vendor/etc/init/imsrcsd.rc
-vendor/lib/com.qualcomm.qti.imscmservice@1.0.so
-vendor/lib/com.qualcomm.qti.imscmservice@2.0.so
-vendor/lib/com.qualcomm.qti.imscmservice@2.1.so
-vendor/lib/com.qualcomm.qti.imscmservice@2.2.so
-vendor/lib/com.qualcomm.qti.uceservice@2.0.so
-vendor/lib/com.qualcomm.qti.uceservice@2.1.so
+vendor/lib/com.qualcomm.qti.imscmservice@1.0.so;MODULE=com.qualcomm.qti.imscmservice@1.0-vendor
+vendor/lib/com.qualcomm.qti.imscmservice@2.0.so;MODULE=com.qualcomm.qti.imscmservice@2.0-vendor
+vendor/lib/com.qualcomm.qti.imscmservice@2.1.so;MODULE=com.qualcomm.qti.imscmservice@2.1-vendor
+vendor/lib/com.qualcomm.qti.imscmservice@2.2.so;MODULE=com.qualcomm.qti.imscmservice@2.2-vendor
+vendor/lib/com.qualcomm.qti.uceservice@2.0.so;MODULE=com.qualcomm.qti.uceservice@2.0-vendor
+vendor/lib/com.qualcomm.qti.uceservice@2.1.so;MODULE=com.qualcomm.qti.uceservice@2.1-vendor
+vendor/lib/lib-imsSDP.so;DISABLE_CHECKELF
 vendor/lib/lib-imscmservice.so
 vendor/lib/lib-imsdpl.so
 vendor/lib/lib-imsqimf.so
 vendor/lib/lib-imsrcs-v2.so
 vendor/lib/lib-imsrcsbaseimpl.so
-vendor/lib/lib-imsvtcore.so
+vendor/lib/lib-imsvtcore.so;DISABLE_CHECKELF
 vendor/lib/lib-imsxml.so
 vendor/lib/lib-rtpcommon.so
-vendor/lib/lib-rtpcore.so
+vendor/lib/lib-rtpcore.so;DISABLE_CHECKELF
 vendor/lib/lib-rtpsl.so
+vendor/lib/lib-siputility.so
 vendor/lib/lib-uceservice.so
-vendor/lib/vendor.qti.ims.callinfo@1.0.so
-vendor/lib/vendor.qti.ims.rcsconfig@1.0.so
-vendor/lib/vendor.qti.ims.rcsconfig@1.1.so
-vendor/lib/vendor.qti.imsrtpservice@2.0.so
+vendor/lib/librcc.so;DISABLE_CHECKELF
+vendor/lib/vendor.qti.ims.callinfo@1.0.so;MODULE=vendor.qti.ims.callinfo@1.0-vendor
+vendor/lib/vendor.qti.ims.rcsconfig@1.0.so;MODULE=vendor.qti.ims.rcsconfig@1.0-vendor
+vendor/lib/vendor.qti.ims.rcsconfig@1.1.so;MODULE=vendor.qti.ims.rcsconfig@1.1-vendor
+vendor/lib/vendor.qti.imsrtpservice@2.0.so;MODULE=vendor.qti.imsrtpservice@2.0-vendor
 vendor/lib/vendor.qti.imsrtpservice@2.1-service-Impl.so
-vendor/lib/vendor.qti.imsrtpservice@2.1.so
-vendor/lib64/com.qualcomm.qti.imscmservice@1.0.so
-vendor/lib64/com.qualcomm.qti.imscmservice@2.0.so
-vendor/lib64/com.qualcomm.qti.imscmservice@2.1.so
-vendor/lib64/com.qualcomm.qti.imscmservice@2.2.so
-vendor/lib64/com.qualcomm.qti.uceservice@2.0.so
-vendor/lib64/com.qualcomm.qti.uceservice@2.1.so
+vendor/lib/vendor.qti.imsrtpservice@2.1.so;MODULE=vendor.qti.imsrtpservice@2.1-vendor
+vendor/lib64/com.qualcomm.qti.imscmservice@1.0.so;MODULE=com.qualcomm.qti.imscmservice@1.0-vendor
+vendor/lib64/com.qualcomm.qti.imscmservice@2.0.so;MODULE=com.qualcomm.qti.imscmservice@2.0-vendor
+vendor/lib64/com.qualcomm.qti.imscmservice@2.1.so;MODULE=com.qualcomm.qti.imscmservice@2.1-vendor
+vendor/lib64/com.qualcomm.qti.imscmservice@2.2.so;MODULE=com.qualcomm.qti.imscmservice@2.2-vendor
+vendor/lib64/com.qualcomm.qti.uceservice@2.0.so;MODULE=com.qualcomm.qti.uceservice@2.0-vendor
+vendor/lib64/com.qualcomm.qti.uceservice@2.1.so;MODULE=com.qualcomm.qti.uceservice@2.1-vendor
+vendor/lib64/lib-imsSDP.so;DISABLE_CHECKELF
 vendor/lib64/lib-imscmservice.so
 vendor/lib64/lib-imsdpl.so
 vendor/lib64/lib-imsqimf.so
 vendor/lib64/lib-imsrcs-v2.so
 vendor/lib64/lib-imsrcsbaseimpl.so
-vendor/lib64/lib-imsvtcore.so
+vendor/lib64/lib-imsvtcore.so;DISABLE_CHECKELF
 vendor/lib64/lib-imsxml.so
 vendor/lib64/lib-rtpcommon.so
-vendor/lib64/lib-rtpcore.so
+vendor/lib64/lib-rtpcore.so;DISABLE_CHECKELF
 vendor/lib64/lib-rtpsl.so
 vendor/lib64/lib-siputility.so
 vendor/lib64/lib-uceservice.so
-vendor/lib64/librcc.so
-vendor/lib64/vendor.qti.ims.callinfo@1.0.so
-vendor/lib64/vendor.qti.ims.rcsconfig@1.0.so
-vendor/lib64/vendor.qti.ims.rcsconfig@1.1.so
-vendor/lib64/vendor.qti.imsrtpservice@2.0.so
+vendor/lib64/librcc.so;DISABLE_CHECKELF
+vendor/lib64/vendor.qti.ims.callinfo@1.0.so;MODULE=vendor.qti.ims.callinfo@1.0-vendor
+vendor/lib64/vendor.qti.ims.rcsconfig@1.0.so;MODULE=vendor.qti.ims.rcsconfig@1.0-vendor
+vendor/lib64/vendor.qti.ims.rcsconfig@1.1.so;MODULE=vendor.qti.ims.rcsconfig@1.1-vendor
+vendor/lib64/vendor.qti.imsrtpservice@2.0.so;MODULE=vendor.qti.imsrtpservice@2.0-vendor
 vendor/lib64/vendor.qti.imsrtpservice@2.1-service-Impl.so
-vendor/lib64/vendor.qti.imsrtpservice@2.1.so
+vendor/lib64/vendor.qti.imsrtpservice@2.1.so;MODULE=vendor.qti.imsrtpservice@2.1-vendor
 
 # MOTO RIL
 vendor/lib64/libsensorndkbridge.so
@@ -707,14 +728,14 @@ vendor/lib64/libsensorndkbridge.so
 # Sensors
 vendor/bin/capsense_reset
 vendor/bin/sensors.qti
-vendor/lib/libsensor1.so
+vendor/lib/libsensor1.so;DISABLE_CHECKELF
 vendor/lib/libsensor_reg.so
 vendor/lib/sensor_calibrate.so
-vendor/lib/sensors.rp.so
-vendor/lib64/libsensor1.so
+vendor/lib/sensors.rp.so;DISABLE_CHECKELF
+vendor/lib64/libsensor1.so;DISABLE_CHECKELF
 vendor/lib64/libsensor_reg.so
 vendor/lib64/sensor_calibrate.so
-vendor/lib64/sensors.rp.so
+vendor/lib64/sensors.rp.so;DISABLE_CHECKELF
 
 # Thermal
 vendor/bin/thermal-engine
@@ -725,8 +746,8 @@ vendor/lib64/libthermalclient.so
 vendor/app/TimeService/TimeService.apk
 vendor/bin/time_daemon
 vendor/etc/init/init.time_daemon.rc
-vendor/lib/libtime_genoff.so
-vendor/lib64/libtime_genoff.so
+vendor/lib/libtime_genoff.so;DISABLE_CHECKELF
+vendor/lib64/libtime_genoff.so;DISABLE_CHECKELF
 
 # Wi-Fi
 vendor/bin/cnss-daemon
