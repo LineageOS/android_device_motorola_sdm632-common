@@ -214,9 +214,6 @@ vendor.usb.rmnet.func.name=rmnet_bam
 vendor.usb.rmnet.inst.name=rmnet
 vendor.usb.rndis.func.name=rndis_bam
 
-# Voice assistant
-ro.opa.eligible_device=true
-
 # Watchdog
 ro.hw_timeout_multiplier=3
 
