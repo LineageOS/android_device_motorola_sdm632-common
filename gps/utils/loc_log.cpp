@@ -31,7 +31,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string>
 #include <unistd.h>
 #include <sys/time.h>
 #include "log_util.h"
@@ -52,12 +51,6 @@ const char TO_AFW[]     = "<===";
 const char EXIT_TAG[]   = "Exiting";
 const char ENTRY_TAG[]  = "Entering";
 const char EXIT_ERROR_TAG[]  = "Exiting with error";
-
-#define BUILD_TYPE_PROP_NA 0
-#define BUILD_TYPE_PROP_USER 1
-#define BUILD_TYPE_PROP_USERDEBUG 2
-#define BUILD_TYPE_PROP_INVALID 3
-int build_type_prop = BUILD_TYPE_PROP_NA;
 
 /* Logging Mechanism */
 loc_logger_s_type loc_logger;
