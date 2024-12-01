@@ -1,8 +1,4 @@
 # HAL packages
-PRODUCT_PACKAGES += android.hardware.gnss@1.0-impl-qti
-PRODUCT_PACKAGES += android.hardware.gnss@1.0-service-qti
-PRODUCT_PACKAGES += android.hardware.gnss@1.1-impl-qti
-PRODUCT_PACKAGES += android.hardware.gnss@1.1-service-qti
 PRODUCT_PACKAGES += android.hardware.gnss@2.0-impl-qti
 PRODUCT_PACKAGES += android.hardware.gnss@2.0-service-qti
 PRODUCT_PACKAGES += gps.conf
