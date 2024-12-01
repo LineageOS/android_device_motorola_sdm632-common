@@ -62,6 +62,9 @@ function lib_to_package_fixup_vendor_variants() {
         libprotobuf-cpp-full)
             echo "libprotobuf-cpp-full-vendorcompat"
             ;;
+        libprotobuf-cpp-lite)
+            echo "libprotobuf-cpp-lite-vendorcompat"
+            ;;
         libqsap_sdk | \
             libqsap_shim | \
             libril | \
