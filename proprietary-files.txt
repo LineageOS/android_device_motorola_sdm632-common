@@ -108,10 +108,6 @@ product/framework/vendor.qti.hardware.data.latency-V1.0-java.jar:system_extprodu
 product/framework/vendor.qti.hardware.factory-V1.0-java.jar:system_ext/framework/vendor.qti.hardware.factory-V1.0-java.jar|0ecc597e18701978179bd54d0d6f701a7a97fce2
 product/framework/vendor.qti.hardware.factory-V1.1-java.jar:system_ext/framework/vendor.qti.hardware.factory-V1.1-java.jar|d8fa470013d6a0eb2801c3ac556d62ec8bbf1136
 product/framework/vendor.qti.latency-V2.0-java.jar:system_ext/framework/vendor.qti.latency-V2.0-java.jar|d345e24271b83faecdb1abe1361db812fae0646f
-product/lib/vendor.qti.data.factory@2.1.so:system_ext/lib/vendor.qti.data.factory@2.1.so|ae2986e8c7fec0434b0c036a1b790df34fb8b679
-product/lib/vendor.qti.data.slm@1.0.so:system_ext/lib/vendor.qti.data.slm@1.0.so|f1e4dc2209ef645e4367a20c8a5ce9e4648f72db
-product/lib64/vendor.qti.data.factory@2.1.so:system_ext/lib64/vendor.qti.data.factory@2.1.so|a311260fce9e7627548decfff5198da6730ccac1
-product/lib64/vendor.qti.data.slm@1.0.so:system_ext/lib64/vendor.qti.data.slm@1.0.so|4fa940ff74e5329ecc998cefde109d512d0df237
 vendor/app/CneApp/CneApp.apk|239c2ff019f1dd46af5f1b37c3f1d421a5a5fdc7
 vendor/bin/cnd|3b4bd3a67c3e13042dd81b48f7242dad84c67a10
 vendor/etc/init/cnd.rc|ff205cff8e00ec6805fd1e19f3ca6ff86700cbb6
