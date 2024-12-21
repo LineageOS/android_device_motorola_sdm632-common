@@ -394,9 +394,6 @@
     -->
     <bool name="config_enableWifiDisplay">true</bool>
 
-    <!-- Remote server that can provide NTP responses. -->
-    <string translatable="false" name="config_ntpServer">1.android.pool.ntp.org</string>
-
     <!-- Enable Zram writeback feature to allow unused pages in zram be written to flash. -->
     <bool name="config_zramWriteback">true</bool>
 
