@@ -501,45 +501,34 @@ Return<void> HWCSession::displayBWTransactionPending(displayBWTransactionPending
   return Void();
 }
 
-#ifdef DISPLAY_CONFIG_1_1
 Return<int32_t> HWCSession::setDisplayAnimating(uint64_t display_id, bool animating ) {
   return CallDisplayFunction(static_cast<hwc2_device_t *>(this), display_id,
                              &HWCDisplay::SetDisplayAnimating, animating);
 }
-#endif
 
-#ifdef DISPLAY_CONFIG_1_2
 Return<int32_t> HWCSession::setDisplayIndex(IDisplayConfig::DisplayTypeExt disp_type,
                                             uint32_t base, uint32_t count) {
   DLOGW("Not implemented.");
   return 0;
 }
-#endif
 
-#ifdef DISPLAY_CONFIG_1_3
 Return<int32_t> HWCSession::controlIdlePowerCollapse(bool enable, bool synchronous) {
   DLOGW("Not implemented.");
   return 0;
 }
-#endif
 
-#ifdef DISPLAY_CONFIG_1_4
 Return<void> HWCSession::getWriteBackCapabilities(getWriteBackCapabilities_cb _hidl_cb) {
   DLOGW("Not implemented.");
   return Void();
 }
-#endif
 
-#ifdef DISPLAY_CONFIG_1_5
 Return<int32_t> HWCSession::SetDisplayDppsAdROI(uint32_t display_id, uint32_t h_start,
                                                 uint32_t h_end, uint32_t v_start, uint32_t v_end,
                                                 uint32_t factor_in, uint32_t factor_out) {
   DLOGW("Not implemented.");
   return 0;
 }
-#endif
 
-#ifdef DISPLAY_CONFIG_1_6
 Return<int32_t> HWCSession::updateVSyncSourceOnPowerModeOff() {
   DLOGW("Not implemented.");
   return 0;
@@ -549,9 +538,7 @@ Return<int32_t> HWCSession::updateVSyncSourceOnPowerModeDoze() {
   DLOGW("Not implemented.");
   return 0;
 }
-#endif
 
-#ifdef DISPLAY_CONFIG_1_7
 Return<int32_t> HWCSession::setPowerMode(uint32_t disp_id, PowerMode power_mode) {
   return 0;
 }
@@ -608,18 +595,13 @@ Return<void> HWCSession::getDebugProperty(const hidl_string &prop_name,
 
   return Void();
 }
-#endif
 
-
-#ifdef DISPLAY_CONFIG_1_8
 Return<void> HWCSession::getActiveBuiltinDisplayAttributes(
                                           getDisplayAttributes_cb _hidl_cb) {
   DLOGE("Not supported at present");
   return Void();
 }
-#endif  // DISPLAY_CONFIG_1_8
 
-#ifdef DISPLAY_CONFIG_1_9
 Return<int32_t> HWCSession::setPanelLuminanceAttributes(uint32_t disp_id, float pan_min_lum,
                                                         float pan_max_lum) {
   DLOGE("Not supported at present");
@@ -635,6 +617,5 @@ Return<bool> HWCSession::isBuiltInDisplay(uint32_t disp_id) {
    return false;
   }
 }
-#endif  // DISPLAY_CONFIG_1_9
 
 }  // namespace sdm
