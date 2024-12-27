@@ -20,10 +20,6 @@ ifeq ($(TARGET_KERNEL_VERSION), 4.14)
 LOCAL_CFLAGS += -DTARGET_KERNEL_4_14
 endif
 
-ifeq ($(TARGET_EXCLUDES_DISPLAY_PP), true)
-LOCAL_CFLAGS += -DEXCLUDE_DISPLAY_PP
-endif
-
 LOCAL_CLANG                   := true
 
 # TODO: Remove libui after addressing gpu_tonemapper issues
