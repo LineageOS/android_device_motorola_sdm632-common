@@ -2,8 +2,6 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 include $(LOCAL_PATH)/../../../common.mk
 
-ifeq ($(use_hwc2),true)
-
 LOCAL_MODULE                  := hwcomposer.$(TARGET_BOARD_PLATFORM)
 LOCAL_VENDOR_MODULE           := true
 LOCAL_MODULE_RELATIVE_PATH    := hw
@@ -58,4 +56,3 @@ ifeq ($(TARGET_HAS_WIDE_COLOR_DISPLAY), true)
 endif
 
 include $(BUILD_SHARED_LIBRARY)
-endif
