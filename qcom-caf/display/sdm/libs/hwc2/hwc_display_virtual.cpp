@@ -31,9 +31,6 @@
 #include <utils/debug.h>
 #include <sync/sync.h>
 #include <stdarg.h>
-#ifndef USE_GRALLOC1
-#include <gr.h>
-#endif
 
 #include "hwc_display_virtual.h"
 #include "hwc_debugger.h"

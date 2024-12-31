@@ -26,7 +26,6 @@
 * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-#ifdef USE_GRALLOC1
 #ifndef __HWC_BUFFER_ALLOCATOR_H__
 #define __HWC_BUFFER_ALLOCATOR_H__
 
@@ -74,7 +73,3 @@ class HWCBufferAllocator : public BufferAllocator {
 
 }  // namespace sdm
 #endif  // __HWC_BUFFER_ALLOCATOR_H__
-#else
-#include "../hwc/hwc_buffer_allocator.h"
-#endif  // __HWC_BUFFER_ALLOCATOR_H__
-
