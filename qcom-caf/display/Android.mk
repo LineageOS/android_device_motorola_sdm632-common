@@ -10,10 +10,6 @@ endif
 
 display-hals += gralloc
 
-ifneq ($(TARGET_PROVIDES_LIBLIGHT),true)
-display-hals += liblight
-endif
-
 ifeq ($(call is-vendor-board-platform,QCOM),true)
     include $(call all-named-subdir-makefiles,$(display-hals))
 else
