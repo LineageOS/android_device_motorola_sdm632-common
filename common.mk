@@ -128,7 +128,6 @@ PRODUCT_PACKAGES += \
     libqdMetaData.system \
     libvulkan \
     libtinyxml \
-    vendor.display.config@1.0.vendor \
     vendor.qti.hardware.memtrack-service
 
 # DRM
@@ -390,6 +389,7 @@ PRODUCT_PACKAGES += \
 # Soong
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH)
+QCOM_SOONG_NAMESPACE := $(LOCAL_PATH)/qcom-caf
 
 # Speed Profiles
 PRODUCT_DEX_PREOPT_BOOT_IMAGE_PROFILE_LOCATION := frameworks/base/config/boot-image-profile.txt
