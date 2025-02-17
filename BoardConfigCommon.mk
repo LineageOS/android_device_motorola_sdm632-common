@@ -218,7 +218,7 @@ BOARD_VNDK_VERSION := current
 
 # Verified Boot
 BOARD_AVB_ENABLE := false
-BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
+BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --set_verification_disabled_flag
 
 # Wifi
 BOARD_WLAN_DEVICE := qcwcn
