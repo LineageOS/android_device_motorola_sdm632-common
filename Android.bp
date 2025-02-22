@@ -13,3 +13,10 @@ install_symlink {
     installed_location: "rfs/msm/mpss/readonly/vendor/fsg",
     symlink_target: "/vendor/fsg",
 }
+
+install_symlink {
+    name: "dsp_symlink",
+    vendor: true,
+    installed_location: "lib/dsp",
+    symlink_target: "/vendor/dsp",
+}
