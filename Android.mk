@@ -62,12 +62,4 @@ $(FSG_MOUNT_POINT):
 	@echo "Creating $(FSG_MOUNT_POINT)"
 	@mkdir -p $(TARGET_OUT_VENDOR)/fsg
 
-DSP_SYMLINK := $(TARGET_OUT_VENDOR)/lib/dsp
-$(DSP_SYMLINK): $(LOCAL_INSTALLED_MODULE)
-	@echo "Creating DSP folder symlink: $@"
-	@rm -rf $@
-	$(hide) ln -sf /vendor/dsp $@
-
-ALL_DEFAULT_INSTALLED_MODULES += $(DSP_SYMLINK)
-
 endif
