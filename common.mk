@@ -352,7 +352,9 @@ PRODUCT_PACKAGES += \
 
 # Soong
 PRODUCT_SOONG_NAMESPACES += \
-    $(LOCAL_PATH)
+    $(LOCAL_PATH) \
+    hardware/motorola
+
 QCOM_SOONG_NAMESPACE := $(LOCAL_PATH)/qcom-caf
 
 # Speed Profiles
