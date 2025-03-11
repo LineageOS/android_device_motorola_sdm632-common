@@ -62,8 +62,6 @@ lib_fixups: lib_fixups_user_type = {
         'vendor.qti.imsrtpservice@2.0'
     ): lib_fixup_vendor_suffix,
     (
-        'libqsap_sdk',
-        'libqsap_shim',
         'libmm-omxcore',
         'libc2dcolorconvert',
         'libkeymasterdeviceutils',
@@ -96,8 +94,6 @@ blob_fixups: blob_fixups_user_type = {
         .regex_replace('system', 'vendor'),
     ('vendor/lib/sensors.rp.so', 'vendor/lib64/sensors.rp.so'): blob_fixup()
         .replace_needed('libutils.so', 'libutils-v32.so'),
-    'vendor/lib64/libmdmcutback.so': blob_fixup()
-        .add_needed('libqsap_shim.so'),
     'vendor/lib64/libmotext_inf.so': blob_fixup()
         .remove_needed('libril.so'),
     'vendor/lib64/libril-qc-hal-qmi.so': blob_fixup()
