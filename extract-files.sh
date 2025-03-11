@@ -120,13 +120,6 @@ function blob_fixup() {
                 "${PATCHELF}" --add-needed "libgui_shim_vendor.so" "${LIBGUI_SHIM}"
             done
             ;;
-        # qsap shim
-        vendor/lib64/libmdmcutback.so)
-            [ "$2" = "" ] && return 0
-            for  LIBQSAP_SHIM in $(grep -L "libqsap_shim.so" "${2}"); do
-                "${PATCHELF}" --add-needed "libqsap_shim.so" "$LIBQSAP_SHIM"
-            done
-            ;;
         # libutils-v32
         vendor/lib/soundfx/libspeakerbundle.so | vendor/lib/sensors.rp.so | vendor/lib64/sensors.rp.so)
             [ "$2" = "" ] && return 0
