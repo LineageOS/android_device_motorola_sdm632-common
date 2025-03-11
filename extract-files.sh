@@ -113,6 +113,16 @@ function blob_fixup() {
             [ "$2" = "" ] && return 0
             sed -i 's|/system/framework|/vendor/framework|' "${2}"
             ;;
+<<<<<<< PATCH SET (3a7291 sdm632-common: Migrate to libqsap_sdk in hardware/motorola)
+<<<<<<< PATCH SET (1e3af0 sdm632-common: Migrate to libqsap_sdk in hardware/motorola)
+        # Fix missing symbols
+        vendor/lib/libmot_gpu_mapper.so)
+            [ "$2" = "" ] && return 0
+            for LIBGUI_SHIM in $(grep -L "libgui_shim_vendor.so" "${2}"); do
+                "${PATCHELF}" --add-needed "libgui_shim_vendor.so" "${LIBGUI_SHIM}"
+            done
+=======
+=======
         # Fix missing symbols
         vendor/lib/libmot_gpu_mapper.so)
             [ "$2" = "" ] && return 0
@@ -120,6 +130,7 @@ function blob_fixup() {
                 "${PATCHELF}" --add-needed "libgui_shim_vendor.so" "${LIBGUI_SHIM}"
             done
             ;;
+>>>>>>> BASE      (8cb5a6 sdm632-common: Add hardware/motorola to soong namespaces)
         # qsap shim
         vendor/lib64/libmdmcutback.so)
             [ "$2" = "" ] && return 0
@@ -127,6 +138,14 @@ function blob_fixup() {
                 "${PATCHELF}" --add-needed "libqsap_shim.so" "$LIBQSAP_SHIM"
             done
             ;;
+<<<<<<< PATCH SET (3a7291 sdm632-common: Migrate to libqsap_sdk in hardware/motorola)
+        vendor/lib64/libmotext_inf.so)
+            [ "$2" = "" ] && return 0
+            ${PATCHELF} --remove-needed "libril.so" "${2}"
+>>>>>>> BASE      (ed5b44 sdm632-common: Enable ELF checks where possible)
+            ;;
+=======
+>>>>>>> BASE      (8cb5a6 sdm632-common: Add hardware/motorola to soong namespaces)
         # libutils-v32
         vendor/lib/soundfx/libspeakerbundle.so | vendor/lib/sensors.rp.so | vendor/lib64/sensors.rp.so)
             [ "$2" = "" ] && return 0
