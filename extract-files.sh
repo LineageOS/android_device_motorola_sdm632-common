@@ -102,6 +102,14 @@ function blob_fixup() {
             [ "$2" = "" ] && return 0
             sed -i 's|/system/framework|/vendor/framework|' "${2}"
             ;;
+<<<<<<< PATCH SET (1e3af0 sdm632-common: Migrate to libqsap_sdk in hardware/motorola)
+        # Fix missing symbols
+        vendor/lib/libmot_gpu_mapper.so)
+            [ "$2" = "" ] && return 0
+            for LIBGUI_SHIM in $(grep -L "libgui_shim_vendor.so" "${2}"); do
+                "${PATCHELF}" --add-needed "libgui_shim_vendor.so" "${LIBGUI_SHIM}"
+            done
+=======
         # qsap shim
         vendor/lib64/libmdmcutback.so)
             [ "$2" = "" ] && return 0
@@ -112,6 +120,7 @@ function blob_fixup() {
         vendor/lib64/libmotext_inf.so)
             [ "$2" = "" ] && return 0
             ${PATCHELF} --remove-needed "libril.so" "${2}"
+>>>>>>> BASE      (ed5b44 sdm632-common: Enable ELF checks where possible)
             ;;
         # libutils-v32
         vendor/lib/sensors.rp.so | vendor/lib64/sensors.rp.so)
