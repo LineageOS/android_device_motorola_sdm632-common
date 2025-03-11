@@ -102,13 +102,6 @@ function blob_fixup() {
             [ "$2" = "" ] && return 0
             sed -i 's|/system/framework|/vendor/framework|' "${2}"
             ;;
-        # qsap shim
-        vendor/lib64/libmdmcutback.so)
-            [ "$2" = "" ] && return 0
-            for  LIBQSAP_SHIM in $(grep -L "libqsap_shim.so" "${2}"); do
-                "${PATCHELF}" --add-needed "libqsap_shim.so" "$LIBQSAP_SHIM"
-            done
-            ;;
         vendor/lib64/libmotext_inf.so)
             [ "$2" = "" ] && return 0
             ${PATCHELF} --remove-needed "libril.so" "${2}"
