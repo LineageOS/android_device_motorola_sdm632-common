@@ -3,15 +3,11 @@
 
 # Current blobs with ELF checks disabled:
 # imsdatadaemon, libcne, libwqe, lowi-server depend on libwpa_client, which is a gnu makefile target
-# libmdmcutback depends on libqsap_sdk, libqsap_shim which are gnu makefile targets
-# libmotext_inf, libril-qcril-hook-oem depend on libril, which is a gnu makefile target
+# libGLESv1_CM_adreno, lib-imsSDP, libOmxVpp, vendor.qti.gnss@3.0-impl, liblocationservice are unable to resolved the following symbol: __aeabi_ldivmod (32-bit)
 # libOmxVpp depends on libmm-omxcore, which is a gnu makefile target
-# 32bit libq3dtools_esx, libwvdrmengine, libloc_api_v02, librcc, libfastcvopt, lib-imsvtcore, libllvm-qcom, libllvm-glnext, sensors.rp, lib-rtpcore, libGLESv2_adreno, libscvePanorama, android.hardware.bluetooth@1.0-impl-qti are unable to resolved the following symbols:
-# __aeabi_ldivmod, __aeabi_uldivmod
-# 32bit libgsl, libCB, libq3dtools_adreno, libtime_genoff, libOmxDsdDec, libizat_core, libsensor1, libOmxAlacDecSw, libOmxAacDec, libOmxApeDecSw, vulkan.msm8953, libmmosal_proprietary, libdiag, libscvePanorama_lite are unable to resolved the following symbol:
-# __aeabi_uldivmod
-# 32bit libGLESv1_CM_adreno, lib-imsSDP, libOmxVpp, vendor.qti.gnss@3.0-impl, liblocationservice are unable to resolved the following symbol:
-# __aeabi_ldivmod
+# libgsl, libCB, libq3dtools_adreno, libtime_genoff, libOmxDsdDec, libizat_core, libsensor1, vulkan.msm8953, libmmosal_proprietary, libdiag, libscvePanorama_lite are unable to reslved the following symbol: __aeabi_uldivmod (32-bit)
+# libmdmcutback depends on libqsap_sdk, libqsap_shim which are gnu makefile targets
+# libq3dtools_esx, libwvdrmengine, libloc_api_v02, librcc, libfastcvopt, lib-imsvtcore, libllvm-qcom, libllvm-glnext, sensors.rp, lib-rtpcore, libGLESv2_adreno, libscvePanorama, android.hardware.bluetooth@1.0-impl-qti are unable to resolved the following symbols: __aeabi_ldivmod, __aeabi_uldivmod (32-bit)
 
 # ADSP
 vendor/bin/adsprpcd
@@ -59,10 +55,10 @@ vendor/lib64/hw/vendor.qti.hardware.bluetooth_sar@1.0-impl.so
 vendor/lib64/vendor.qti.hardware.bluetooth_sar@1.0.so
 
 # Camera - MotCamera2
+product/etc/permissions/privapp-permissions-com.motorola.camera2.xml
 system/app/MotoSignatureApp/MotoSignatureApp.apk;PRESIGNED
 system/etc/permissions/com.motorola.motosignature.xml:vendor/etc/permissions/com.motorola.motosignature.xml
 system/framework/com.motorola.motosignature.jar:vendor/framework/com.motorola.motosignature.jar
-product/etc/permissions/privapp-permissions-com.motorola.camera2.xml
 
 # CNE
 product/etc/permissions/vendor.qti.hardware.data.connection-V1.0-java.xml:system_ext/etc/permissions/vendor.qti.hardware.data.connection-V1.0-java.xml
@@ -95,7 +91,7 @@ vendor/etc/cne/wqeclient/VZW/VZW_profile4.xml
 vendor/etc/cne/wqeclient/VZW/VZW_profile5.xml
 vendor/etc/cne/wqeclient/VZW/VZW_profile6.xml
 
-# CNE - from lake QPWS30.142-Q3-28-25-9
+# CNE - from lake-tmo QPWS30.142-Q3-28-25-13
 product/framework/vendor.qti.data.factory-V1.0-java.jar:system_ext/framework/vendor.qti.data.factory-V1.0-java.jar|f0a14b08ab6c2fb85342383235be6b75d67806fb
 product/framework/vendor.qti.data.factory-V2.0-java.jar:system_ext/framework/vendor.qti.data.factory-V2.0-java.jar|df667317984cf08e06bad7957a6a6390fe5f2bb4
 product/framework/vendor.qti.data.factory-V2.1-java.jar:system_ext/framework/vendor.qti.data.factory-V2.1-java.jar|3f8d28716003c02d9720c8c83a6d108a82359eae
@@ -163,13 +159,13 @@ vendor/lib/libcppf.so
 vendor/lib64/libGPreqcancel.so
 vendor/lib64/libGPreqcancel_svc.so
 vendor/lib64/libQSEEComAPI.so
-vendor/lib64/libsecureui_svcsock.so
 vendor/lib64/libSecureUILib.so
+vendor/lib64/libStDrvInt.so
 vendor/lib64/libdrmfs.so
 vendor/lib64/libdrmtime.so
 vendor/lib64/libqisl.so
 vendor/lib64/librpmb.so
-vendor/lib64/libStDrvInt.so
+vendor/lib64/libsecureui_svcsock.so
 vendor/lib64/libssd.so
 vendor/lib64/vendor.qti.hardware.tui_comm@1.0.so
 
@@ -220,12 +216,12 @@ vendor/lib64/vendor.qti.hardware.scve.objecttracker@1.0.so;MODULE=vendor.qti.har
 vendor/lib64/vendor.qti.hardware.scve.panorama@1.0.so;MODULE=vendor.qti.hardware.scve.panorama@1.0-vendor
 
 # FM
+product/lib/vendor.qti.hardware.fm@1.0.so:system_ext/lib/vendor.qti.hardware.fm@1.0.so
+product/lib64/vendor.qti.hardware.fm@1.0.so:system_ext/lib64/vendor.qti.hardware.fm@1.0.so
 system/lib/fm_helium.so:system_ext/lib/fm_helium.so
 system/lib/libfm-hci.so:system_ext/lib/libfm-hci.so
 system/lib64/fm_helium.so:system_ext/lib64/fm_helium.so
 system/lib64/libfm-hci.so:system_ext/lib64/libfm-hci.so
-product/lib/vendor.qti.hardware.fm@1.0.so:system_ext/lib/vendor.qti.hardware.fm@1.0.so
-product/lib64/vendor.qti.hardware.fm@1.0.so:system_ext/lib64/vendor.qti.hardware.fm@1.0.so
 vendor/bin/fm_qsoc_patches
 vendor/lib/hw/vendor.qti.hardware.fm@1.0-impl.so
 vendor/lib/vendor.qti.hardware.fm@1.0.so;MODULE=vendor.qti.hardware.fm@1.0-vendor
@@ -387,6 +383,7 @@ vendor/lib64/vendor.qti.voiceprint@1.0.so
 vendor/lib/libOmxVpp.so;DISABLE_CHECKELF
 vendor/lib/libgpustats.so
 vendor/lib/libmmosal_proprietary.so;DISABLE_CHECKELF
+vendor/lib/libvpplibrary.so
 vendor/lib/libvqzip.so
 vendor/lib64/libOmxVpp.so;DISABLE_CHECKELF
 vendor/lib64/libgpustats.so
