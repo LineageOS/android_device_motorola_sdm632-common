@@ -7,6 +7,7 @@
 # libOmxVpp depends on libmm-omxcore, which is a gnu makefile target
 # libgsl, libCB, libq3dtools_adreno, libtime_genoff, libOmxDsdDec, libizat_core, libsensor1, vulkan.msm8953, libmmosal_proprietary, libdiag, libscvePanorama_lite are unable to reslved the following symbol: __aeabi_uldivmod (32-bit)
 # libmdmcutback depends on libqsap_sdk, libqsap_shim which are gnu makefile targets
+# libmotext_inf depends on libril, which is a gnu makefile target
 # libq3dtools_esx, libwvdrmengine, libloc_api_v02, librcc, libfastcvopt, lib-imsvtcore, libllvm-qcom, libllvm-glnext, sensors.rp, lib-rtpcore, libGLESv2_adreno, libscvePanorama, android.hardware.bluetooth@1.0-impl-qti are unable to resolved the following symbols: __aeabi_ldivmod, __aeabi_uldivmod (32-bit)
 
 # ADSP
@@ -553,7 +554,7 @@ vendor/lib64/libqsocket.so
 vendor/lib64/libril-qc-hal-qmi.so
 vendor/lib64/libril-qc-ltedirectdisc.so
 vendor/lib64/libril-qc-radioconfig.so
-vendor/lib64/libril-qcril-hook-oem.so
+vendor/lib64/libril-qcril-hook-oem.so;DISABLE_CHECKELF
 vendor/lib64/librilqmiservices.so
 vendor/lib64/libsettings.so
 vendor/lib64/libsystem_health_mon.so
