@@ -387,9 +387,11 @@ vendor/lib/libOmxVpp.so;DISABLE_CHECKELF
 vendor/lib/libgpustats.so
 vendor/lib/libmmosal_proprietary.so;DISABLE_CHECKELF
 vendor/lib/libvqzip.so
+vendor/lib/libvpplibrary.so
 vendor/lib64/libOmxVpp.so;DISABLE_CHECKELF
 vendor/lib64/libgpustats.so
 vendor/lib64/libmmosal_proprietary.so;DISABLE_CHECKELF
+vendor/lib64/libvpplibrary.so
 
 # Moto Permissions
 product/etc/permissions/com.motorola.camera2.denali.xml:vendor/etc/permissions/com.motorola.camera2.denali.xml
