@@ -110,10 +110,6 @@ BOARD_HAVE_BLUETOOTH_QCOM := true
 # Camera
 USE_CAMERA_STUB := true
 
-# Display
-USE_DEVICE_SPECIFIC_DISPLAY := true
-DEVICE_SPECIFIC_DISPLAY_PATH := $(PLATFORM_PATH)/qcom-caf/display
-
 # HIDL
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
     $(PLATFORM_PATH)/framework_compatibility_matrix.xml \
