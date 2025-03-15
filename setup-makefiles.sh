@@ -67,7 +67,6 @@ function lib_to_package_fixup_vendor_variants() {
             ;;
         libqsap_sdk | \
             libqsap_shim | \
-            libril | \
             libmm-omxcore | \
             libc2dcolorconvert | \
             libkeymasterdeviceutils | \
