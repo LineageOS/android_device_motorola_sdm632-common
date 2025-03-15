@@ -121,7 +121,7 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.1-service \
     android.hardware.graphics.mapper@2.0-impl-2.1 \
     gralloc.msm8953 \
-    hwcomposer.msm8953 \
+    hwcomposer.qcom \
     vendor.qti.hardware.memtrack-service
 
 # DRM
@@ -360,7 +360,6 @@ PRODUCT_PACKAGES += \
 # Soong
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH)
-QCOM_SOONG_NAMESPACE := $(LOCAL_PATH)/qcom-caf
 
 # Speed Profiles
 PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := speed-profile
