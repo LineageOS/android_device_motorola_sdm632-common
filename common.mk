@@ -321,8 +321,6 @@ PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
     hardware/motorola
 
-QCOM_SOONG_NAMESPACE := $(LOCAL_PATH)/qcom-caf
-
 # Speed Profiles
 PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := speed-profile
 
