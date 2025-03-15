@@ -2,12 +2,15 @@
 ## are from motorola/river_retail/river:10/QPUS30.52-33-11/df129:user/release-keys
 
 # Current blobs with ELF checks disabled:
+# android.hardware.gatekeeper@1.0-impl-qti, libkeymasterdeviceutils, libkeymasterprovision, libkeymasterutils, libqtikeymaster4, these libraries have a circular dependency on libkeymasterdeviceutils (TODO)
 # imsdatadaemon, libcne, libwqe, lowi-server depend on libwpa_client, which is a gnu makefile target
 # libGLESv1_CM_adreno, lib-imsSDP, libOmxVpp, vendor.qti.gnss@3.0-impl, liblocationservice are unable to resolved the following symbol: __aeabi_ldivmod (32-bit)
 # libOmxVpp depends on libmm-omxcore, which is a gnu makefile target
+# libfastcvopt depends on __exidx_end, __exidx_start
 # libgsl, libCB, libq3dtools_adreno, libtime_genoff, libOmxDsdDec, libizat_core, libsensor1, vulkan.msm8953, libmmosal_proprietary, libdiag, libscvePanorama_lite are unable to reslved the following symbol: __aeabi_uldivmod (32-bit)
 # libmdmcutback depends on libqsap_sdk, libqsap_shim which are gnu makefile targets
 # libq3dtools_esx, libwvdrmengine, libloc_api_v02, librcc, libfastcvopt, lib-imsvtcore, libllvm-qcom, libllvm-glnext, sensors.rp, lib-rtpcore, libGLESv2_adreno, libscvePanorama, android.hardware.bluetooth@1.0-impl-qti are unable to resolved the following symbols: __aeabi_ldivmod, __aeabi_uldivmod (32-bit)
+# libril-qcril-hook-oem depends on libril, which is a gnu makefile target
 
 # ADSP
 vendor/bin/adsprpcd
