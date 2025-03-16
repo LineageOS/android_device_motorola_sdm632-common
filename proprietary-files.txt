@@ -102,7 +102,7 @@ product/framework/vendor.qti.hardware.data.connection-V1.0-java.jar:system_ext/f
 product/framework/vendor.qti.hardware.data.connection-V1.1-java.jar:system_ext/framework/vendor.qti.hardware.data.connection-V1.1-java.jar|a502d317d28d322fe375aa0fd1f46b32d016624a
 product/framework/vendor.qti.hardware.data.dynamicdds-V1.0-java.jar:system_ext/framework/vendor.qti.hardware.data.dynamicdds-V1.0-java.jar|2d2d18476583ab286920313cf3add3a682bc2dea
 product/framework/vendor.qti.hardware.data.iwlan-V1.0-java.jar:system_ext/framework/vendor.qti.hardware.data.iwlan-V1.0-java.jar|853b3d936a1c99c399ec5087051fb863ccebad4f
-product/framework/vendor.qti.hardware.data.latency-V1.0-java.jar:system_extproduct/framework/vendor.qti.hardware.data.latency-V1.0-java.jar|c6c5d5bbf50b068df0184aef8551b95daa5f4791
+product/framework/vendor.qti.hardware.data.latency-V1.0-java.jar:system_ext/framework/vendor.qti.hardware.data.latency-V1.0-java.jar|c6c5d5bbf50b068df0184aef8551b95daa5f4791
 product/framework/vendor.qti.hardware.factory-V1.0-java.jar:system_ext/framework/vendor.qti.hardware.factory-V1.0-java.jar|0ecc597e18701978179bd54d0d6f701a7a97fce2
 product/framework/vendor.qti.hardware.factory-V1.1-java.jar:system_ext/framework/vendor.qti.hardware.factory-V1.1-java.jar|d8fa470013d6a0eb2801c3ac556d62ec8bbf1136
 product/framework/vendor.qti.latency-V2.0-java.jar:system_ext/framework/vendor.qti.latency-V2.0-java.jar|d345e24271b83faecdb1abe1361db812fae0646f
@@ -119,8 +119,8 @@ vendor/lib64/libwms.so|9d4e07c9fa9c2170451a030a8645662269a827bb
 vendor/lib64/libwqe.so;DISABLE_CHECKELF|24cc68c56545f8a2c1419099f71986cc411ab6c9
 vendor/lib64/libxml.so|3d6ddc759b5804b2279f66471c9879636a70d801
 vendor/lib64/vendor.qti.data.factory@2.0.so|6b5b3d3e007ecbc47c7a451cd7712f8a242a12c9
-vendor/lib64/vendor.qti.data.factory@2.1.so;MODULE=vendor.qti.data.factory@2.1-vendor|852dc59b489fb44a594be0a51630f3f70e55ab9f
-vendor/lib64/vendor.qti.data.slm@1.0.so;MODULE=vendor.qti.data.slm@1.0-vendor|5599d530936d35d5cfddfa2c4e47304c92d01fc8
+vendor/lib64/vendor.qti.data.factory@2.1.so;MODULE_SUFFIX=_vendor|852dc59b489fb44a594be0a51630f3f70e55ab9f
+vendor/lib64/vendor.qti.data.slm@1.0.so;MODULE_SUFFIX=_vendor|5599d530936d35d5cfddfa2c4e47304c92d01fc8
 vendor/lib64/vendor.qti.hardware.cacert@1.0.so|b6ff1fa5d685ff3572993cbe8325c36654eea4d8
 vendor/lib64/vendor.qti.hardware.data.cne.internal.api@1.0.so|1fa1ea98c1f28e12a1399c0f2e34e1f1a1e0c21b
 vendor/lib64/vendor.qti.hardware.data.cne.internal.constants@1.0.so|3604bfc152d5e6417e5478dc80d74110cfca934f
@@ -202,8 +202,8 @@ vendor/lib/libscveObjectTracker.so
 vendor/lib/libscveObjectTracker_stub.so
 vendor/lib/libscvePanorama.so;DISABLE_CHECKELF
 vendor/lib/libscvePanorama_lite.so;DISABLE_CHECKELF
-vendor/lib/vendor.qti.hardware.scve.objecttracker@1.0.so;MODULE=vendor.qti.hardware.scve.objecttracker@1.0-vendor
-vendor/lib/vendor.qti.hardware.scve.panorama@1.0.so;MODULE=vendor.qti.hardware.scve.panorama@1.0-vendor
+vendor/lib/vendor.qti.hardware.scve.objecttracker@1.0.so;MODULE_SUFFIX=_vendor
+vendor/lib/vendor.qti.hardware.scve.panorama@1.0.so;MODULE_SUFFIX=_vendor
 vendor/lib64/libscveBlobDescriptor.so
 vendor/lib64/libscveBlobDescriptor_stub.so
 vendor/lib64/libscveCommon.so
@@ -214,8 +214,8 @@ vendor/lib64/libscveObjectTracker.so
 vendor/lib64/libscveObjectTracker_stub.so
 vendor/lib64/libscvePanorama.so;DISABLE_CHECKELF
 vendor/lib64/libscvePanorama_lite.so;DISABLE_CHECKELF
-vendor/lib64/vendor.qti.hardware.scve.objecttracker@1.0.so;MODULE=vendor.qti.hardware.scve.objecttracker@1.0-vendor
-vendor/lib64/vendor.qti.hardware.scve.panorama@1.0.so;MODULE=vendor.qti.hardware.scve.panorama@1.0-vendor
+vendor/lib64/vendor.qti.hardware.scve.objecttracker@1.0.so;MODULE_SUFFIX=_vendor
+vendor/lib64/vendor.qti.hardware.scve.panorama@1.0.so;MODULE_SUFFIX=_vendor
 
 # FM
 product/lib/vendor.qti.hardware.fm@1.0.so:system_ext/lib/vendor.qti.hardware.fm@1.0.so
@@ -226,9 +226,9 @@ system/lib64/fm_helium.so:system_ext/lib64/fm_helium.so
 system/lib64/libfm-hci.so:system_ext/lib64/libfm-hci.so
 vendor/bin/fm_qsoc_patches
 vendor/lib/hw/vendor.qti.hardware.fm@1.0-impl.so
-vendor/lib/vendor.qti.hardware.fm@1.0.so;MODULE=vendor.qti.hardware.fm@1.0-vendor
+vendor/lib/vendor.qti.hardware.fm@1.0.so;MODULE_SUFFIX=_vendor
 vendor/lib64/hw/vendor.qti.hardware.fm@1.0-impl.so
-vendor/lib64/vendor.qti.hardware.fm@1.0.so;MODULE=vendor.qti.hardware.fm@1.0-vendor
+vendor/lib64/vendor.qti.hardware.fm@1.0.so;MODULE_SUFFIX=_vendor
 
 # Gatekeeper
 vendor/bin/hw/android.hardware.gatekeeper@1.0-service-qti
@@ -358,9 +358,6 @@ vendor/firmware/a530v3_gpmu.fw2
 vendor/firmware/a530v3_seq.fw2
 vendor/firmware/a540_gpmu.fw2
 
-# IPA
-vendor/bin/ipacm-diag
-
 # Keymaster
 vendor/bin/hw/android.hardware.keymaster@4.0-service-qti
 vendor/etc/init/android.hardware.keymaster@4.0-service-qti.rc
@@ -429,12 +426,12 @@ product/lib64/vendor.qti.hardware.iop@1.0.so:system_ext/lib64/vendor.qti.hardwar
 product/lib64/vendor.qti.hardware.iop@2.0.so:system_ext/lib64/vendor.qti.hardware.iop@2.0.so
 vendor/lib/hw/vendor.qti.hardware.iop@2.0-impl.so
 vendor/lib/libqti-iopd-client.so
-vendor/lib/vendor.qti.hardware.iop@1.0.so;MODULE=vendor.qti.hardware.iop@1.0-vendor
-vendor/lib/vendor.qti.hardware.iop@2.0.so;MODULE=vendor.qti.hardware.iop@2.0-vendor
+vendor/lib/vendor.qti.hardware.iop@1.0.so;MODULE_SUFFIX=_vendor
+vendor/lib/vendor.qti.hardware.iop@2.0.so;MODULE_SUFFIX=_vendor
 vendor/lib64/hw/vendor.qti.hardware.iop@2.0-impl.so
 vendor/lib64/libqti-iopd-client.so
-vendor/lib64/vendor.qti.hardware.iop@1.0.so;MODULE=vendor.qti.hardware.iop@1.0-vendor
-vendor/lib64/vendor.qti.hardware.iop@2.0.so;MODULE=vendor.qti.hardware.iop@2.0-vendor
+vendor/lib64/vendor.qti.hardware.iop@1.0.so;MODULE_SUFFIX=_vendor
+vendor/lib64/vendor.qti.hardware.iop@2.0.so;MODULE_SUFFIX=_vendor
 
 # Peripheral manager
 vendor/bin/pm-proxy
@@ -664,12 +661,12 @@ vendor/etc/init/ims_rtp_daemon.rc
 vendor/etc/init/imsdatadaemon.rc
 vendor/etc/init/imsqmidaemon.rc
 vendor/etc/init/imsrcsd.rc
-vendor/lib/com.qualcomm.qti.imscmservice@1.0.so;MODULE=com.qualcomm.qti.imscmservice@1.0-vendor
-vendor/lib/com.qualcomm.qti.imscmservice@2.0.so;MODULE=com.qualcomm.qti.imscmservice@2.0-vendor
-vendor/lib/com.qualcomm.qti.imscmservice@2.1.so;MODULE=com.qualcomm.qti.imscmservice@2.1-vendor
-vendor/lib/com.qualcomm.qti.imscmservice@2.2.so;MODULE=com.qualcomm.qti.imscmservice@2.2-vendor
-vendor/lib/com.qualcomm.qti.uceservice@2.0.so;MODULE=com.qualcomm.qti.uceservice@2.0-vendor
-vendor/lib/com.qualcomm.qti.uceservice@2.1.so;MODULE=com.qualcomm.qti.uceservice@2.1-vendor
+vendor/lib/com.qualcomm.qti.imscmservice@1.0.so;MODULE_SUFFIX=_vendor
+vendor/lib/com.qualcomm.qti.imscmservice@2.0.so;MODULE_SUFFIX=_vendor
+vendor/lib/com.qualcomm.qti.imscmservice@2.1.so;MODULE_SUFFIX=_vendor
+vendor/lib/com.qualcomm.qti.imscmservice@2.2.so;MODULE_SUFFIX=_vendor
+vendor/lib/com.qualcomm.qti.uceservice@2.0.so;MODULE_SUFFIX=_vendor
+vendor/lib/com.qualcomm.qti.uceservice@2.1.so;MODULE_SUFFIX=_vendor
 vendor/lib/lib-imsSDP.so;DISABLE_CHECKELF
 vendor/lib/lib-imscmservice.so
 vendor/lib/lib-imsdpl.so
@@ -684,18 +681,18 @@ vendor/lib/lib-rtpsl.so
 vendor/lib/lib-siputility.so
 vendor/lib/lib-uceservice.so
 vendor/lib/librcc.so;DISABLE_CHECKELF
-vendor/lib/vendor.qti.ims.callinfo@1.0.so;MODULE=vendor.qti.ims.callinfo@1.0-vendor
-vendor/lib/vendor.qti.ims.rcsconfig@1.0.so;MODULE=vendor.qti.ims.rcsconfig@1.0-vendor
-vendor/lib/vendor.qti.ims.rcsconfig@1.1.so;MODULE=vendor.qti.ims.rcsconfig@1.1-vendor
-vendor/lib/vendor.qti.imsrtpservice@2.0.so;MODULE=vendor.qti.imsrtpservice@2.0-vendor
+vendor/lib/vendor.qti.ims.callinfo@1.0.so;MODULE_SUFFIX=_vendor
+vendor/lib/vendor.qti.ims.rcsconfig@1.0.so;MODULE_SUFFIX=_vendor
+vendor/lib/vendor.qti.ims.rcsconfig@1.1.so;MODULE_SUFFIX=_vendor
+vendor/lib/vendor.qti.imsrtpservice@2.0.so;MODULE_SUFFIX=_vendor
 vendor/lib/vendor.qti.imsrtpservice@2.1-service-Impl.so
-vendor/lib/vendor.qti.imsrtpservice@2.1.so;MODULE=vendor.qti.imsrtpservice@2.1-vendor
-vendor/lib64/com.qualcomm.qti.imscmservice@1.0.so;MODULE=com.qualcomm.qti.imscmservice@1.0-vendor
-vendor/lib64/com.qualcomm.qti.imscmservice@2.0.so;MODULE=com.qualcomm.qti.imscmservice@2.0-vendor
-vendor/lib64/com.qualcomm.qti.imscmservice@2.1.so;MODULE=com.qualcomm.qti.imscmservice@2.1-vendor
-vendor/lib64/com.qualcomm.qti.imscmservice@2.2.so;MODULE=com.qualcomm.qti.imscmservice@2.2-vendor
-vendor/lib64/com.qualcomm.qti.uceservice@2.0.so;MODULE=com.qualcomm.qti.uceservice@2.0-vendor
-vendor/lib64/com.qualcomm.qti.uceservice@2.1.so;MODULE=com.qualcomm.qti.uceservice@2.1-vendor
+vendor/lib/vendor.qti.imsrtpservice@2.1.so;MODULE_SUFFIX=_vendor
+vendor/lib64/com.qualcomm.qti.imscmservice@1.0.so;MODULE_SUFFIX=_vendor
+vendor/lib64/com.qualcomm.qti.imscmservice@2.0.so;MODULE_SUFFIX=_vendor
+vendor/lib64/com.qualcomm.qti.imscmservice@2.1.so;MODULE_SUFFIX=_vendor
+vendor/lib64/com.qualcomm.qti.imscmservice@2.2.so;MODULE_SUFFIX=_vendor
+vendor/lib64/com.qualcomm.qti.uceservice@2.0.so;MODULE_SUFFIX=_vendor
+vendor/lib64/com.qualcomm.qti.uceservice@2.1.so;MODULE_SUFFIX=_vendor
 vendor/lib64/lib-imsSDP.so;DISABLE_CHECKELF
 vendor/lib64/lib-imscmservice.so
 vendor/lib64/lib-imsdpl.so
@@ -710,12 +707,12 @@ vendor/lib64/lib-rtpsl.so
 vendor/lib64/lib-siputility.so
 vendor/lib64/lib-uceservice.so
 vendor/lib64/librcc.so;DISABLE_CHECKELF
-vendor/lib64/vendor.qti.ims.callinfo@1.0.so;MODULE=vendor.qti.ims.callinfo@1.0-vendor
-vendor/lib64/vendor.qti.ims.rcsconfig@1.0.so;MODULE=vendor.qti.ims.rcsconfig@1.0-vendor
-vendor/lib64/vendor.qti.ims.rcsconfig@1.1.so;MODULE=vendor.qti.ims.rcsconfig@1.1-vendor
-vendor/lib64/vendor.qti.imsrtpservice@2.0.so;MODULE=vendor.qti.imsrtpservice@2.0-vendor
+vendor/lib64/vendor.qti.ims.callinfo@1.0.so;MODULE_SUFFIX=_vendor
+vendor/lib64/vendor.qti.ims.rcsconfig@1.0.so;MODULE_SUFFIX=_vendor
+vendor/lib64/vendor.qti.ims.rcsconfig@1.1.so;MODULE_SUFFIX=_vendor
+vendor/lib64/vendor.qti.imsrtpservice@2.0.so;MODULE_SUFFIX=_vendor
 vendor/lib64/vendor.qti.imsrtpservice@2.1-service-Impl.so
-vendor/lib64/vendor.qti.imsrtpservice@2.1.so;MODULE=vendor.qti.imsrtpservice@2.1-vendor
+vendor/lib64/vendor.qti.imsrtpservice@2.1.so;MODULE_SUFFIX=_vendor
 
 # MOTO RIL
 vendor/lib64/libsensorndkbridge.so
