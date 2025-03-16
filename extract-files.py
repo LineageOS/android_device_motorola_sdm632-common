@@ -30,6 +30,7 @@ from extract_utils.main import (
 
 namespace_imports = [
         'device/motorola/sdm632-common',
+        'hardware/motorola',
         'hardware/qcom-caf/msm8996',
         'hardware/qcom-caf/wlan',
         'vendor/qcom/opensource/dataservices',
