@@ -66,7 +66,6 @@ lib_fixups: lib_fixups_user_type = {
         'libc2dcolorconvert',
         'libkeymasterdeviceutils',
         'libkeymasterprovision',
-        'libwpa_client'
     ): lib_fixup_remove,
 }
 

@@ -3,12 +3,10 @@
 
 # Current blobs with ELF checks disabled:
 # android.hardware.gatekeeper@1.0-impl-qti, libkeymasterdeviceutils, libkeymasterprovision, libkeymasterutils, libqtikeymaster4, these libraries have a circular dependency on libkeymasterdeviceutils (TODO)
-# imsdatadaemon, libcne, libwqe, lowi-server depend on libwpa_client, which is a gnu makefile target
 # libGLESv1_CM_adreno, lib-imsSDP, libOmxVpp, vendor.qti.gnss@3.0-impl, liblocationservice are unable to resolved the following symbol: __aeabi_ldivmod (32-bit)
 # libOmxVpp depends on libmm-omxcore, which is a gnu makefile target
 # libfastcvopt depends on __exidx_end, __exidx_start
 # libgsl, libCB, libq3dtools_adreno, libtime_genoff, libOmxDsdDec, libizat_core, libsensor1, vulkan.msm8953, libmmosal_proprietary, libdiag, libscvePanorama_lite are unable to reslved the following symbol: __aeabi_uldivmod (32-bit)
-# libmdmcutback depends on libqsap_sdk, libqsap_shim which are gnu makefile targets
 # libq3dtools_esx, libwvdrmengine, libloc_api_v02, librcc, libfastcvopt, lib-imsvtcore, libllvm-qcom, libllvm-glnext, sensors.rp, lib-rtpcore, libGLESv2_adreno, libscvePanorama, android.hardware.bluetooth@1.0-impl-qti are unable to resolved the following symbols: __aeabi_ldivmod, __aeabi_uldivmod (32-bit)
 
 # ADSP
@@ -111,12 +109,12 @@ vendor/bin/cnd|3b4bd3a67c3e13042dd81b48f7242dad84c67a10
 vendor/etc/init/cnd.rc|ff205cff8e00ec6805fd1e19f3ca6ff86700cbb6
 vendor/lib/libxml.so|34dd76abe1fa95065e80e945d13213f4256fbc81
 vendor/lib64/libcacertclient.so|e04aa49d3b3b4534f5eb2b1ccea69ff8fee0182c
-vendor/lib64/libcne.so;DISABLE_CHECKELF|d17ca29b9fa1e1fc491921fe27aa0c85d28d3b8e
+vendor/lib64/libcne.so|d17ca29b9fa1e1fc491921fe27aa0c85d28d3b8e
 vendor/lib64/libcneapiclient.so|00465d29c6e4ea19fc3f3787f9869b2c830a4eea
 vendor/lib64/libcneoplookup.so|253cbd0b01fc6c6483b85180e6656b7d1e28c713
 vendor/lib64/libcneqmiutils.so|277a06c658a8894afd00815aa7f90b40d0223e71
 vendor/lib64/libwms.so|9d4e07c9fa9c2170451a030a8645662269a827bb
-vendor/lib64/libwqe.so;DISABLE_CHECKELF|24cc68c56545f8a2c1419099f71986cc411ab6c9
+vendor/lib64/libwqe.so|24cc68c56545f8a2c1419099f71986cc411ab6c9
 vendor/lib64/libxml.so|3d6ddc759b5804b2279f66471c9879636a70d801
 vendor/lib64/vendor.qti.data.factory@2.0.so|6b5b3d3e007ecbc47c7a451cd7712f8a242a12c9
 vendor/lib64/vendor.qti.data.factory@2.1.so;MODULE_SUFFIX=_vendor|852dc59b489fb44a594be0a51630f3f70e55ab9f
@@ -238,7 +236,7 @@ vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl-qti.so;DISABLE_CHECKELF
 # GPS
 vendor/bin/garden_app
 vendor/bin/loc_launcher
-vendor/bin/lowi-server;DISABLE_CHECKELF
+vendor/bin/lowi-server
 vendor/bin/xtra-daemon
 vendor/bin/xtwifi-client
 vendor/bin/xtwifi-inet-agent
@@ -533,7 +531,7 @@ vendor/lib64/libadropbox.so
 vendor/lib64/libconfigdb.so
 vendor/lib64/liblog_vendor.so
 vendor/lib64/liblqe.so
-vendor/lib64/libmdmcutback.so;DISABLE_CHECKELF
+vendor/lib64/libmdmcutback.so
 vendor/lib64/libmdmdetect.so
 vendor/lib64/libmotext_inf.so
 vendor/lib64/libnetmgr.so
@@ -654,7 +652,7 @@ product/lib64/vendor.qti.imsrtpservice@2.0.so:system_ext/lib64/vendor.qti.imsrtp
 product/lib64/vendor.qti.imsrtpservice@2.1.so:system_ext/lib64/vendor.qti.imsrtpservice@2.1.so
 product/priv-app/ims/ims.apk:system_ext/priv-app/ims/ims.apk|d25e4324fc021325eb7882c55583c5587c51b4a0
 vendor/bin/ims_rtp_daemon
-vendor/bin/imsdatadaemon;DISABLE_CHECKELF
+vendor/bin/imsdatadaemon
 vendor/bin/imsqmidaemon
 vendor/bin/imsrcsd
 vendor/etc/init/ims_rtp_daemon.rc
