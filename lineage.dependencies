@@ -4,10 +4,6 @@
     "target_path": "kernel/motorola/sdm632"
   },
   {
-    "repository": "android_external_bson",
-    "target_path": "external/bson"
-  },
-  {
     "repository": "android_hardware_motorola",
     "target_path": "hardware/motorola"
   }
