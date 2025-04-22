@@ -1,5 +1,4 @@
 runtime_resource_overlay {
     name: "WifiOverlay",
-    resource_dirs: ["res"],
     proprietary: true
 }
