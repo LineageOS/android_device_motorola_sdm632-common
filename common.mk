@@ -187,6 +187,8 @@ PRODUCT_PACKAGES += \
     init.target.rc \
     ueventd.qcom.rc
 
+$(call soong_config_set,libinit,vendor_init_lib,//$(PLATFORM_PATH):libinit_sdm632)
+
 # IPACM
 PRODUCT_PACKAGES += \
     ipacm \
