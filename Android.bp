@@ -4,6 +4,9 @@
 //
 
 soong_namespace {
+        imports: ["hardware/lineage/interfaces/power-libperfmgr",
+            "hardware/qcom-caf/common/libqti-perfd-client"
+            ],
 }
 
 install_symlink {
